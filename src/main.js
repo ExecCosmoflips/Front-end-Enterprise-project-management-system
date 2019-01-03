@@ -1,7 +1,7 @@
 import 'iview/dist/styles/iview.css'
 import Vue from 'vue'
 import App from './App'
-import Login from './components/Login'
+import Login from './components/view/Login'
 import store from './store'
 import router from './router'
 import iView from 'iview'

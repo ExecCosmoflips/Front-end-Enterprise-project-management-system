@@ -1,50 +1,45 @@
+<style lang="less">
+  @import './login.less';
+</style>
+
 <template>
-  <Form ref="formInline" :model="formInline" :rules="ruleInline" inline>
-    <FormItem prop="user">
-      <Input type="text" v-model="formInline.user" placeholder="Username">
-        <Icon type="ios-person-outline" slot="prepend"></Icon>
-      </Input>
-    </FormItem>
-    <FormItem prop="password">
-      <Input type="password" v-model="formInline.password" placeholder="Password">
-        <Icon type="ios-lock-outline" slot="prepend"></Icon>
-      </Input>
-    </FormItem>
-    <FormItem>
-      <Button type="primary" @click="handleSubmit('formInline')">Signin</Button>
-    </FormItem>
-  </Form>
+  <div class="login">
+    <div class="login-con">
+      <Card icon="log-in" title="欢迎登录" :bordered="false">
+        <div class="form-con">
+          <login-form @on-success-valid="handleSubmit"></login-form>
+          <p class="login-tip">输入任意用户名和密码即可</p>
+        </div>
+      </Card>
+    </div>
+  </div>
 </template>
+
 <script>
-  export default {
-    name: 'login',
-    data () {
-      return {
-        formInline: {
-          user: '',
-          password: ''
-        },
-        ruleInline: {
-          user: [
-            { required: true, message: 'Please fill in the user name', trigger: 'blur' }
-          ],
-          password: [
-            { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-            { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
-          ]
-        }
-      }
-    },
-    methods: {
-      handleSubmit(name) {
-        this.$refs[name].validate((valid) => {
-          if (valid) {
-            this.$Message.success('Success!');
-          } else {
-            this.$Message.error('Fail!');
-          }
+import LoginForm from '_c/login-form'
+import { mapActions } from 'vuex'
+export default {
+  components: {
+    LoginForm
+  },
+  methods: {
+    ...mapActions([
+      'handleLogin',
+      'getUserInfo'
+    ]),
+    handleSubmit ({ userName, password }) {
+      this.handleLogin({ userName, password }).then(res => {
+        this.getUserInfo().then(res => {
+          this.$router.push({
+            name: this.$config.homeName
+          })
         })
-      }
+      })
     }
   }
+}
 </script>
+
+<style>
+
+</style>

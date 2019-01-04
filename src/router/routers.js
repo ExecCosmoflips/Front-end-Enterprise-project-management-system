@@ -66,6 +66,93 @@ export default [
     ]
   },
   {
+    path: '/financial_staff/advances_manage',
+    name: 'advances_manage',
+    meta: {
+      icon: 'ios-bookmarks',
+      title: '预收管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'check_advances_received_page',
+        name: 'check_advances_received_page',
+        meta: {
+          icon: 'ios-bookmarks',
+          title: '查看预收'
+        },
+        component: () => import('@/view/financial-staff/advances-manage/check-advances-received.vue')
+      },
+      {
+        path: 'record_advances_received_page',
+        name: 'record_advances_received_page',
+        meta: {
+          icon: 'ios-bookmarks',
+          title: '记录预收'
+        },
+        component: () => import('@/view/financial-staff/advances-manage/record-advances-received.vue')
+      }
+    ]
+  },
+  {
+    path: '/financial_staff/income_manage',
+    name: 'income_manage',
+    meta: {
+      icon: 'md-add',
+      title: '收入管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'check_income_page',
+        name: 'check_income_page',
+        meta: {
+          icon: 'md-add',
+          title: '查看收入'
+        },
+        component: () => import('@/view/financial-staff/income-manage/check-income.vue')
+      },
+      {
+        path: 'confirm_income_page',
+        name: 'confirm_income_page',
+        meta: {
+          icon: 'md-add',
+          title: '确认收入'
+        },
+        component: () => import('@/view/financial-staff/income-manage/confirm-income.vue')
+      }
+    ]
+  },
+  {
+    path: '/financial_staff/expend_manage',
+    name: 'expend_manage',
+    meta: {
+      icon: 'md-add',
+      title: '支出管理'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'check_expend_page',
+        name: 'check_expend_page',
+        meta: {
+          icon: 'md-add',
+          title: '查看支出'
+        },
+        component: () => import('@/view/financial-staff/expend-manage/check-expend.vue')
+      },
+      {
+        path: 'confirm_expend_page',
+        name: 'confirm_expend_page',
+        meta: {
+          icon: 'md-add',
+          title: '确认支出'
+        },
+        component: () => import('@/view/financial-staff/expend-manage/confirm-expend.vue')
+      }
+    ]
+  },
+  {
     path: '/test',
     name: 'test',
     component: Main,

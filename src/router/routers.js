@@ -34,7 +34,7 @@ export default [
           icon: 'ios-hammer',
           title: '管理功能'
         },
-        component: () => import('@/view/SuperAdmin/Setup_dep_name/Setup_dep_name.vue')
+        component: () => import('@/view/SuperAdmin/Setup-dep-name/Setup-dep-name.vue')
       },
       {
         path: 'Add_dep_admin',
@@ -43,7 +43,7 @@ export default [
           icon: 'ios-create',
           title: '管理功能'
         },
-        component: () => import('@/view/SuperAdmin/Add_dep_admin/Add_dep_admin.vue')
+        component: () => import('@/view/SuperAdmin/Add-dep-admin/Add-dep-admin.vue')
       },
       {
         path: 'Add_treasurer',
@@ -52,7 +52,7 @@ export default [
           icon: 'ios-create',
           title: '管理功能'
         },
-        component: () => import('@/view/SuperAdmin/Add_treasurer/Add_treasurer.vue')
+        component: () => import('@/view/SuperAdmin/Add-treasurer/Add-treasurer.vue')
       },
       {
         path: 'Setup_Logo',
@@ -61,7 +61,7 @@ export default [
           icon: 'ios-hammer',
           title: '管理功能'
         },
-        component: () => import('@/view/SuperAdmin/Setup_Logo/Setup_Logo.vue')
+        component: () => import('@/view/SuperAdmin/Setup-Logo/Setup-Logo.vue')
       }
     ]
   },

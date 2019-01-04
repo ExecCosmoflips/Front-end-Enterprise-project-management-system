@@ -29,7 +29,7 @@ export default [
         meta: {
           title: '测试'
         },
-        component: () => import('@/view/test/test.vue')
+        component: () => import('@/view/test/test')
       }
     ]
   },
@@ -40,7 +40,7 @@ export default [
       title: 'Login - 登录',
       hideInMenu: true
     },
-    component: () => import('@/view')
+    component: () => import('@/view/login/login')
   },
   {
     path: '/',

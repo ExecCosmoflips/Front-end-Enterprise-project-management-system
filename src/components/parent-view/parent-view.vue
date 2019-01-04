@@ -1,5 +1,8 @@
 <template>
 
+<div>
+<label> 测试</label>
+</div>
 </template>
 
 <script>

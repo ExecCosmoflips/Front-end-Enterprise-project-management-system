@@ -1,4 +1,13 @@
 export default {
+  advances_manage: '预收管理',
+  check_advances_received_page: '查看预收',
+  record_advances_received_page: '记录预收',
+  income_manage: '收入管理',
+  check_income_page: '查看收入',
+  confirm_income_page: '确认收入',
+  expend_manage: '支出管理',
+  check_expend_page: '查看支出',
+  confirm_expend_page: '确认支出',
   home: '首页',
   components: '组件',
   count_to_page: '数字渐变',

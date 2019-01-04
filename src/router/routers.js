@@ -19,6 +19,53 @@ import parentView from '@/components/parent-view'
 
 export default [
   {
+    path: '/SuperAdmin',
+    name: '管理功能',
+    meta: {
+      icon: 'md-menu',
+      title: '超级管理员'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'Setup_dep_name',
+        name: '设置部门名',
+        meta: {
+          icon: 'ios-hammer',
+          title: '管理功能'
+        },
+        component: () => import('@/view/SuperAdmin/Setup_dep_name/Setup_dep_name.vue')
+      },
+      {
+        path: 'Add_dep_admin',
+        name: '添加部门管理员',
+        meta: {
+          icon: 'ios-create',
+          title: '管理功能'
+        },
+        component: () => import('@/view/SuperAdmin/Add_dep_admin/Add_dep_admin.vue')
+      },
+      {
+        path: 'Add_treasurer',
+        name: '添加财务人员',
+        meta: {
+          icon: 'ios-create',
+          title: '管理功能'
+        },
+        component: () => import('@/view/SuperAdmin/Add_treasurer/Add_treasurer.vue')
+      },
+      {
+        path: 'Setup_Logo',
+        name: '设置企业名称/Logo',
+        meta: {
+          icon: 'ios-hammer',
+          title: '管理功能'
+        },
+        component: () => import('@/view/SuperAdmin/Setup_Logo/Setup_Logo.vue')
+      }
+    ]
+  },
+  {
     path: '/test',
     name: 'test',
     component: Main,

@@ -10,5 +10,10 @@ export default [
       hideInMenu: true
     },
     component: () => import('@/view/login/login.vue')
+  },
+  {
+    path: '/test',
+    name: 'test',
+    component: Main
   }
 ]

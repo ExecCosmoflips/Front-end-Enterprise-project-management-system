@@ -9,6 +9,6 @@ export default [
       title: 'Login - 登录',
       hideInMenu: true
     },
-    component: () => import('@/view')
+    component: () => import('@/view/login/login.vue')
   }
 ]

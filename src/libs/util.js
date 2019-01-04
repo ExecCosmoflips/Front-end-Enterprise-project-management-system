@@ -10,3 +10,22 @@ export const getToken = () => {
   if (token) return token
   else return false
 }
+
+export const setTitle = (routeItem, vm) => {
+  const handledRoute = getRouteTitleHandled(routeItem)
+  const pageTitle = showTitle(handledRoute, vm)
+  const resTitle = pageTitle ? `${title} - ${pageTitle}` : title
+  window.document.title = resTitle
+}
+
+export const canTurnTo = (name, access, routes) => {
+  const routePermissionJudge = (list) => {
+    return list.some(item => {
+      if (item.children && item.children.length) {
+        return routePermissionJudge(item.children)
+      } else if (item.name === name) {
+        return hasAccess(access, item)
+      }
+    })
+  }
+}

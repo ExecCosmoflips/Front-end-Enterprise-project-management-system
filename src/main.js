@@ -1,7 +1,6 @@
 import 'iview/dist/styles/iview.css'
 import Vue from 'vue'
 import App from './App'
-import Login from './components/Login'
 import store from './store'
 import router from './router'
 import iView from 'iview'
@@ -16,6 +15,5 @@ new Vue({
   el: '#app',
   router,
   store,
-  components: { App, Login },
-  template: '<App/>'
+  render: h => h(App)
 })

@@ -19,6 +19,40 @@ import parentView from '@/components/parent-view'
 
 export default [
   {
+    path: '/addreceivable',
+    name: '项目人员',
+    meta: {
+      hideInBread: true,
+      title: '项目人员'
+
+    },
+    component: Main,
+    children: [
+      {
+        path: '/addreceivable',
+        name: '添加应收',
+        meta: {
+          icon: 'ios-hammer',
+          title: '添加应收',
+          beforeCloseName: 'before_close_normal'
+        },
+        component: ()=> import('@/view/addreceivable/addreceivable.vue')
+      },
+      {
+        path:'/addcost',
+        name:'添加费用',
+
+        meta:{
+          title:'添加费用',
+          icon: 'ios-hammer',
+
+        },
+        component: ()=> import('@/view/addcost/addcost.vue')
+      },
+
+    ]
+  },
+  {
     path: '/SuperAdmin',
     name: '管理功能',
     meta: {

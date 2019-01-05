@@ -49,6 +49,24 @@ export default [
         },
         component: ()=> import('@/view/addcost/addcost.vue')
       },
+      {
+        path:'/addcost',
+        name:'查看费用',
+        meta:{
+          title:'查看费用',
+          icon:'ios-hammer',
+        },
+        component: ()=>import('@/view/addcost/check_addcost.vue')
+      },
+      {
+        path:'/addcost',
+        name:'查看应收',
+        meta:{
+          title:'查看应收',
+          icon:'ios-hammer',
+        },
+        component: ()=>import('@/view/addreceivable/check_addreceivable.vue')
+      },
 
     ]
   },

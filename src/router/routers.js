@@ -678,5 +678,54 @@ export default [
       hideInMenu: true
     },
     component: () => import('@/view/error-page/404.vue')
+  },
+  {
+    path: '/staff-manage',
+    name: '添加部门人员',
+    meta: {
+      icon: 'md-cloud-upload',
+      title: '数据上传'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'view_staff_page',
+        name: '部门人员列表',
+        meta: {
+          icon: 'ios-document',
+          title: '列表'
+        },
+        component: () => import('@/view/staff-manage/view-staff.vue')
+      },
+      {
+        path: '/add_staff',
+        name: '添加部门人员',
+        meta: {
+          title: '添加部门人员',
+          hideInMenu: true
+        },
+        component: () => import('@/view/staff-manage/add-staff.vue')
+      }
+    ]
+  },
+  {
+    path: '/staff-use',
+    name: '部门人员使用',
+    meta: {
+      icon: 'md-clipboard',
+      title: '人员使用'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'approve_request_page',
+        name: '批准人员使用请求',
+        meta: {
+          icon: 'md-clipboard',
+          title: '人员使用'
+        },
+        component: () => import('@/view/staff-use/approve-request.vue')
+      }
+    ]
   }
 ]

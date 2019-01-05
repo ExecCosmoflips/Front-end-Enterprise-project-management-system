@@ -1,12 +1,11 @@
 import axios from '@/libs/api.request'
 
 export const getProjectList = (department_id) => {
-  const data = {
-    department_id
-  }
   return axios.request({
     url: '/api/get_project_list',
-    data,
+    params: {
+      department_id
+    },
     method: 'get'
   })
 }

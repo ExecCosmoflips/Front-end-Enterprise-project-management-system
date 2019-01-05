@@ -36,38 +36,37 @@ export default [
           title: '添加应收',
           beforeCloseName: 'before_close_normal'
         },
-        component: ()=> import('@/view/addreceivable/addreceivable.vue')
+        component: () => import('@/view/addreceivable/addreceivable.vue')
       },
       {
-        path:'/addcost',
-        name:'添加费用',
+        path: '/addcost',
+        name: '添加费用',
 
-        meta:{
-          title:'添加费用',
-          icon: 'ios-hammer',
+        meta: {
+          title: '添加费用',
+          icon: 'ios-hammer'
 
         },
-        component: ()=> import('@/view/addcost/addcost.vue')
+        component: () => import('@/view/addcost/addcost.vue')
       },
       {
-        path:'/addcost',
-        name:'查看费用',
-        meta:{
-          title:'查看费用',
-          icon:'ios-hammer',
+        path: '/addcost',
+        name: '查看费用',
+        meta: {
+          title: '查看费用',
+          icon: 'ios-hammer'
         },
-        component: ()=>import('@/view/addcost/check_addcost.vue')
+        component: () => import('@/view/addcost/check_addcost.vue')
       },
       {
-        path:'/addcost',
-        name:'查看应收',
-        meta:{
-          title:'查看应收',
-          icon:'ios-hammer',
+        path: '/addcost',
+        name: '查看应收',
+        meta: {
+          title: '查看应收',
+          icon: 'ios-hammer'
         },
-        component: ()=>import('@/view/addreceivable/check_addreceivable.vue')
-      },
-
+        component: () => import('@/view/addreceivable/check_addreceivable.vue')
+      }
     ]
   },
   {
@@ -219,6 +218,38 @@ export default [
       }
     ]
   },
+  {
+    path: '/department-manager/project-manager',
+    name: 'project-manager',
+    component: Main,
+    children: [
+      {
+        path: 'project-list',
+        name: 'project-list',
+        meta: {
+          title: '项目列表'
+        },
+        component: () => import('@/view/department-manager/project-management/project-list')
+      }
+    ]
+  },
+  {
+    path: '/department-manager/project-manager',
+    name: 'project-manager',
+    component: Main,
+    hideInMenu: true,
+    children: [
+      {
+        path: 'project-info',
+        name: 'project-info',
+        meta: {
+          title: '项目详细'
+        },
+        component: () => import('@/view/department-manager/project-management/project-info')
+      }
+    ]
+  },
+
   {
     path: '/login',
     name: 'login',

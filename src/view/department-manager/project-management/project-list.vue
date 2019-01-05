@@ -79,7 +79,7 @@
     </Drawer>
   </div>
 </template>
-<script>
+<script>import { mapState, mapActions } from 'vuex'
 export default {
   name: 'project-list',
   data () {
@@ -130,33 +130,24 @@ export default {
           key: 'end'
         }
       ],
-      data1: [
-        {
-          my_title: 'John Brown',
-          age: 18,
-          address: 'New York No. 1 Lake Park',
-          date: '2016-10-03'
-        },
-        {
-          my_title: 'Jim Green',
-          age: 24,
-          address: 'London No. 1 Lake Park',
-          date: '2016-10-01'
-        },
-        {
-          my_title: 'Joe Black',
-          age: 30,
-          address: 'Sydney No. 1 Lake Park',
-          date: '2016-10-02'
-        },
-        {
-          name: 'Jon Snow',
-          age: 26,
-          address: 'Ottawa No. 2 Lake Park',
-          date: '2016-10-04'
-        }
-      ]
+      data1: []
     }
+  },
+  computed: {
+    ...mapState({
+      messageUnreadList: state => state.user.messageUnreadList,
+      projectOpenList: state => state.department.projectOpenList,
+      projectCloseList: state => state.department.projectCloseList
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getProjectList'
+    ]
+    )
+  },
+  mounted () {
+    this.getProjectList(1)
   }
 }
 </script>

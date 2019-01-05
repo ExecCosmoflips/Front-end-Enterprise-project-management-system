@@ -12,8 +12,8 @@ export default {
     setProjectOpenList (state, projectOpenList) {
       state.projectOpenList = projectOpenList
     },
-    setProjectCloseList (state, projectClostList) {
-      state.projectCloseList = projectClostList
+    setProjectCloseList (state, projectClosetList) {
+      state.projectCloseList = projectClosetList
     },
     closeProject (state, project_id) {
       const index = state.projectOpenList.findIndex(_ => _.project_id === project_id)
@@ -24,11 +24,10 @@ export default {
   getters: {
 
   },
-
-  action: {
-    getProjectList ({ state, commit }) {
+  actions: {
+    getProjectList ({ state, commit }, id) {
       return new Promise((resolve, reject) => {
-        getProjectList().then(respone => {
+        getProjectList(id).then(respone => {
           const { openList, closeList } = respone.data
           commit('setProjectOpenList', openList.sort((a, b) => new Date(b.begin_time) - new Date(a.begin_time)))
           commit('setProjectCloseList', closeList.sort((a, b) => new Date(b.end_time) - new Date(a.end_time)))

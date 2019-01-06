@@ -129,8 +129,8 @@ export default [
         path: 'manage_function_page',
         name: '按部门',
         meta: {
-          icon: 'ios-document',
-          title: ''
+          icon: 'md-clipboard',
+          title: '按部门'
         },
         component: () => import('@/view/data-analysis/in-department.vue')
       },
@@ -139,7 +139,7 @@ export default [
         name: '按项目',
         meta: {
           icon: 'md-clipboard',
-          title: ''
+          title: '按项目'
         },
         component: () => import('@/view/data-analysis/show-data.vue')
       },

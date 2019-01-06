@@ -117,6 +117,36 @@ export default [
     ]
   },
   {
+    path: '/data-analysis',
+    name: '数据分析',
+    meta: {
+      icon: 'md-clipboard',
+      title: '测试'
+    },
+    component: Main,
+    children: [
+      {
+        path: 'manage_function_page',
+        name: '按部门',
+        meta: {
+          icon: 'ios-document',
+          title: ''
+        },
+        component: () => import('@/view/data-analysis/in-department.vue')
+      },
+      {
+        path: 'data_analysis_page',
+        name: '按项目',
+        meta: {
+          icon: 'md-clipboard',
+          title: ''
+        },
+        component: () => import('@/view/data-analysis/show-data.vue')
+      },
+
+    ]
+  },
+  {
     path: '/financial_staff/advances_manage',
     name: 'advances_manage',
     meta: {

@@ -13,14 +13,14 @@ build:
 test:
   stage: test
   script:
-    - test
+    - echo "test..."
   only:
     - master
 
 deploy:
   stage: deploy
   script:
-     - deployuitp
+     - echo "deployutip..."
   only:
      - master
 

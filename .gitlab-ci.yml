@@ -6,7 +6,7 @@ stages:
 build:
   stage: build
   script:
-    - bash build.sh
+    - echo "build..."
   only:
     - master
 

@@ -6,7 +6,7 @@ stages:
 build:
   stage: build
   script:
-    - cnpm run build
+    - bash build.sh
   only:
     - master
 

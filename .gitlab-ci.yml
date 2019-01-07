@@ -1,10 +1,26 @@
 stages:
- - deploy
+  - build
+  - test
+  - deploy
+
+build:
+  stage: build
+  script:
+    - cnpm run build
+  only:
+    - master
+
+test:
+  stage: test
+  script:
+    - test
+  only:
+    - master
+
 deploy:
   stage: deploy
   script:
-    - deployuitp
+     - deployuitp
   only:
-    - master
-  tags:
-    - dev
+     - master
+

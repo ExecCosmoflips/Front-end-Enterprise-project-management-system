@@ -45,45 +45,44 @@
 </template>
 
 <script>
-  import Tables from '_c/tables'
-  import { getTableData } from '@/api/data'
-  import { on, off } from '@/libs/tools'
-  import InforCard from '_c/info-card'
-  import CountTo from '_c/count-to'
-  import { ChartPie, ChartBar } from '_c/charts'
-  import Example from './month-data.vue'
-  export default {
-    name: 'serviceRequests',
-    components: {
-      InforCard,
-      CountTo,
-      ChartPie,
-      ChartBar,
-      Example,
-      Tables,
-      CountTo
-    },
-    data () {
-      return {
-        dom: null,
+import Tables from '_c/tables'
+import { getTableData } from '@/api/data'
+import { off } from '@/libs/tools'
+import InforCard from '_c/info-card'
+import CountTo from '_c/count-to'
+import { ChartPie, ChartBar } from '_c/charts'
+import Example from './month-data.vue'
+export default {
+  name: 'serviceRequests',
+  components: {
+    InforCard,
+    CountTo,
+    ChartPie,
+    ChartBar,
+    Example,
+    Tables
+  },
+  data () {
+    return {
+      dom: null,
 
-        end: 0,
-        unit: [[3, '千多'], [4, '万多'], [5, '十万多']],
-        unit2: [[1, '十多'], [2, '百多'], [3, '千多'], [4, '万多'], [5, '十万多'], [6, '百万多'], [7, '千万多'], [8, '亿多']],
-        asynEndVal: 487,
-        integratedEndVal: 3,
-        columns: [
-          {title: 'Name', key: 'name', sortable: true},
-          {title: 'Email', key: 'email', editable: true},
-          {title: 'Position', key: 'position'},
-        ],
-        tableData: []
-      }
+      end: 0,
+      unit: [[3, '千多'], [4, '万多'], [5, '十万多']],
+      unit2: [[1, '十多'], [2, '百多'], [3, '千多'], [4, '万多'], [5, '十万多'], [6, '百万多'], [7, '千万多'], [8, '亿多']],
+      asynEndVal: 487,
+      integratedEndVal: 3,
+      columns: [
+        { title: 'Name', key: 'name', sortable: true },
+        { title: 'Email', key: 'email', editable: true },
+        { title: 'Position', key: 'position' }
+      ],
+      tableData: []
+    }
+  },
+  methods: {
+    resize () {
+      this.dom.resize()
     },
-    methods: {
-      resize () {
-        this.dom.resize()
-      },
 
     beforeDestroy () {
       off(window, 'resize', this.resize)
@@ -103,14 +102,14 @@
         this.integratedEndVal += parseInt(Math.random() * 30)
       }, 2000)
     }
-    },
-    mounted () {
-      getTableData().then(res => {
-        this.tableData = res.data
-      })
-      this.init()
-    }
+  },
+  mounted () {
+    getTableData().then(res => {
+      this.tableData = res.data
+    })
+    this.init()
   }
+}
 </script>
 <style lang="less">
   .count-style{

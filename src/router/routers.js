@@ -142,7 +142,7 @@ export default [
           title: '按项目'
         },
         component: () => import('@/view/data-analysis/show-data.vue')
-      },
+      }
 
     ]
   },

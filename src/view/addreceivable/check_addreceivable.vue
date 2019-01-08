@@ -26,50 +26,50 @@
 </template>
 
 <script>
-    export default {
-        name: "check_addreceivable",
-      data(){
-        return{
-          formItem: {
-            select1: '',
-            select2: '',
-            radio: ''
-          },
+export default {
+  name: 'check_addreceivable',
+  data () {
+    return {
+      formItem: {
+        select1: '',
+        select2: '',
+        radio: ''
+      },
 
-          columns: [
-            {
-              title: '部门',
-              key: 'select1'
-            },
-            {
-              title: '项目',
-              key: 'select2'
-            },
-            {
-              title: '收入类别',
-              key: 'radio'
-            },
-            {
-              title: '应收标题',
-              key: 'input'
-            },
-            {
-              title: '应收数',
-              key: 'textarea'
-            }
-          ],
-          data: [
-            {
-              select1: '',
-              select2: '',
-              radio: '',
-              input: '',
-              textarea: ''
-            }
-          ]
+      columns: [
+        {
+          title: '部门',
+          key: 'select1'
+        },
+        {
+          title: '项目',
+          key: 'select2'
+        },
+        {
+          title: '收入类别',
+          key: 'radio'
+        },
+        {
+          title: '应收标题',
+          key: 'input'
+        },
+        {
+          title: '应收数',
+          key: 'textarea'
         }
-      }
+      ],
+      data: [
+        {
+          select1: '',
+          select2: '',
+          radio: '',
+          input: '',
+          textarea: ''
+        }
+      ]
     }
+  }
+}
 </script>
 
 <style scoped>

@@ -57,27 +57,25 @@
 
   </Form>
 
-
-
 </template>
 <script>
-  export default {
-    name: 'addreceivable',
-    data () {
-      return {
-        formItem: {
-          input: '',
-          select1: '',
-          select2: '',
-          radio: '',
-          checkbox: [],
-          switch: true,
-          date: '',
-          time: '',
-          slider: [20, 50],
-          textarea: ''
-        }
+export default {
+  name: 'addreceivable',
+  data () {
+    return {
+      formItem: {
+        input: '',
+        select1: '',
+        select2: '',
+        radio: '',
+        checkbox: [],
+        switch: true,
+        date: '',
+        time: '',
+        slider: [20, 50],
+        textarea: ''
       }
     }
   }
+}
 </script>

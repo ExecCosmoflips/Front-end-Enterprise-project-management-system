@@ -57,30 +57,28 @@
 
   </Form>
 
-
-
 </template>
 
 <script>
-    export default {
-        name: "addcost",
-      data () {
-        return {
-          formItem: {
-            input: '',
-            select1: '',
-            select2: '',
-            radio: '',
-            checkbox: [],
-            switch: true,
-            date: '',
-            time: '',
-            slider: [20, 50],
-            textarea: ''
-          }
-        }
+export default {
+  name: 'addcost',
+  data () {
+    return {
+      formItem: {
+        input: '',
+        select1: '',
+        select2: '',
+        radio: '',
+        checkbox: [],
+        switch: true,
+        date: '',
+        time: '',
+        slider: [20, 50],
+        textarea: ''
       }
     }
+  }
+}
 </script>
 
 <style scoped>

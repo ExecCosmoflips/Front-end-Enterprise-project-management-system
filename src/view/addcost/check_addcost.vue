@@ -26,49 +26,49 @@
 </template>
 
 <script>
-    export default {
-        name: "check_addcost",
-      data(){
-          return{
-            formItem: {
-              select1: '',
-              select2: '',
-              radio: ''
-            },
-            columns: [
-              {
-                title: '部门',
-                key: 'select1'
-              },
-              {
-                title: '项目',
-                key: 'select2'
-              },
-              {
-                title: '费用类别',
-                key: 'radio'
-              },
-              {
-                title: '费用标题',
-                key: 'input'
-              },
-              {
-                title: '费用数',
-                key: 'textarea'
-              }
-            ],
-            data: [
-              {
-                select1: '',
-                select2: '',
-                radio: '',
-                input: '',
-                textarea: ''
-              }
-            ]
-          }
-      }
+export default {
+  name: 'check_addcost',
+  data () {
+    return {
+      formItem: {
+        select1: '',
+        select2: '',
+        radio: ''
+      },
+      columns: [
+        {
+          title: '部门',
+          key: 'select1'
+        },
+        {
+          title: '项目',
+          key: 'select2'
+        },
+        {
+          title: '费用类别',
+          key: 'radio'
+        },
+        {
+          title: '费用标题',
+          key: 'input'
+        },
+        {
+          title: '费用数',
+          key: 'textarea'
+        }
+      ],
+      data: [
+        {
+          select1: '',
+          select2: '',
+          radio: '',
+          input: '',
+          textarea: ''
+        }
+      ]
     }
+  }
+}
 </script>
 
 <style scoped>

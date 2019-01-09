@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Table stripe :columns="columns1" :data="data1"></Table>
+    <Table stripe :columns="columns1" :data="projectOpenList"></Table>
     <Drawer :closable="false" width="640" v-model="value4">
       <p :style="pStyle">人员信息</p>
       <p :style="pStyle">项目负责人</p>
@@ -104,7 +104,7 @@ export default {
                   alert('1')
                 }
               }
-            }, 'View')
+            }, params.row.title)
           }
         },
         {
@@ -118,16 +118,16 @@ export default {
                   this.value4 = true
                 }
               }
-            }, 'A')
+            }, params.row.full_name)
           }
         },
         {
           title: '开始',
-          key: 'start'
+          key: 'begin_time'
         },
         {
           title: '结束',
-          key: 'end'
+          key: 'end_time'
         }
       ],
       data1: []

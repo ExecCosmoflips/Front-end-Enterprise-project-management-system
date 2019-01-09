@@ -28,9 +28,10 @@ export default {
     getProjectList ({ state, commit }, id) {
       return new Promise((resolve, reject) => {
         getProjectList(id).then(respone => {
-          const { openList, closeList } = respone.data
-          commit('setProjectOpenList', openList.sort((a, b) => new Date(b.begin_time) - new Date(a.begin_time)))
-          commit('setProjectCloseList', closeList.sort((a, b) => new Date(b.end_time) - new Date(a.end_time)))
+          const data = respone.data
+          commit('setProjectOpenList', data.sort((a, b) => new Date(b.begin_time) - new Date(a.begin_time)))
+          commit('setProjectCloseList', data.sort((a, b) => new Date(b.end_time) - new Date(a.end_time)))
+          console.log(data)
           resolve()
         }).catch(error => {
           reject(error)

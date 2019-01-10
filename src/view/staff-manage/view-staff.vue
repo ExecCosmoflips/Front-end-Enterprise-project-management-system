@@ -6,7 +6,7 @@
     </Row>
     <br/>
     <Row type="flex" justify="center" class="code-row-bg">
-      <Button to="/add_staff">添加项目人员</Button>
+      <Button to="/add_staff">添加部门人员</Button>
     </Row>
   </div>
 </template>

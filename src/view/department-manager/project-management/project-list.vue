@@ -101,7 +101,7 @@ export default {
               class: 'myclass',
               on: {
                 click: () => {
-                  alert('1')
+                  this.viewProjectInfo(params.row.department)
                 }
               }
             }, params.row.title)
@@ -144,7 +144,19 @@ export default {
     ...mapActions([
       'getProjectList'
     ]
-    )
+    ),
+    viewProjectInfo (id) {
+      const route = {
+        name: 'project-info',
+        params: {
+          id
+        },
+        meta: {
+          title: `动态路由-${id}`
+        }
+      }
+      this.$router.push(route)
+    }
   },
   mounted () {
     this.getProjectList(1)

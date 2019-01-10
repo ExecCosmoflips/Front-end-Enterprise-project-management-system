@@ -4,14 +4,16 @@
       <div style="padding: 15px">
         <Card :bordered="false">
       <p slot="title">
-        项目名称
+        {{projectInfo.title}}
         <a style="float: right" @click="value3 = true">
-            aaa
+            修改
         </a>
       </p>
       <p> 项目介绍</p>
+          {{projectInfo.content}}
           <Divider/>
       <p>成员信息 </p>
+          {{projectInfo.personnel}}
     </Card>
       </div>
       <Drawer
@@ -88,7 +90,7 @@
     <TabPane label="标签三" name="name3">标签三的内容</TabPane>
   </Tabs>
 </template>
-<script>
+<script>import { mapState, mapActions } from 'vuex'
 export default {
   name: 'project-info',
   data () {
@@ -104,6 +106,20 @@ export default {
         desc: ''
       }
     }
+  },
+  computed: {
+    ...mapState({
+      projectInfo: state => state.department.projectInfo
+    })
+  },
+  methods: {
+    ...mapActions([
+      'handleProjectInfo'
+    ])
+  },
+  mounted () {
+    console.log(12312)
+    this.handleProjectInfo(1)
   }
 }
 </script>

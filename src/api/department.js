@@ -10,13 +10,12 @@ export const getProjectList = (department_id) => {
   })
 }
 
-export const getProjectInfo = (project_id) => {
-  const data = {
-    project_id
-  }
+export const getProjectInfo = (id) => {
   return axios.request({
-    url: '/api/get_project_info',
-    data,
+    url: '/get_project_info',
+    params: {
+      id
+    },
     method: 'get'
   })
 }

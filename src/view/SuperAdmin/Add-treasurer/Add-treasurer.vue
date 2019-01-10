@@ -1,49 +1,23 @@
 <template>
     <i-form v-ref:form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
-        <Form-item label="工号" prop="id">
-           <i-input :value.sync="formValidate.name" placeholder="请输入工号"></i-input>
+        <Form-item label="工号" prop="username">
+           <i-input :value.sync="formValidate.username" placeholder="请输入工号"></i-input>
         </Form-item>
         <Form-item label="姓名" prop="name">
             <i-input :value.sync="formValidate.name" placeholder="请输入姓名"></i-input>
         </Form-item>
-        <Form-item label="邮箱" prop="mail">
-            <i-input :value.sync="formValidate.mail" placeholder="请输入邮箱"></i-input>
+        <Form-item label="邮箱" prop="email">
+            <i-input :value.sync="formValidate.email" placeholder="请输入邮箱"></i-input>
         </Form-item>
-        <Form-item label="手机号" prop="tele">
-             <i-input :value.sync="formValidate.tele" placeholder="请输入手机号"></i-input>
+        <Form-item label="手机号" prop="phone">
+             <i-input :value.sync="formValidate.phone" placeholder="请输入手机号"></i-input>
         </Form-item>
-        <Form-item label="城市" prop="city">
-            <i-select :model.sync="formValidate.city" placeholder="请选择所在地">
-                <i-option value="beijing">北京市</i-option>
-                <i-option value="shanghai">上海市</i-option>
-                <i-option value="shenzhen">深圳市</i-option>
-                <i-option value="guangzhou">广州市</i-option>
-                <i-option value="hefei">合肥市</i-option>
-            </i-select>
-        </Form-item>
-        <Form-item label="合同日期" prop="date">
-            <Row>
-                <i-col span="20">
-                    <Form-item prop="date">
-                        <Date-picker type="date" placeholder="开始日期" :value.sync="formValidate.date"></Date-picker>
-                    </Form-item>
-                </i-col>
-                <i-col span="20">
-                    <Form-item prop="date">
-                        <Date-picker type="date" placeholder="结束日期" :value.sync="formValidate.date"></Date-picker>
-                    </Form-item>
-                </i-col>
-            </Row>
-        </Form-item>
-        <Form-item label="性别" prop="gender">
-            <Radio-group :model.sync="formValidate.gender">
-                <Radio value="male">男</Radio>
-                <Radio value="female">女</Radio>
-            </Radio-group>
-        </Form-item>
-        <Form-item label="介绍" prop="desc">
-            <i-input :value.sync="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></i-input>
-        </Form-item>
+       <FormItem label="性别" prop="gender">
+             <RadioGroup v-model="formItem.radio">
+               <Radio label="male">男</Radio>
+               <Radio label="female">女</Radio>
+             </RadioGroup>
+           </FormItem>
         <Form-item>
             <i-button type="primary" @click="handleSubmit('formValidate')">添加</i-button>
             <i-button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</i-button>
@@ -55,50 +29,32 @@ export default {
   name: 'SuperAdmin',
   data () {
     return {
+    formItem: {
+          radio: '',
+          },
       formValidate: {
-        id: '',
+        username: '',
         name: '',
-        mail: '',
-        city: '',
+        email: '',
         gender: '',
-        date: '',
-        time: '',
-        tele: '',
-        desc: ''
+        phone: ''
       },
       ruleValidate: {
-        id: [
+        username: [
           { required: true, message: '工号不能为空', trigger: 'blur' }
         ],
         name: [
           { required: true, message: '姓名不能为空', trigger: 'blur' }
         ],
-        mail: [
+        email: [
           { required: true, message: '邮箱不能为空', trigger: 'blur' },
           { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
         ],
-        tele: [
+        phone: [
           { required: true, message: '手机号不能为空', trigger: 'blur' }
-        ],
-        city: [
-          { required: true, message: '请选择城市', trigger: 'change' }
         ],
         gender: [
           { required: true, message: '请选择性别', trigger: 'change' }
-        ],
-        interest: [
-          { required: true, type: 'array', min: 1, message: '至少选择一个爱好', trigger: 'change' },
-          { type: 'array', max: 2, message: '最多选择两个爱好', trigger: 'change' }
-        ],
-        date: [
-          { required: true, type: 'date', message: '请选择日期', trigger: 'change' }
-        ],
-        time: [
-          { required: true, type: 'date', message: '请选择时间', trigger: 'change' }
-        ],
-        desc: [
-          { required: true, message: '请输入个人介绍', trigger: 'blur' },
-          { type: 'string', min: 20, message: '介绍不能少于20字', trigger: 'blur' }
         ]
       }
     }

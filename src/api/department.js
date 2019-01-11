@@ -1,5 +1,5 @@
 import axios from '@/libs/api.request'
-
+import qs from 'qs'
 export const getProjectList = (department_id) => {
   return axios.request({
     url: '/get_project_list',
@@ -39,5 +39,14 @@ export const getDepartmentStaff = (department_id, project_id) => {
       project_id
     },
     method: 'get'
+  })
+}
+
+export const submitProjectInfo = (form) => {
+  console.log(form)
+  return axios.request({
+    url: '/get_project_info',
+    data: qs.stringify(form),
+    method: 'post'
   })
 }

@@ -132,7 +132,7 @@ export default [
           icon: 'md-clipboard',
           title: '按部门'
         },
-        component: () => import('@/view/data-analysis/in-department.vue')
+        component: () => import('@/view/data-analysis/department-list.vue')
       },
       {
         path: 'data_analysis_page',

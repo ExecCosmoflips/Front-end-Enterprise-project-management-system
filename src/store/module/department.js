@@ -1,7 +1,8 @@
 import {
   getProjectList,
   getProjectInfo,
-  getDepartmentStaff
+  getDepartmentStaff,
+  submitProjectInfo
 } from '../../api/department'
 
 export default {
@@ -67,9 +68,14 @@ export default {
         })
       })
     },
-    handleEditProject({ state, commit }, form){
-
-
+    handleEditProject ({ state, commit }, form) {
+      return new Promise((resolve, reject) => {
+        submitProjectInfo(form).then(response => {
+          const data = response.data
+          commit('setProjectInfo', data)
+          resolve()
+        })
+      })
     }
   }
 }

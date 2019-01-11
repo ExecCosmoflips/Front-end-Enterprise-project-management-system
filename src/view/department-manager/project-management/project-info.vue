@@ -26,12 +26,12 @@
           <Row :gutter="32">
             <Col span="12">
               <FormItem label="项目名称" label-position="top">
-                <Input v-model="formData.title" placeholder="please enter project name" />
+                <Input :value="formData.title" placeholder="please enter project name" />
               </FormItem>
             </Col>
             <Col span="12">
               <FormItem label="负责人" label-position="top">
-                <Select v-model="formData.leader" placeholder="please select an owner">
+                <Select :value="formData.leader" placeholder="please select an owner">
                   <Option v-for="item in departmentStaff" :key="item.user" :value="item.user">{{item.name}} {{item.user}}</Option>
                 </Select>
               </FormItem>
@@ -40,22 +40,22 @@
           <Row :gutter="32">
             <Col span="12">
               <FormItem label="开始时间" label-position="top">
-                <DatePicker v-model="formData.begin_time" type="date" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
+                <DatePicker :value="formData.begin_time" type="date" format="yyyy-MM-dd" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
               </FormItem>
             </Col>
             <Col span="12">
               <FormItem label="结束时间" label-position="top">
-                <DatePicker v-model="formData.end_time" type="date" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
+                <DatePicker :value="formData.end_time" type="date" format="yyyy-MM-dd" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
               </FormItem>
             </Col>
           </Row>
           <FormItem label="项目内容" label-position="top">
-            <Input type="textarea" v-model="formData.content" :rows="6" placeholder="please enter the description" />
+            <Input type="textarea" :value="formData.content" :rows="6" placeholder="please enter the description" />
           </FormItem>
         </Form>
         <div class="demo-drawer-footer">
           <Button style="margin-right: 8px" @click="value3 = false">Cancel</Button>
-          <Button type="primary" @click="value3 = false">Submit</Button>
+          <Button type="primary" @click=editProject(formData)>Submit</Button>
         </div>
       </Drawer>
     </TabPane>
@@ -93,8 +93,9 @@ export default {
       'handleEditProject',
       'handleGetDepartmentStaff'
     ]),
-    EditProject (formData) {
-      this.handleEditProject(formData)
+    editProject (formData) {
+      this.handleEditProject(formData).then(() => console.log())
+      this.value3 = false
     }
   },
 

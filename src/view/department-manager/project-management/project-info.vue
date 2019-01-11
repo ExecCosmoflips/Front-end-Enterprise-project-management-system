@@ -13,7 +13,7 @@
           {{projectInfo.content}}
           <Divider/>
       <p>成员信息 </p>
-          {{projectInfo.personnel}}
+          {{projectInfo.staff}}
     </Card>
       </div>
       <Drawer
@@ -25,67 +25,42 @@
         <Form :model="formData">
           <Row :gutter="32">
             <Col span="12">
-              <FormItem label="Name" label-position="top">
-                <Input v-model="formData.name" placeholder="please enter user name" />
+              <FormItem label="项目名称" label-position="top">
+                <Input v-model="formData.title" placeholder="please enter project name" />
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="Url" label-position="top">
-                <Input v-model="formData.url" placeholder="please enter url">
-                  <span slot="prepend">http://</span>
-                  <span slot="append">.com</span>
-                </Input>
-              </FormItem>
-            </Col>
-          </Row>
-          <Row :gutter="32">
-            <Col span="12">
-              <FormItem label="Owner" label-position="top">
-                <Select v-model="formData.owner" placeholder="please select an owner">
-                  <Option value="jobs">Steven Paul Jobs</Option>
-                  <Option value="ive">Sir Jonathan Paul Ive</Option>
-                </Select>
-              </FormItem>
-            </Col>
-            <Col span="12">
-              <FormItem label="Type" label-position="top">
-                <Select v-model="formData.type" placeholder="please choose the type">
-                  <Option value="private">Private</Option>
-                  <Option value="public">Public</Option>
+              <FormItem label="负责人" label-position="top">
+                <Select v-model="formData.leader" placeholder="please select an owner">
+                  <Option v-for="item in departmentStaff" :key="item.user" :value="item.user">{{item.name}} {{item.user}}</Option>
                 </Select>
               </FormItem>
             </Col>
           </Row>
           <Row :gutter="32">
             <Col span="12">
-              <FormItem label="Approver" label-position="top">
-                <Select v-model="formData.approver" placeholder="please choose the approver">
-                  <Option value="jobs">Steven Paul Jobs</Option>
-                  <Option value="ive">Sir Jonathan Paul Ive</Option>
-                </Select>
+              <FormItem label="开始时间" label-position="top">
+                <DatePicker v-model="formData.begin_time" type="date" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="DateTime" label-position="top">
-                <DatePicker v-model="formData.date" type="daterange" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
+              <FormItem label="结束时间" label-position="top">
+                <DatePicker v-model="formData.end_time" type="date" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
               </FormItem>
             </Col>
           </Row>
-          <FormItem label="Description" label-position="top">
-            <Input type="textarea" v-model="formData.desc" :rows="4" placeholder="please enter the description" />
+          <FormItem label="项目内容" label-position="top">
+            <Input type="textarea" v-model="formData.content" :rows="6" placeholder="please enter the description" />
           </FormItem>
         </Form>
+        <div class="demo-drawer-footer">
+          <Button style="margin-right: 8px" @click="value3 = false">Cancel</Button>
+          <Button type="primary" @click="value3 = false">Submit</Button>
+        </div>
       </Drawer>
     </TabPane>
     <TabPane label="财务记录" name="name2">标签二的内容
-      <Row>
-        <Col span="12">
-          <DatePicker type="date" :options="options3" placeholder="Select date" style="width: 200px"></DatePicker>
-        </Col>
-        <Col span="12">
-          <DatePicker type="date" :options="options4" placeholder="Select date" style="width: 200px"></DatePicker>
-        </Col>
-      </Row>
+
     </TabPane>
     <TabPane label="标签三" name="name3">标签三的内容</TabPane>
   </Tabs>
@@ -97,33 +72,51 @@ export default {
     return {
       value3: false,
       formData: {
-        name: '',
-        url: '',
-        owner: '',
-        type: '',
-        approver: '',
-        date: '',
-        desc: ''
+        title: '',
+        leader: '',
+        begin_time: '',
+        end_time: '',
+        content: ''
       }
     }
   },
   computed: {
     ...mapState({
-      projectInfo: state => state.department.projectInfo
+      projectInfo: state => state.department.projectInfo,
+      id: state => state.department.id,
+      departmentStaff: state => state.department.departmentStaff
     })
   },
   methods: {
     ...mapActions([
-      'handleProjectInfo'
-    ])
+      'handleProjectInfo',
+      'handleEditProject',
+      'handleGetDepartmentStaff'
+    ]),
+    EditProject (formData) {
+      this.handleEditProject(formData)
+    }
   },
-  mounted () {
-    console.log(12312)
-    this.handleProjectInfo(1)
+
+  created () {
+    this.handleProjectInfo(this.$route.params.id).then(() => {
+      this.formData = this.projectInfo
+      this.formData.leader = this.projectInfo.leader.id
+    })
+    this.handleGetDepartmentStaff(1)
   }
 }
 </script>
 
 <style scoped>
-
+  .demo-drawer-footer{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    border-top: 1px solid #e8e8e8;
+    padding: 10px 16px;
+    text-align: right;
+    background: #fff;
+  }
 </style>

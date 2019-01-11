@@ -101,7 +101,7 @@ export default {
               class: 'myclass',
               on: {
                 click: () => {
-                  this.viewProjectInfo(params.row.department)
+                  this.viewProjectInfo(params.row.id)
                 }
               }
             }, params.row.title)
@@ -129,8 +129,7 @@ export default {
           title: '结束',
           key: 'end_time'
         }
-      ],
-      data1: []
+      ]
     }
   },
   computed: {
@@ -142,10 +141,11 @@ export default {
   },
   methods: {
     ...mapActions([
-      'getProjectList'
+      'getProjectList',
     ]
     ),
     viewProjectInfo (id) {
+      console.log(id)
       const route = {
         name: 'project-info',
         params: {

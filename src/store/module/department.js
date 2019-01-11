@@ -1,13 +1,15 @@
 import {
   getProjectList,
-  getProjectInfo
+  getProjectInfo,
+  getDepartmentStaff
 } from '../../api/department'
 
 export default {
   state: {
     projectOpenList: [],
     projectCloseList: [],
-    projectInfo: {}
+    projectInfo: {},
+    departmentStaff: {}
   },
   mutations: {
     setProjectOpenList (state, projectOpenList) {
@@ -23,6 +25,9 @@ export default {
     },
     setProjectInfo (state, projectInfo) {
       state.projectInfo = projectInfo
+    },
+    setDepartmentStaff (state, staffs) {
+      state.departmentStaff = staffs
     }
   },
   getters: {
@@ -35,7 +40,6 @@ export default {
           const data = response.data
           commit('setProjectOpenList', data.sort((a, b) => new Date(b.begin_time) - new Date(a.begin_time)))
           commit('setProjectCloseList', data.sort((a, b) => new Date(b.end_time) - new Date(a.end_time)))
-          console.log(data)
           resolve()
         }).catch(error => {
           reject(error)
@@ -43,20 +47,29 @@ export default {
       })
     },
     handleProjectInfo ({ state, commit }, id) {
-      console.log('info')
       return new Promise((resolve, reject) => {
         getProjectInfo(id).then(response => {
-          console.log('info')
           const data = response.data
-          console.log(data)
+
           commit('setProjectInfo', data)
-          console.log(data)
           resolve()
         }).catch(error => {
-          console.log('info')
           reject(error)
         })
       })
+    },
+    handleGetDepartmentStaff ({ state, commit }, id) {
+      return new Promise((resolve, reject) => {
+        getDepartmentStaff(id).then(response => {
+          const data = response.data
+          commit('setDepartmentStaff', data)
+          resolve()
+        })
+      })
+    },
+    handleEditProject({ state, commit }, form){
+
+
     }
   }
 }

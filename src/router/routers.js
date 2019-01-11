@@ -273,7 +273,8 @@ export default [
         path: 'project-info',
         name: 'project-info',
         meta: {
-          title: '项目详细'
+          title: '项目详细',
+          notCache: true
         },
         component: () => import('@/view/department-manager/project-management/project-info')
       }

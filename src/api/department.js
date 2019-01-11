@@ -30,3 +30,14 @@ export const login = ({ userName, password }) => {
     method: 'post'
   })
 }
+
+export const getDepartmentStaff = (department_id, project_id) => {
+  return axios.request({
+    url: '/get_department_staff',
+    params: {
+      department_id,
+      project_id
+    },
+    method: 'get'
+  })
+}

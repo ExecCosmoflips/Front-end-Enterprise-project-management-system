@@ -1,32 +1,18 @@
 <template>
+  <div>
   <Form :model="formItem" :label-width="80">
-    <FormItem label="选择部门">
-      <Select v-model="formItem.select1">
-        <Option value="beijing">A部门</Option>
-        <Option value="shanghai">B部门</Option>
-        <Option value="shenzhen">C部门</Option>
-      </Select>
-    </FormItem>
+
     <FormItem label="选择项目">
-      <Select v-model="formItem.select2">
-        <Option value="beijing">A项目</Option>
+      <Select v-model="formItem.project">
+
+        <Option value="beijing">title</Option>
         <Option value="shanghai">B项目</Option>
         <Option value="shenzhen">C项目</Option>
       </Select>
     </FormItem>
-    <FormItem label="日期选择">
-      <Row>
-        <Col span="11">
-          <DatePicker type="date" placeholder="Select date" v-model="formItem.date"></DatePicker>
-        </Col>
-        <Col span="2" style="text-align: center">-</Col>
-        <Col span="11">
-          <TimePicker type="time" placeholder="Select time" v-model="formItem.time"></TimePicker>
-        </Col>
-      </Row>
-    </FormItem>
+
     <FormItem label="收入类别">
-      <RadioGroup v-model="formItem.radio">
+      <RadioGroup v-model="formItem.category">
         <Radio label="male">收入类别1</Radio>
         <Radio label="female">收入类别2</Radio>
         <Radio label="female2">收入类别3</Radio>
@@ -34,10 +20,13 @@
     </FormItem>
 
     <FormItem label="应收项标题" aria-setsize="10">
-      <Input v-model="formItem.input" placeholder="Enter something..."></Input>
+      <Input v-model="formItem.title" placeholder="Enter something..."></Input>
     </FormItem>
     <FormItem label="应收数">
-      <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
+      <Input v-model="formItem.number" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
+    </FormItem>
+    <FormItem label="应收数333">
+      <Input v-model="formItem.agreement" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
     </FormItem>
     <FormItem>
       <Upload
@@ -50,32 +39,50 @@
         </div>
       </Upload>
     </FormItem>
-    <FormItem>
-      <Button type="primary">Submit</Button>
-      <Button style="margin-left: 8px">Cancel</Button>
-    </FormItem>
-
   </Form>
+      <Button type="primary" @click=submit(formItem)>Submit</Button>
+      <Button style="margin-left: 8px">Cancel</Button>
+  </div>
+
 
 </template>
 <script>
+  import {mapActions} from 'vuex'
 export default {
   name: 'addreceivable',
   data () {
     return {
       formItem: {
-        input: '',
-        select1: '',
-        select2: '',
-        radio: '',
-        checkbox: [],
-        switch: true,
-        date: '',
-        time: '',
+        project: '',
+        category: '',
+        title: '',
+        number: '',
+        agreement: '',
         slider: [20, 50],
         textarea: ''
       }
     }
+  },
+
+  methods: {
+    ...mapActions([
+      'Addreceivable'
+  ]
+    ),
+   submit(formItem) {
+
+     /* let project = this.formItem.project
+      console.log(project)
+      let category = this.formItem.category
+      let title = this.formItem.title
+      let number = this.formItem.number
+      let agreement = this.formItem.agreement*/
+     console.log(this.formItem)
+     this.Addreceivable(formItem)
+     console.log(formItem)
+  },
+
   }
-}
+
+  }
 </script>

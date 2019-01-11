@@ -1,89 +1,61 @@
 <template>
-    <i-form v-ref:form-validate :model="formValidate" :rules="ruleValidate" :label-width="80">
-        <Form-item label="选择部门" prop="department">
-            <i-select :model.sync="formValidate.department" placeholder="请选择部门">
-                <i-option value="Abumen">A部门</i-option>
-                <i-option value="Bbumen">B部门</i-option>
-                <i-option value="Cbumen">C部门</i-option>
-            </i-select>
-        </Form-item>
-        <Form-item label="工号" prop="username">
-           <i-input :value.sync="formValidate.username" placeholder="请输入工号"></i-input>
-        </Form-item>
-        <Form-item label="姓名" prop="name">
-            <i-input :value.sync="formValidate.name" placeholder="请输入姓名"></i-input>
-        </Form-item>
-        <Form-item label="邮箱" prop="email">
-            <i-input :value.sync="formValidate.email" placeholder="请输入邮箱"></i-input>
-        </Form-item>
-        <Form-item label="手机号" prop="phone">
-            <i-input :value.sync="formValidate.phone" placeholder="请输入手机号"></i-input>
-        </Form-item>
-    <FormItem label="性别" prop="gender">
-      <RadioGroup v-model="formItem.radio">
+  <Form :model="formItem" :label-width="80">
+    <FormItem label="选择部门">
+      <Select v-model="formItem.department">
+        <Option value="Abumen">A部门</Option>
+        <Option value="Bbumen">B部门</Option>
+        <Option value="Cbumen">C部门</Option>
+      </Select>
+    </FormItem>
+    <FormItem label="工号" aria-setsize="10">
+      <Input v-model="formItem.username" placeholder="请输入工号"></Input>
+    </FormItem>
+    <FormItem label="姓名" aria-setsize="10">
+      <Input v-model="formItem.name" placeholder="请输入姓名"></Input>
+    </FormItem>
+    <FormItem label="邮箱" aria-setsize="10">
+      <Input v-model="formItem.email" placeholder="请输入邮箱"></Input>
+    </FormItem>
+    <FormItem label="手机号" aria-setsize="10">
+      <Input v-model="formItem.phone" placeholder="请输入手机号"></Input>
+    </FormItem>
+    <FormItem label="性别">
+      <RadioGroup v-model="formItem.gender">
         <Radio label="male">男</Radio>
         <Radio label="female">女</Radio>
       </RadioGroup>
     </FormItem>
-        <Form-item>
-            <i-button type="primary" @click="handleSubmit('formValidate')">添加</i-button>
-            <i-button type="ghost" @click="handleReset('formValidate')" style="margin-left: 8px">重置</i-button>
-        </Form-item>
-    </i-form>
+    <FormItem>
+            <Button type="primary" @click="submit(formItem)">Submit</Button>
+    </FormItem>
+    </Form>
 </template>
-<script>import { mapState, mapActions } from 'vuex'
+<script>import {state, mapActions } from 'vuex'
 export default {
-  name: 'SuperAdmin',
-  data () {
+  name: 'Add-dep-admin',
+  data() {
     return {
       formItem: {
-      radio: '',
-      },
-      formValidate: {
         department: '',
         username: '',
         name: '',
         email: '',
         gender: '',
-        radio: '',
         phone: ''
-      },
-      ruleValidate: {
-        department: [
-          { required: true, message: '请选择部门', trigger: 'change' }
-        ],
-        username: [
-          { required: true, message: '工号不能为空', trigger: 'blur' }
-        ],
-        name: [
-          { required: true, message: '姓名不能为空', trigger: 'blur' }
-        ],
-        email: [
-          { required: true, message: '邮箱不能为空', trigger: 'blur' },
-          { type: 'email', message: '邮箱格式不正确', trigger: 'blur' }
-        ],
-        phone: [
-          { required: true, message: '手机号不能为空', trigger: 'blur' }
-        ],
-        gender: [
-          { required: true, message: '请选择性别', trigger: 'change' }
-        ]
       }
     }
   },
   methods: {
-    handleSubmit (name) {
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          this.$Message.success('提交成功!')
-        } else {
-          this.$Message.error('表单验证失败!')
-        }
-      })
+    ...mapActions([
+        'getAddDepartmentAdmin'
+      ]
+    ),
+    submit(formItem) {
+      console.log(this.formItem)
+      this.getAddDepartmentAdmin(formItem)
+      console.log(formItem)
     },
-    handleReset (name) {
-      this.$refs[name].resetFields()
-    }
   }
 }
+
 </script>

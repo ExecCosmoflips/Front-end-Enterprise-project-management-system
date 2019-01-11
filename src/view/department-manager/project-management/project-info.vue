@@ -3,64 +3,111 @@
     <TabPane label="项目内容" name="name1">
       <div style="padding: 15px">
         <Card :bordered="false">
-      <p slot="title">
-        {{projectInfo.title}}
-        <a style="float: right" @click="value3 = true">
-            修改
-        </a>
-      </p>
-      <p> 项目介绍</p>
+          <p slot="title">
+            {{projectInfo.title}}
+            <a style="float: right" @click="value3 = true">
+              修改
+            </a>
+          </p>
+          <p> 项目介绍</p>
           {{projectInfo.content}}
           <Divider/>
-      <p>成员信息 </p>
-          {{projectInfo.staff}}
-    </Card>
+          <Row type="flex" justify="space-between" class="code-row-bg">
+            <p>成员信息 </p>
+            <Button type="primary" @click="modal = true">添加</Button>
+            <Modal
+              v-model="modal"
+              title="添加项目人员"
+              :loading="loading"
+              @on-ok="ok"
+              @on-cancel="cancel">
+              <Table stripe :columns="columns1" :data="projectInfo.staff"></Table>
+            </Modal>
+          </Row>
+          <div>
+            <ul style="list-style-type:none">
+              <li v-for="site in projectInfo.staff">
+                <Row type="flex" justify="space-between" class="code-row-bg">
+                  <Col span="4">姓名：{{ site.profile.name }}</Col>
+                  <Col span="4">部门编号：{{ site.profile.department_id }}</Col>
+                  <Col span="4">权限：{{ site.profile.access }}</Col>
+                  <Col span="4">部门名：{{ site.profile.department_name }}</Col>
+                </Row>
+              </li>
+            </ul>
+          </div>
+        </Card>
       </div>
       <Drawer
         title="Create"
         v-model="value3"
         width="720"
         :mask-closable="false"
-        >
+      >
         <Form :model="formData">
           <Row :gutter="32">
             <Col span="12">
-              <FormItem label="项目名称" label-position="top">
-                <Input :value="formData.title" placeholder="please enter project name" />
+              <FormItem label="Name" label-position="top">
+                <Input v-model="formData.name" placeholder="please enter user name" />
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="负责人" label-position="top">
-                <Select :value="formData.leader" placeholder="please select an owner">
-                  <Option v-for="item in departmentStaff" :key="item.user" :value="item.user">{{item.name}} {{item.user}}</Option>
+              <FormItem label="Url" label-position="top">
+                <Input v-model="formData.url" placeholder="please enter url">
+                <span slot="prepend">http://</span>
+                <span slot="append">.com</span>
+                </Input>
+              </FormItem>
+            </Col>
+          </Row>
+          <Row :gutter="32">
+            <Col span="12">
+              <FormItem label="Owner" label-position="top">
+                <Select v-model="formData.owner" placeholder="please select an owner">
+                  <Option value="jobs">Steven Paul Jobs</Option>
+                  <Option value="ive">Sir Jonathan Paul Ive</Option>
+                </Select>
+              </FormItem>
+            </Col>
+            <Col span="12">
+              <FormItem label="Type" label-position="top">
+                <Select v-model="formData.type" placeholder="please choose the type">
+                  <Option value="private">Private</Option>
+                  <Option value="public">Public</Option>
                 </Select>
               </FormItem>
             </Col>
           </Row>
           <Row :gutter="32">
             <Col span="12">
-              <FormItem label="开始时间" label-position="top">
-                <DatePicker :value="formData.begin_time" type="date" format="yyyy-MM-dd" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
+              <FormItem label="Approver" label-position="top">
+                <Select v-model="formData.approver" placeholder="please choose the approver">
+                  <Option value="jobs">Steven Paul Jobs</Option>
+                  <Option value="ive">Sir Jonathan Paul Ive</Option>
+                </Select>
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="结束时间" label-position="top">
-                <DatePicker :value="formData.end_time" type="date" format="yyyy-MM-dd" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
+              <FormItem label="DateTime" label-position="top">
+                <DatePicker v-model="formData.date" type="daterange" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
               </FormItem>
             </Col>
           </Row>
-          <FormItem label="项目内容" label-position="top">
-            <Input type="textarea" :value="formData.content" :rows="6" placeholder="please enter the description" />
+          <FormItem label="Description" label-position="top">
+            <Input type="textarea" v-model="formData.desc" :rows="4" placeholder="please enter the description" />
           </FormItem>
         </Form>
-        <div class="demo-drawer-footer">
-          <Button style="margin-right: 8px" @click="value3 = false">Cancel</Button>
-          <Button type="primary" @click=editProject(formData)>Submit</Button>
-        </div>
       </Drawer>
     </TabPane>
     <TabPane label="财务记录" name="name2">标签二的内容
-
+      <Row>
+        <Col span="12">
+          <DatePicker type="date" :options="options3" placeholder="Select date" style="width: 200px"></DatePicker>
+        </Col>
+        <Col span="12">
+          <DatePicker type="date" :options="options4" placeholder="Select date" style="width: 200px"></DatePicker>
+        </Col>
+      </Row>
     </TabPane>
     <TabPane label="标签三" name="name3">标签三的内容</TabPane>
   </Tabs>
@@ -70,54 +117,79 @@ export default {
   name: 'project-info',
   data () {
     return {
+      modal: false,
+      loading:true,
       value3: false,
       formData: {
-        title: '',
-        leader: '',
-        begin_time: '',
-        end_time: '',
-        content: ''
-      }
+        name: '',
+        url: '',
+        owner: '',
+        type: '',
+        approver: '',
+        date: '',
+        desc: ''
+      },
+      columns1:[
+        {
+          title: '标题',
+          key: 'id'
+        },
+        {
+          title: '负责人',
+          key: 'principal'
+        },
+        {
+          title: '开始',
+          key: 'begin_time'
+        },
+        {
+          title: '结束',
+          key: 'end_time'
+        }
+      ]
     }
   },
   computed: {
     ...mapState({
-      projectInfo: state => state.department.projectInfo,
-      id: state => state.department.id,
-      departmentStaff: state => state.department.departmentStaff
+      projectInfo: state => state.department.projectInfo
     })
   },
   methods: {
     ...mapActions([
-      'handleProjectInfo',
-      'handleEditProject',
-      'handleGetDepartmentStaff'
+      'handleProjectInfo'
     ]),
-    editProject (formData) {
-      this.handleEditProject(formData).then(() => console.log())
-      this.value3 = false
+    async ok() {
+      this.$refs.setGold.validate( async(valid) => {
+        if (valid) {
+          let  res =await this.$ajax.post('/xx/xx',{});
+          if(res.cd == 0){
+            //doSomething..
+          }else{
+            this.$Message.info(res.msg);
+          }
+        }else{
+          //对话框校验失败，取消loading状态
+          this.loading=false;
+          setTimeout(() => {
+            this.$nextTick(() => {
+              this.loading = true;
+            });
+          }, 100);
+        }
+      })
+    },
+    cancel () {
+      //取消后，重置表单
+      this.$refs['setGold'].resetFields();
     }
   },
-
-  created () {
-    this.handleProjectInfo(this.$route.params.id).then(() => {
-      this.formData = this.projectInfo
-      this.formData.leader = this.projectInfo.leader.id
-    })
-    this.handleGetDepartmentStaff(1)
+  mounted () {
+    console.log(12312)
+    this.handleProjectInfo(1)
   }
 }
 </script>
 
 <style scoped>
-  .demo-drawer-footer{
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    border-top: 1px solid #e8e8e8;
-    padding: 10px 16px;
-    text-align: right;
-    background: #fff;
-  }
+
 </style>

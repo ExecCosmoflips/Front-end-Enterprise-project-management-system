@@ -13,24 +13,10 @@ export default {
     phone: '',
     gender: ''
   },
-  mutations: {
-    setDepartment (state, department) {
-      state.department = department
-    },
-    setUsername (state, username) {
-      state.username = username
-    },
-    setName (state, name) {
-      state.name = name
-    },
-    setEmail (state, email) {
-      state.email = email
-    },
-    setPhone (state, phone) {
-      state.phone = phone
-    },
-    setGender (state, gender) {
-      state.gender = gender
+
+  mutations:{
+    setDepartment(state,department){
+      state.department=department
     }
   },
 

@@ -14,9 +14,10 @@ export default {
     gender: ''
   },
 
-  mutations:{
-    setDepartment(state,department){
-      state.department=department
+  
+  mutations: {
+    setDepartment (state, department) {
+      state.department = department
     }
   },
 

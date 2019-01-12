@@ -3,13 +3,13 @@
     <TabPane label="项目内容" name="name1">
       <div style="padding: 15px">
         <Card :bordered="false">
-          <p slot="title">
-            {{projectInfo.title}}
-            <a style="float: right" @click="value3 = true">
-              修改
-            </a>
-          </p>
-          <p> 项目介绍</p>
+      <p slot="title">
+        {{projectInfo.title}}
+        <a style="float: right" @click="clickEdit">
+            修改
+        </a>
+      </p>
+      <p> 项目介绍</p>
           {{projectInfo.content}}
           <Divider/>
           <Row type="flex" justify="space-between" class="code-row-bg">
@@ -26,7 +26,7 @@
           </Row>
           <div>
             <ul style="list-style-type:none">
-              <li v-for="site in projectInfo.staff">
+              <li v-for="site in projectInfo.staff" :key="site.id">
                 <Row type="flex" justify="space-between" class="code-row-bg">
                   <Col span="4">姓名：{{ site.profile.name }}</Col>
                   <Col span="4">部门编号：{{ site.profile.department_id }}</Col>
@@ -47,56 +47,38 @@
         <Form :model="formData">
           <Row :gutter="32">
             <Col span="12">
-              <FormItem label="Name" label-position="top">
-                <Input v-model="formData.name" placeholder="please enter user name" />
+              <FormItem label="项目名称" label-position="top">
+                <Input v-model="formData.title" placeholder="please enter project name" />
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="Url" label-position="top">
-                <Input v-model="formData.url" placeholder="please enter url">
-                <span slot="prepend">http://</span>
-                <span slot="append">.com</span>
-                </Input>
-              </FormItem>
-            </Col>
-          </Row>
-          <Row :gutter="32">
-            <Col span="12">
-              <FormItem label="Owner" label-position="top">
-                <Select v-model="formData.owner" placeholder="please select an owner">
-                  <Option value="jobs">Steven Paul Jobs</Option>
-                  <Option value="ive">Sir Jonathan Paul Ive</Option>
-                </Select>
-              </FormItem>
-            </Col>
-            <Col span="12">
-              <FormItem label="Type" label-position="top">
-                <Select v-model="formData.type" placeholder="please choose the type">
-                  <Option value="private">Private</Option>
-                  <Option value="public">Public</Option>
+              <FormItem label="负责人" label-position="top">
+                <Select v-model="formData.leader" placeholder="please select an owner">
+                  <Option v-for="item in departmentStaff" :key="item.user" :value="item.user">{{item.name}} {{item.user}}</Option>
                 </Select>
               </FormItem>
             </Col>
           </Row>
           <Row :gutter="32">
             <Col span="12">
-              <FormItem label="Approver" label-position="top">
-                <Select v-model="formData.approver" placeholder="please choose the approver">
-                  <Option value="jobs">Steven Paul Jobs</Option>
-                  <Option value="ive">Sir Jonathan Paul Ive</Option>
-                </Select>
+              <FormItem label="开始时间" label-position="top">
+                <DatePicker v-model="formData.begin_time" type="date" format="yyyy-MM-dd" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
               </FormItem>
             </Col>
             <Col span="12">
-              <FormItem label="DateTime" label-position="top">
-                <DatePicker v-model="formData.date" type="daterange" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
+              <FormItem label="结束时间" label-position="top">
+                <DatePicker v-model.lazy="formData.end_time" type="date" format="yyyy-MM-dd" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
               </FormItem>
             </Col>
           </Row>
-          <FormItem label="Description" label-position="top">
-            <Input type="textarea" v-model="formData.desc" :rows="4" placeholder="please enter the description" />
+          <FormItem label="项目内容" label-position="top">
+            <Input type="textarea" v-model.lazy="formData.content" :rows="6" placeholder="please enter the description" />
           </FormItem>
         </Form>
+        <div class="demo-drawer-footer">
+          <Button style="margin-right: 8px" @click="clickCancle">Cancel</Button>
+          <Button type="primary" @click=editProject(formData)>Submit</Button>
+        </div>
       </Drawer>
     </TabPane>
     <TabPane label="财务记录" name="name2">标签二的内容
@@ -118,7 +100,7 @@ export default {
   data () {
     return {
       modal: false,
-      loading:true,
+      loading: true,
       value3: false,
       formData: {
         name: '',
@@ -129,7 +111,7 @@ export default {
         date: '',
         desc: ''
       },
-      columns1:[
+      columns1: [
         {
           title: '标题',
           key: 'id'
@@ -151,41 +133,67 @@ export default {
   },
   computed: {
     ...mapState({
-      projectInfo: state => state.department.projectInfo
+      projectInfo: state => state.department.projectInfo,
+      departmentStaff: state => state.department.departmentStaff
     })
   },
   methods: {
     ...mapActions([
-      'handleProjectInfo'
+      'handleProjectInfo',
+      'handleGetDepartmentStaff',
+      'handleEditProject'
     ]),
-    async ok() {
-      this.$refs.setGold.validate( async(valid) => {
+    async ok () {
+      this.$refs.setGold.validate(async (valid) => {
         if (valid) {
-          let  res =await this.$ajax.post('/xx/xx',{});
-          if(res.cd == 0){
-            //doSomething..
-          }else{
-            this.$Message.info(res.msg);
+          let res = await this.$ajax.post('/xx/xx', {})
+          if (res.cd === 0) {
+            // doSomething..
+          } else {
+            this.$Message.info(res.msg)
           }
-        }else{
-          //对话框校验失败，取消loading状态
-          this.loading=false;
+        } else {
+          // 对话框校验失败，取消loading状态
+          this.loading = false
           setTimeout(() => {
             this.$nextTick(() => {
-              this.loading = true;
-            });
-          }, 100);
+              this.loading = true
+            })
+          }, 100)
         }
       })
     },
     cancel () {
-      //取消后，重置表单
-      this.$refs['setGold'].resetFields();
+      // 取消后，重置表单
+      this.$refs['setGold'].resetFields()
+    },
+    editProject (formData) {
+      this.handleEditProject(formData).then(() => console.log('ok'))
+      this.value3 = false
+    },
+    clickEdit () {
+      this.value3 = true
+      this.formData = this.projectInfo
+      this.formData.leader = this.projectInfo.leader.id
+      console.log(this.projectInfo.leader)
+    },
+    clickCancle () {
+      this.handleProjectInfo(this.$route.params.id)
+      this.value3 = false
     }
   },
   mounted () {
-    console.log(12312)
     this.handleProjectInfo(1)
+  },
+
+  created () {
+    this.handleProjectInfo(this.$route.params.id).then(() => {
+
+    })
+    console.log(1212)
+    this.handleGetDepartmentStaff(1)
+    console.log(this.projectInfo.leader.id)
+    console.log(1212)
   }
 }
 </script>

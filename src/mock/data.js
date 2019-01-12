@@ -33,3 +33,22 @@ export const uploadImage = req => {
 export const getOrgData = req => {
   return orgData
 }
+
+export const getBarData = req => {
+  let incomeList = []
+  let expendList = []
+  doCustomTimes(36, () => {
+    incomeList.push(Mock.mock({
+      date: Random.date(),
+      number: Random.float(10000, 30000)
+    }))
+    expendList.push(Mock.mock({
+      date: Random.date(),
+      number: Random.float(5000, 20000)
+    }))
+  })
+  return {
+    'incomeList': incomeList,
+    'expendList': expendList
+  }
+}

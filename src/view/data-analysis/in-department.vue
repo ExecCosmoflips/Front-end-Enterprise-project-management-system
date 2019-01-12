@@ -1,10 +1,8 @@
 <template>
-
       <div>
         <Row :gutter="14" style="margin-top: 14px; ">
           <i-col span="8" class="padding-left-10">
             <Card>
-
               <Row type="flex" justify="center" align="middle" class="countto-page-row">
                 <div class="count-to-con">
                   <count-to :simplify="true" :unit="unit" :end="39800000" count-class="count-text" unit-class="unit-class">
@@ -75,7 +73,6 @@ export default {
   },
   methods: {
     handleDelete (params) {
-      console.log(params)
     },
     exportExcel () {
       this.$refs.tables.exportCsv({

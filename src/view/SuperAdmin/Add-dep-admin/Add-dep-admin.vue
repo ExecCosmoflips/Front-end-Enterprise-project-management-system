@@ -30,10 +30,10 @@
     </FormItem>
     </Form>
 </template>
-<script>import {state, mapActions } from 'vuex'
+<script>import { mapActions } from 'vuex'
 export default {
   name: 'Add-dep-admin',
-  data() {
+  data () {
     return {
       formItem: {
         department: '',
@@ -47,14 +47,14 @@ export default {
   },
   methods: {
     ...mapActions([
-        'getAddDepartmentAdmin'
-      ]
+      'getAddDepartmentAdmin'
+    ]
     ),
-    submit(formItem) {
+    submit (formItem) {
       console.log(this.formItem)
       this.getAddDepartmentAdmin(formItem)
       console.log(formItem)
-    },
+    }
   }
 }
 

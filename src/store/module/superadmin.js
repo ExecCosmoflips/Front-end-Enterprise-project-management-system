@@ -17,7 +17,7 @@ export default {
   actions: {
     handleGetDepartmentList ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        getDepartmentList(id).then(response => {
+        getDepartmentList().then(response => {
           const data = response.data
           commit('setDepartmentList', data)
           resolve()

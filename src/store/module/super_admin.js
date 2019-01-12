@@ -1,5 +1,11 @@
 import {
+<<<<<<< HEAD
   getAAddDepartmentAdmin
+=======
+  getAAddDepartmentAdmin,
+  getAAddTreasurer,
+  SetuppDepartmentName
+>>>>>>> Improve Add-treasurer.vue. Ref #86
 } from "../../api/super_admin"
 import { setToken, getToken } from '@/libs/util'
 
@@ -40,6 +46,30 @@ export default {
         getAAddDepartmentAdmin(formItem).then(JsonResponse =>{
            const data = JsonResponse.data
            alert(data['info'])
+          resolve()
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    getAddTreasurer({state,commit},formItem){
+      console.log(formItem)
+      return new Promise((resolve, reject) =>{
+        getAAddTreasurer(formItem).then(JsonResponse =>{
+          const data = JsonResponse.data
+          alert(data['info'])
+          resolve()
+        }).catch(err => {
+          reject(err)
+        })
+      })
+    },
+    SetupDepartmentName({state,commit},formItem){
+      console.log(formItem)
+      return new Promise((resolve, reject) =>{
+        SetuppDepartmentName(formItem).then(JsonResponse =>{
+          const data = JsonResponse.data
+          alert(data['info'])
           resolve()
         }).catch(err => {
           reject(err)

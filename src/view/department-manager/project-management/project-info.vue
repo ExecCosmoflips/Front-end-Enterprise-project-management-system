@@ -128,7 +128,7 @@ export default {
   name: 'project-info',
   components: {
     ChartPie,
-    ChartBar,
+    ChartBar
   },
   data () {
     return {

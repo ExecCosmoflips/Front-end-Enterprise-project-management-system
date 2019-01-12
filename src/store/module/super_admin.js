@@ -14,7 +14,6 @@ export default {
     gender: ''
   },
 
-  
   mutations: {
     setDepartment (state, department) {
       state.department = department

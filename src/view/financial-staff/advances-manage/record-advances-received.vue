@@ -62,7 +62,6 @@
 </template>
 
 <script>import { mapState, mapActions } from 'vuex'
-import department from "../../../store/module/department";
 export default {
   name: 'record-advances-received',
   data () {
@@ -79,7 +78,7 @@ export default {
   computed: {
     ...mapState({
       projectList: state => state.advance.projectList,
-      departmentList: state => state.advance.departmentList,
+      departmentList: state => state.advance.departmentList
     })
   },
   methods: {

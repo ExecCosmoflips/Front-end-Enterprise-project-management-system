@@ -1,11 +1,7 @@
 import {
-<<<<<<< HEAD
-  getAAddDepartmentAdmin
-=======
   getAAddDepartmentAdmin,
   getAAddTreasurer,
   SetuppDepartmentName
->>>>>>> Improve Add-treasurer.vue. Ref #86
 } from "../../api/super_admin"
 import { setToken, getToken } from '@/libs/util'
 

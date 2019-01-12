@@ -20,7 +20,7 @@
 import Cropper from '@/components/cropper'
 import { uploadImg } from '@/api/data'
 export default {
-  name: 'SuperAdmin',
+  name: 'Setup-Logo',
   components: {
     Cropper
   },

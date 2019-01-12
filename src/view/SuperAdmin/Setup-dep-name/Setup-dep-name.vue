@@ -1,20 +1,21 @@
 <template>
   <Form :model="formItem" :label-width="80">
+
     <FormItem label="设置部门名" aria-setsize="10">
-      <Input v-model="formItem.setup" placeholder="请输入部门名"></Input>
+      <Input v-model="formItem.name" placeholder="请输入新的部门名"></Input>
     </FormItem>
     <FormItem>
-      <Button type="primary" @click="submit(formItem)">Submit</Button>
+      <Button type="primary" @click="submit(formItem)">submit</Button>
     </FormItem>
   </Form>
 </template>
-<script>
+<script>import {state, mapActions } from 'vuex'
 export default {
   name: 'Setup-dep-name',
-  data () {
+  data() {
     return {
       formItem: {
-        setup: ''
+        name: ''
       }
     }
   },
@@ -30,4 +31,5 @@ export default {
     }
   }
 }
+
 </script>

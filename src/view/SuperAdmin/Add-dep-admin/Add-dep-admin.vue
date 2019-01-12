@@ -26,7 +26,7 @@
       </RadioGroup>
     </FormItem>
     <FormItem>
-            <Button type="primary" @click="submit(formItem)">Submit</Button>
+            <Button type="primary" @click="submit(formItem)">submit</Button>
     </FormItem>
     </Form>
 </template>

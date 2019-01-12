@@ -7,9 +7,11 @@
             <cropper
               :src="exampleImageSrc"
               crop-button-text="确认提交"
-              @on-crop="handleCroped"
-            ></cropper>
+              @on-crop="handleCroped"></cropper>
           </div>
+          <Row type="flex" justify="center" class="code-row-bg" id="right">
+            <Button to="./Company-name">设置企业名称</Button>
+          </Row>
         </Card>
       </i-col>
     </Row>

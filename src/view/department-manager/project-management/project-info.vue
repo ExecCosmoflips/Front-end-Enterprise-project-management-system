@@ -1,5 +1,5 @@
 <template>
-  <Tabs value="name1" style="height: 100%">
+  <Tabs value="name1">
     <TabPane label="项目内容" name="name1">
       <div style="padding: 15px">
         <Card :bordered="false">
@@ -15,12 +15,7 @@
           <Row type="flex" justify="space-between" class="code-row-bg">
             <p>成员信息 </p>
             <Button type="primary" @click="modal = true">添加</Button>
-            <Modal
-              v-model="modal"
-              title="添加项目人员"
-              :loading="loading"
-              @on-ok="ok"
-              @on-cancel="cancel">
+            <Modal v-model="modal" title="添加项目人员" :loading="loading" @on-ok="ok" @on-cancel="cancel">
               <Table stripe :columns="columns1" :data="projectInfo.staff"></Table>
             </Modal>
           </Row>
@@ -38,12 +33,7 @@
           </div>
         </Card>
       </div>
-      <Drawer
-        title="Create"
-        v-model="value3"
-        width="720"
-        :mask-closable="false"
-      >
+      <Drawer title="Create" v-model="value3" width="720" :mask-closable="false">
         <Form :model="formData">
           <Row :gutter="32">
             <Col span="12">
@@ -81,22 +71,65 @@
         </div>
       </Drawer>
     </TabPane>
-    <TabPane label="财务记录" name="name2">标签二的内容
-      <Row>
-        <Col span="12">
-          <DatePicker type="date" :options="options3" placeholder="Select date" style="width: 200px"></DatePicker>
-        </Col>
-        <Col span="12">
-          <DatePicker type="date" :options="options4" placeholder="Select date" style="width: 200px"></DatePicker>
-        </Col>
+    <TabPane label="财务记录" name="name2">
+      <Row :gutter="20" style="margin-top: 3px;">
+        <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
+          <Card shadow>
+            <chart-bar style="height: 300px;" :value="barData" text="收入统计图"/>
+          </Card>
+        </i-col>
+        <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
+          <Card shadow>
+            <chart-bar style="height: 300px;" :value="barData" text="支出统计图"/>
+          </Card>
+        </i-col>
+        <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
+          <Card shadow>
+            <chart-bar style="height: 300px;" :value="barData" text="利润统计图"/>
+          </Card>
+        </i-col>
       </Row>
     </TabPane>
-    <TabPane label="标签三" name="name3">标签三的内容</TabPane>
+    <TabPane label="类别明细" name="name3">
+      <Row>
+        <Col span="5">
+          起始日期：<DatePicker type="date" :options="options3" placeholder="Select date" style="width: 200px"></DatePicker>
+        </Col>
+        <Col span="5">
+          截止日期：<DatePicker type="date" :options="options4" placeholder="Select date" style="width: 200px"></DatePicker>
+        </Col>
+        <Col span="2">
+          <Button type="primary">查询</Button>
+        </Col>
+      </Row>
+      <Row :gutter="20" style="margin-top: 5px;">
+        <i-col :md="24" :lg="12" style="margin-bottom: 15px;">
+          <Card shadow>
+            <chart-pie style="height: 220px;" :value="pieData" text="收入类别"></chart-pie>
+          </Card>
+        </i-col>
+        <i-col :md="24" :lg="12" style="margin-bottom: 15px;">
+          <Card shadow>
+            <chart-pie style="height: 220px;" :value="pieData" text="支出类别"></chart-pie>
+          </Card>
+        </i-col>
+      </Row>
+    </TabPane>
   </Tabs>
 </template>
-<script>import { mapState, mapActions } from 'vuex'
+<script>
+
+import { mapState, mapActions } from 'vuex'
+import { ChartPie, ChartBar } from '_c/charts'
+import { getProjectData,
+  getProjectDataPie } from '../../../api/data'
+
 export default {
   name: 'project-info',
+  components: {
+    ChartPie,
+    ChartBar,
+  },
   data () {
     return {
       modal: false,
@@ -128,7 +161,9 @@ export default {
           title: '结束',
           key: 'end_time'
         }
-      ]
+      ],
+      pieData: [],
+      barData: {}
     }
   },
   computed: {
@@ -184,6 +219,10 @@ export default {
   },
   mounted () {
     this.handleProjectInfo(1)
+    this.barData = getProjectData(1)
+
+    this.pieData = getProjectDataPie(1)
+    console.log(this.pieData)
   },
 
   created () {

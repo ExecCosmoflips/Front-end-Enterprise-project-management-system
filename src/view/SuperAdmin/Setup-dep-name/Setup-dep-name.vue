@@ -14,20 +14,20 @@ export default {
   data () {
     return {
       formItem: {
-        setup:''
+        setup: ''
       }
     }
   },
   methods: {
     ...mapActions([
-        'SetupDepartmentName'
-      ]
+      'SetupDepartmentName'
+    ]
     ),
-    submit(formItem) {
+    submit (formItem) {
       console.log(this.formItem)
       this.SetupDepartmentName(formItem)
       console.log(formItem)
-    },
+    }
   }
 }
 </script>

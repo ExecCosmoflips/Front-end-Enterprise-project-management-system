@@ -29,9 +29,9 @@ export default {
   name: 'SuperAdmin',
   data () {
     return {
-    formItem: {
-          radio: '',
-          },
+      formItem: {
+        radio: ''
+      },
       formValidate: {
         username: '',
         name: '',

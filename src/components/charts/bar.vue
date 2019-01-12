@@ -41,10 +41,30 @@ export default {
         yAxis: {
           type: 'value'
         },
+        dataZoom: [
+          {
+            show: true,
+            start: 0,
+            end: 100
+          }
+        ],
         series: [{
           data: seriesData,
-          type: 'bar'
-        }]
+          type: 'bar',
+          markPoint: {
+            data: [
+              { type: 'max', name: '最大值' },
+              { type: 'min', name: '最小值' }
+            ]
+          },
+          markLine: {
+            data: [
+              { type: 'average', name: '平均值' }
+            ]
+          }
+        }],
+        tooltip: {}
+
       }
       this.dom = echarts.init(this.$refs.dom, 'tdTheme')
       this.dom.setOption(option)

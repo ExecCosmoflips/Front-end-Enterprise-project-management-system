@@ -33,7 +33,12 @@ import InforCard from '_c/info-card'
 import CountTo from '_c/count-to'
 import { ChartPie, ChartBar } from '_c/charts'
 import Example from './example.vue'
+import { mapState, mapActions } from 'vuex'
+import { getProjectData,
+  getProjectDataPie } from '../../../api/data'
+
 export default {
+
   name: 'home',
   components: {
     InforCard,
@@ -52,26 +57,28 @@ export default {
         { title: '新增互动', icon: 'md-chatbubbles', count: 12, color: '#E46CBB' },
         { title: '新增页面', icon: 'md-map', count: 14, color: '#9A66E4' }
       ],
-      pieData: [
-        { value: 335, name: '直接访问' },
-        { value: 310, name: '邮件营销' },
-        { value: 234, name: '联盟广告' },
-        { value: 135, name: '视频广告' },
-        { value: 1548, name: '搜索引擎' }
-      ],
-      barData: {
-        Mon: 13253,
-        Tue: 34235,
-        Wed: 26321,
-        Thu: 12340,
-        Fri: 24643,
-        Sat: 1322,
-        Sun: 1324
-      }
+      pieData: [],
+      barData: {}
     }
   },
+  computed: {
+    ...mapState({
+      incomeList: state => state.data.incomeList,
+      expendList: state => state.data.expendList,
+      profitList: state => state.data.profitList
+    })
+  },
+  methods: {
+    ...mapActions([
+      'handleGetProjectDataList'
+    ]
+    )
+  },
   mounted () {
-    //
+    this.barData = getProjectData(1)
+
+    this.pieData = getProjectDataPie(1)
+    console.log(this.pieData)
   }
 }
 </script>

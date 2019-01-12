@@ -44,10 +44,9 @@
       <Button style="margin-left: 8px">Cancel</Button>
   </div>
 
-
 </template>
 <script>
-  import {mapActions} from 'vuex'
+import { mapActions } from 'vuex'
 export default {
   name: 'addreceivable',
   data () {
@@ -67,22 +66,13 @@ export default {
   methods: {
     ...mapActions([
       'Addreceivable'
-  ]
+    ]
     ),
-   submit(formItem) {
-
-     /* let project = this.formItem.project
-      console.log(project)
-      let category = this.formItem.category
-      let title = this.formItem.title
-      let number = this.formItem.number
-      let agreement = this.formItem.agreement*/
-     console.log(this.formItem)
-     this.Addreceivable(formItem)
-     console.log(formItem)
-  },
+    submit (formItem) {
+      this.Addreceivable(formItem)
+    }
 
   }
 
-  }
+}
 </script>

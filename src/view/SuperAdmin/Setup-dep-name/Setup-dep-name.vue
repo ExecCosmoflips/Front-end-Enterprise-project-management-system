@@ -9,10 +9,10 @@
     </FormItem>
   </Form>
 </template>
-<script>import {state, mapActions } from 'vuex'
+<script>import { mapActions } from 'vuex'
 export default {
   name: 'Setup-dep-name',
-  data() {
+  data () {
     return {
       formItem: {
         name: ''

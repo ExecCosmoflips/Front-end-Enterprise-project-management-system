@@ -24,10 +24,10 @@
     </FormItem>
   </Form>
 </template>
-<script>import {state, mapActions } from 'vuex'
+<script>import { mapActions } from 'vuex'
 export default {
   name: 'Add-treasurer',
-  data() {
+  data () {
     return {
       formItem: {
         username: '',
@@ -40,14 +40,14 @@ export default {
   },
   methods: {
     ...mapActions([
-        'getAddTreasurer'
-      ]
+      'getAddTreasurer'
+    ]
     ),
-    submit(formItem) {
+    submit (formItem) {
       console.log(this.formItem)
       this.getAddTreasurer(formItem)
       console.log(formItem)
-    },
+    }
   }
 }
 

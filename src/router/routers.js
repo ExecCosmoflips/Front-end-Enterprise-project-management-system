@@ -113,6 +113,16 @@ export default [
           title: '管理功能'
         },
         component: () => import('@/view/SuperAdmin/Setup-Logo/Setup-Logo.vue')
+      },
+      {
+        path: 'Company-name',
+        name: '设置企业名称',
+        meta: {
+          icon: 'ios-hammer',
+          title: '管理功能',
+          hideInMenu: true
+        },
+        component: () => import('@/view/SuperAdmin/Setup-Logo/Company-name.vue')
       }
     ]
   },

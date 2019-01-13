@@ -9,13 +9,15 @@ import {
   routeEqual,
   getRouteTitleHandled,
   localSave,
-  localRead
+  localRead,
+  IMG_URL
 } from '@/libs/util'
 import beforeClose from '@/router/before-close'
 import { saveErrorLogger } from '@/api/data'
 import router from '@/router'
 import routers from '@/router/routers'
 import config from '@/config'
+import { setLogo, getLogo } from '../../api/app'
 const { homeName } = config
 
 const closePage = (state, route) => {
@@ -33,7 +35,9 @@ export default {
     homeRoute: {},
     local: localRead('local'),
     errorList: [],
-    hasReadErrorPage: false
+    hasReadErrorPage: false,
+    logo: '',
+    name: ''
   },
   getters: {
     menuList: (state, getters, rootState) => getMenuByRouter(routers, rootState.user.access),
@@ -94,6 +98,9 @@ export default {
     },
     setHasReadErrorLoggerStatus (state, status = true) {
       state.hasReadErrorPage = status
+    },
+    setLogo (state, logo) {
+      state.logo = logo
     }
   },
   actions: {
@@ -109,6 +116,22 @@ export default {
       }
       saveErrorLogger(info).then(() => {
         commit('addError', data)
+      })
+    },
+    handleSetLogo ({ commit, state }, formData) {
+      return new Promise((resolve, reject) => {
+        setLogo(formData).then(response => {
+          commit('setLogo', IMG_URL + response.data)
+          resolve()
+        })
+      })
+    },
+    handleGetLogo ({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getLogo().then(response => {
+          commit('setLogo', IMG_URL + response.data)
+          resolve()
+        })
       })
     }
   }

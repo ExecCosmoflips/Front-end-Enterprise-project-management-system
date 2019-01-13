@@ -23,8 +23,6 @@ export default new Vuex.Store({
   modules: {
     user,
     app,
-
-
     department,
     addreceivablee,
     super_admin,

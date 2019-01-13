@@ -41,11 +41,6 @@ export default {
         })
       })
     },
-    message () {
-      this.$router.push({
-        name: 'message_page'
-      })
-    },
     handleClick (name) {
       switch (name) {
         case 'logout': this.logout()

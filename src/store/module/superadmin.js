@@ -1,15 +1,15 @@
 import {
-  getDepartmentList,
+  getDepartmentList
 } from '../../api/superadmin'
 
 export default {
   state: {
-    departmentList: [],
+    departmentList: []
   },
   mutations: {
     setDepartmentList (state, departmentList) {
       state.departmentList = departmentList
-    },
+    }
   },
   getters: {
 

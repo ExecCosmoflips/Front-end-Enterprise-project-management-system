@@ -66,7 +66,8 @@ export default {
       collapsed: false,
       minLogo,
       maxLogo,
-      isFullscreen: false
+      isFullscreen: false,
+      unreadCount: 1
     }
   },
   computed: {
@@ -93,9 +94,6 @@ export default {
     },
     hasReadErrorPage () {
       return this.$store.state.app.hasReadErrorPage
-    },
-    unreadCount () {
-      return this.$store.state.user.unreadCount
     }
   },
   methods: {
@@ -108,8 +106,7 @@ export default {
       'closeTag'
     ]),
     ...mapActions([
-      'handleLogin',
-      'getUnreadMessageCount'
+      'handleLogin'
     ]),
     turnToPage (route) {
       let { name, params, query } = {}
@@ -179,7 +176,6 @@ export default {
       })
     }
     // 获取未读消息条数
-    this.getUnreadMessageCount()
   }
 }
 </script>

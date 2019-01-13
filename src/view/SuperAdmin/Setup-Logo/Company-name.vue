@@ -11,26 +11,26 @@
 </template>
 
 <script>
-    export default {
-        name: "Company-name",
-      data() {
-        return {
-          formItem: {
-            name: ''
-          }
-        }
-      },
-      methods: {
-        submit (formItem) {
-          console.log(this.formItem)
-          this.SetupDepartmentName(formItem)
-          console.log(formItem)
-        },
-        handleReset (name) {
-          this.$refs[name].resetFields()
-        }
+export default {
+  name: 'Company-name',
+  data () {
+    return {
+      formItem: {
+        name: ''
       }
     }
+  },
+  methods: {
+    submit (formItem) {
+      console.log(this.formItem)
+      this.SetupDepartmentName(formItem)
+      console.log(formItem)
+    },
+    handleReset (name) {
+      this.$refs[name].resetFields()
+    }
+  }
+}
 </script>
 
 <style scoped>

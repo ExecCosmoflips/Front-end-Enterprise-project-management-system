@@ -14,6 +14,7 @@
         </Card>
       </i-col>
     </Row>
+    <img :src="url">
   </div>
 </template>
 
@@ -25,7 +26,8 @@ export default {
   data () {
     return {
       qqFans,
-      qqFans2
+      qqFans2,
+      url
     }
   }
 }

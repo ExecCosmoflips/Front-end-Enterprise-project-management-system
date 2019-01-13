@@ -25,9 +25,7 @@ export default {
     ]
     ),
     submit (formItem) {
-      console.log(this.formItem)
       this.SetupDepartmentName(formItem)
-      console.log(formItem)
     }
   }
 }

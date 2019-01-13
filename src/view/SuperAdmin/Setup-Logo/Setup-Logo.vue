@@ -5,6 +5,7 @@
         <Card>
           <div class="cropper-example cropper-first">
             <cropper
+              :insideSrc="exampleImageSrc"
               :src="exampleImageSrc"
               crop-button-text="确认提交"
               @on-crop="handleCroped"></cropper>
@@ -20,7 +21,7 @@
 
 <script>
 import Cropper from '@/components/cropper'
-import { uploadImg } from '@/api/data'
+import { mapState, mapActions } from 'vuex'
 export default {
   name: 'Setup-Logo',
   components: {
@@ -28,17 +29,31 @@ export default {
   },
   data () {
     return {
-      exampleImageSrc: ''
+      exampleImageSrc: '',
+      img: ''
     }
   },
+  computed: {
+    ...mapState({
+      logo: state => state.app.logo
+    })
+  },
   methods: {
+    ...mapActions([
+      'handleSetLogo',
+      'handleGetLogo'
+    ]),
     handleCroped (blob) {
       const formData = new FormData()
-      formData.append('croppedImg', blob)
-      uploadImg(formData).then(() => {
-        this.$Message.success('Upload success~')
-      })
+      formData.append('logo', blob)
+      this.handleSetLogo(formData)
     }
+  },
+  mounted () {
+    this.handleGetLogo().then(res => {
+      this.exampleImageSrc = this.logo
+    }
+    )
   }
 }
 </script>

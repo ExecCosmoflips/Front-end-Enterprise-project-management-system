@@ -9,3 +9,9 @@ export const AAddreceivable = (form) => {
     method: 'post'
   })
 }
+export const putCategoryList = () => {
+  return axios.request({
+    url: '/get_category_list3',
+    method: 'get'
+  })
+}

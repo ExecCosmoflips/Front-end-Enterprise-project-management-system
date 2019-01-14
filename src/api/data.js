@@ -53,6 +53,14 @@ export const getProjectDataBar = (project_id) => {
   })
 }
 
+// export const getProjectDataPie = (project_id) => {
+//   return axios.request({
+//     url: 'get_project_bar_data',
+//     project_id,
+//     method: 'get'
+//   })
+// }
+
 export const getProjectData = (id) => {
   const Random = Mock.Random
   let incomeList = []

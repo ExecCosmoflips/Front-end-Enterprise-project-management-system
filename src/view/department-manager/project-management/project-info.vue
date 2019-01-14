@@ -115,12 +115,14 @@
         </i-col>
       </Row>
     </TabPane>
+    <TabPane label="财务模型" name="name4"><financial></financial></TabPane>
   </Tabs>
 </template>
 <script>
 
 import { mapState, mapActions } from 'vuex'
 import { ChartPie, ChartBar } from '_c/charts'
+import Financial from './financial-model'
 import { getProjectData,
   getProjectDataPie } from '../../../api/data'
 
@@ -128,7 +130,8 @@ export default {
   name: 'project-info',
   components: {
     ChartPie,
-    ChartBar
+    ChartBar,
+    Financial
   },
   data () {
     return {
@@ -137,7 +140,6 @@ export default {
       value3: false,
       formData: {
         name: '',
-        url: '',
         owner: '',
         type: '',
         approver: '',
@@ -227,12 +229,8 @@ export default {
 
   created () {
     this.handleProjectInfo(this.$route.params.id).then(() => {
-
     })
-    console.log(1212)
     this.handleGetDepartmentStaff(1)
-    console.log(this.projectInfo.leader.id)
-    console.log(1212)
   }
 }
 </script>

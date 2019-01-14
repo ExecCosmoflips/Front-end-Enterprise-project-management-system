@@ -1,9 +1,6 @@
-import {
-  login,
-  logout,
-  getUserInfo
-} from '@/api/user'
+
 import { setToken, getToken } from '@/libs/util'
+import { getUserInfo, login, logout, spendRegister } from '../../api/user'
 
 export default {
   state: {
@@ -72,6 +69,7 @@ export default {
     },
     // 获取用户相关信息
     getUserInfo ({ state, commit }) {
+      console.log(12312312312)
       return new Promise((resolve, reject) => {
         try {
           getUserInfo(state.token).then(res => {
@@ -88,6 +86,13 @@ export default {
         } catch (error) {
           reject(error)
         }
+      })
+    },
+    handleSignIn ({ state, commit }, form) {
+      return new Promise((resolve, reject) => {
+        spendRegister(form).then(() => {
+          resolve()
+        })
       })
     }
   }

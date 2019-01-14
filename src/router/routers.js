@@ -301,6 +301,15 @@ export default [
     component: () => import('@/view/login/login')
   },
   {
+    path: '/register',
+    name: '/register',
+    meta: {
+      title: 'Register - 注册',
+      hideInMenu: true
+    },
+    component: () => import('@/view/signin/signin.vue')
+  },
+  {
     path: '/',
     name: '_home',
     redirect: '/home',

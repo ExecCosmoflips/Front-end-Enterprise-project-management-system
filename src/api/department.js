@@ -43,7 +43,6 @@ export const getDepartmentStaff = (department_id, project_id) => {
 }
 
 export const submitProjectInfo = (form) => {
-  console.log(form)
   return axios.request({
     url: '/get_project_info',
     data: qs.stringify(form),

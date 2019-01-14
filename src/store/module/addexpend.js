@@ -6,12 +6,13 @@ import {
 
 export default {
   state: {
-    categoryList: [],
+
     project: '',
     category: '',
     title: '',
     number: '',
-    agreement: ''
+    agreement: '',
+    categoryList: [],
 
   },
   mutations: {

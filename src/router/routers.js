@@ -290,6 +290,21 @@ export default [
       }
     ]
   },
+  {
+    path: '/department-manager/staff-manager',
+    name: 'staff-manager',
+    component: Main,
+    children: [
+      {
+        path: 'staff-list',
+        name: 'staff-list',
+        meta: {
+          title: '人员列表'
+        },
+        component: () => import('@/view/department-manager/staff-management/staff-list')
+      }
+    ]
+  },
 
   {
     path: '/login',

@@ -1,7 +1,15 @@
 <template>
   <div>
     <Row>
-      <i-col span="14">
+      <Form :model="formItem" :label-width="85">
+        <FormItem label="设置企业名称" aria-setsize="10">
+          <Col span="18">
+            <Input v-model="formItem.name" placeholder="请设置企业名称" aria-setsize="10"></Input>
+          </Col>&nbsp;&nbsp;
+            <Button type="primary" @click="submit(formItem)">确认</Button>
+        </FormItem>
+      </Form>
+      <Col span="14" offset="3">
         <Card>
           <div class="cropper-example cropper-first">
             <cropper
@@ -10,11 +18,8 @@
               crop-button-text="确认提交"
               @on-crop="handleCroped"></cropper>
           </div>
-          <Row type="flex" justify="center" class="code-row-bg" id="right">
-            <Button to="./Company-name">设置企业名称</Button>
-          </Row>
         </Card>
-      </i-col>
+      </Col>
     </Row>
   </div>
 </template>
@@ -30,7 +35,11 @@ export default {
   data () {
     return {
       exampleImageSrc: '',
-      img: ''
+      img: '',
+      submit: true,
+      formItem: {
+        name: ''
+      },
     }
   },
   computed: {
@@ -59,6 +68,6 @@ export default {
 </script>
 <style lang="less">
 .cropper-example{
-  height: 400px;
+  height: 350px;
 }
 </style>

@@ -8,6 +8,9 @@ import addreceivablee from './module/addreceivablee'
 import super_admin from './module/super_admin'
 import superadmin from './module/superadmin'
 import data from './module/data'
+import receivable from './module/receivable'
+import check_expend from './module/check_expend'
+import addexpend from './module/addexpend'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -27,7 +30,10 @@ export default new Vuex.Store({
     addreceivablee,
     super_admin,
     data,
-    superadmin
+    superadmin,
+    receivable,
+    check_expend,
+    addexpend
 
   }
 })

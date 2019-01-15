@@ -18,18 +18,18 @@ import parentView from '@/components/parent-view'
  */
 
 export default [
-  {
+    {
     path: '/addreceivable',
-    name: '项目人员',
+    name: '应收功能',
     meta: {
       hideInBread: true,
-      title: '项目人员'
+      title: '应收功能'
 
     },
     component: Main,
     children: [
       {
-        path: '/addreceivable',
+        path: 'addreceivable',
         name: '添加应收',
         meta: {
           icon: 'ios-hammer',
@@ -38,19 +38,32 @@ export default [
         },
         component: () => import('@/view/addreceivable/addreceivable.vue')
       },
+
+
       {
-        path: '/addcost',
-        name: '添加费用',
+        path: 'check_addreceivable',
+        name: '查看应收',
 
         meta: {
-          title: '添加费用',
+          title: '查看应收',
           icon: 'ios-hammer'
 
         },
-        component: () => import('@/view/addcost/addcost.vue')
+        component: () => import('@/view/addreceivable/check_addreceivable.vue')
+      },]
       },
       {
         path: '/addcost',
+        name: '费用功能',
+        meta: {
+          hideInBread: true,
+          title: '费用功能'
+
+        },
+        component: Main,
+        children: [
+      {
+        path: '/check_addcost',
         name: '查看费用',
         meta: {
           title: '查看费用',
@@ -60,12 +73,12 @@ export default [
       },
       {
         path: '/addcost',
-        name: '查看应收',
+        name: '添加费用',
         meta: {
-          title: '查看应收',
+          title: '添加费用',
           icon: 'ios-hammer'
         },
-        component: () => import('@/view/addreceivable/check_addreceivable.vue')
+        component: () => import('@/view/addcost/addcost.vue')
       }
     ]
   },
@@ -469,5 +482,7 @@ export default [
         component: () => import('@/view/staff-use/approve-request.vue')
       }
     ]
-  }
-]
+  },
+  ]
+
+

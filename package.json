@@ -8,8 +8,9 @@
     "dev": "vue-cli-service serve --open",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "test:unit": "vue-cli-service test:unit",
-    "test:e2e": "vue-cli-service test:e2e"
+    "demo01": "mocha --recursive test/demo01",
+    "demo02": "mocha --recursive test/demo02",
+    "test": "mocha --recursive test"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -49,7 +50,8 @@
     "less-loader": "^4.0.5",
     "lint-staged": "^6.0.0",
     "mockjs": "^1.0.1-beta3",
-    "vue-template-compiler": "^2.5.13"
+    "vue-template-compiler": "^2.5.13",
+    "mocha": "^5.2.0"
   },
   "browserslist": [
     "> 1%",

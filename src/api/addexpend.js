@@ -9,9 +9,19 @@ export const Addexpend = (form) => {
     method: 'post'
   })
 }
-export const putCategoryList = () => {
+export const putCategoryList5 = (project_id) => {
   return axios.request({
-    url: '/get_category_list4',
+    params: {
+      project_id
+    },
+    url: '/get_category_for_add_expend',
+    method: 'get'
+  })
+}
+
+export const putProjectList5 = () => {
+  return axios.request({
+    url: '/get_project_list_by_id_for_add_expend',
     method: 'get'
   })
 }

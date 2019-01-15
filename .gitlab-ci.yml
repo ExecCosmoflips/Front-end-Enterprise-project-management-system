@@ -1,31 +1,31 @@
-# Official language image. Look for the different tagged releases at:
-# https://hub.docker.com/r/library/python/tags/
-image: django:latest
-
-
-# Change pip's cache directory to be inside the project directory since we can
-# only cache local items.
-variables:
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-
-# Pip's cache doesn't store the python packages
-# https://pip.pypa.io/en/stable/reference/pip_install/#caching
-#
-# If you want to also cache the installed packages, you have to install
-# them in a virtualenv and cache it as well.
-cache:
-  paths:
-    - .cache/pip
-    - venv/
-
+image: node:latest
 before_script:
-  - python -V               # Print out python version for debugging
-  - pip install virtualenv
-  - virtualenv venv
-  - source venv/bin/activate
-
+  - npm install
+stages:
+  - build
+  - test
+  - deploy
 build:
+  stage: build
   script:
-  - pip install Django
+    - npm run build
+  only:
+    - master
   tags:
-  - my-tag
+    - dev
+test:
+  stage: test
+  script:
+    - npm run test
+  only:
+    - master
+  tags:
+    - docker
+deploy:
+  stage: deploy
+  script:
+    - echo "deploy ..."
+  only:
+    - master
+  tags:
+    - shell

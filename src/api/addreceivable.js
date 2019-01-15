@@ -8,10 +8,20 @@ export const AAddreceivable = (form) => {
     data: qs.stringify(form),
     method: 'post'
   })
-}
-export const putCategoryList = () => {
+}export const putCategoryList4 = (project_id) => {
   return axios.request({
-    url: '/get_category_list3',
+    params: {
+      project_id
+    },
+    url: '/get_category_for_add_receivable',
     method: 'get'
   })
 }
+
+export const putProjectList4 = () => {
+  return axios.request({
+    url: '/get_project_list_by_id_for_add_receivable',
+    method: 'get'
+  })
+}
+

@@ -145,7 +145,7 @@ export default {
   },
   computed: {
     ...mapState({
-      messageUnreadList: state => state.user.messageUnreadList,
+      departmentId: state => state.user.department_id,
       projectOpenList: state => state.department.projectOpenList,
       projectCloseList: state => state.department.projectCloseList
     })
@@ -156,7 +156,6 @@ export default {
     ]
     ),
     viewProjectInfo (id) {
-      console.log(id)
       const route = {
         name: 'project-info',
         params: {
@@ -170,7 +169,7 @@ export default {
     }
   },
   mounted () {
-    this.getProjectList(1)
+    this.getProjectList(this.departmentId)
   }
 }
 </script>

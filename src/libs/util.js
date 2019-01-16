@@ -399,3 +399,39 @@ export const setTitle = (routeItem, vm) => {
   const resTitle = pageTitle ? `${title} - ${pageTitle}` : title
   window.document.title = resTitle
 }
+
+export const handlePieData = (data) => {
+  if (data === []) {
+    return data
+  }
+  let incomePie = []
+  data.sort((a, b) => b.value - a.value)
+  if (data.length >= 10) {
+    for (let i = 0; i < 10; i++) {
+      incomePie.push(
+        {
+          name: data[i].category,
+          value: data[i].value
+        }
+      )
+    }
+    let otherNumber = 0
+    for (let i = 10; i < data.length; i++) {
+      otherNumber += data[i].value
+    }
+    incomePie.push({
+      name: '其他类别',
+      value: otherNumber
+    })
+  } else {
+    for (let i = 0; i < data.length; i++) {
+      incomePie.push(
+        {
+          name: data[i].category,
+          value: data[i].value
+        }
+      )
+    }
+  }
+  return incomePie
+}

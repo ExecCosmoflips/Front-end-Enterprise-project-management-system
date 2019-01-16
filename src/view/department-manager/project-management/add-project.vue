@@ -88,7 +88,6 @@ export default {
     },
     addProject () {
       this.handleAddProject(this.formData)
-      console.log(this.formData)
     }
   },
   mounted () {

@@ -36,9 +36,7 @@ export default {
   methods: {
   },
   mounted () {
-    console.log(this.projectInfo.id)
     getFinancialModel(this.projectInfo.id).then(response => {
-      console.log(response.data)
       let data = response.data
       for (let i = 0; i < data.length; i++) {
         if (data[i].status === 1) {
@@ -47,7 +45,6 @@ export default {
           this.items1.push(data[i])
         }
       }
-      console.log(this.items1)
     })
   }
 }

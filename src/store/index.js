@@ -3,14 +3,13 @@ import Vuex from 'vuex'
 import user from './module/user'
 import app from './module/app'
 import department from './module/department'
-
+import addexpend from './module/addexpend'
 import addreceivablee from './module/addreceivablee'
 import super_admin from './module/super_admin'
 import superadmin from './module/superadmin'
 import data from './module/data'
-import receivable from './module/receivable'
 import check_expend from './module/check_expend'
-import addexpend from './module/addexpend'
+import receivable from './module/receivable'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -31,9 +30,8 @@ export default new Vuex.Store({
     super_admin,
     data,
     superadmin,
-    receivable,
     check_expend,
+    receivable,
     addexpend
-
   }
 })

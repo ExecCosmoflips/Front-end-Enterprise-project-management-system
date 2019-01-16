@@ -3,7 +3,6 @@ import {
   putCategoryList
 } from '../../api/addexpend'
 
-
 export default {
   state: {
 
@@ -12,17 +11,17 @@ export default {
     title: '',
     number: '',
     agreement: '',
-    categoryList: [],
+    categoryList: []
 
   },
   mutations: {
-    setCategoryList(state, categoryList) {
+    setCategoryList (state, categoryList) {
       state.categoryList = categoryList
-    },
+    }
   },
 
   actions: {
-    getCategoryList({state, commit}) {
+    getCategoryList ({ state, commit }) {
       return new Promise((resolve, reject) => {
         putCategoryList().then(response => {
           const data = response.data

@@ -1,27 +1,27 @@
 import axios from '@/libs/api.request'
 import qs from 'qs'
 
-export const AAddreceivable = (form) => {
+export const Addexpend = (form) => {
+  console.log()
   return axios.request({
-    url: 'addreceivable',
+    url: 'addexpend',
     data: qs.stringify(form),
     method: 'post'
   })
 }
-
-export const putCategoryList4 = (project_id) => {
+export const putCategoryList5 = (project_id) => {
   return axios.request({
     params: {
       project_id
     },
-    url: '/get_category_for_add_receivable',
+    url: '/get_category_for_add_expend',
     method: 'get'
   })
 }
 
-export const putProjectList4 = () => {
+export const putProjectList5 = () => {
   return axios.request({
-    url: '/get_project_list_by_id_for_add_receivable',
+    url: '/get_project_list_by_id_for_add_expend',
     method: 'get'
   })
 }

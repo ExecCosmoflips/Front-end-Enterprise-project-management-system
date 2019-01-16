@@ -1,17 +1,17 @@
 import {
-  AAddreceivable,
-  putProjectList4,
-  putCategoryList4
+  Addexpend,
+  putProjectList5,
+  putCategoryList5
+} from '../../api/addexpend'
 
-} from '../../api/addreceivable'
 
 
 export default {
   state: {
+
     categoryList: [],
     projectList:[]
   },
-
   mutations: {
     setCategoryList(state, categoryList) {
       state.categoryList = categoryList
@@ -22,21 +22,20 @@ export default {
   },
 
   actions: {
-    Addreceivable ({ state, commit }, formItem) {
-      console.log(formItem)
+    getCategoryList5({state, commit},project_id) {
       return new Promise((resolve, reject) => {
-        AAddreceivable(formItem).then(JsonResponse => {
-          const data = JsonResponse.data
-          alert(data['info'])
+        putCategoryList5(project_id).then(response => {
+          const data = response.data
+          commit('setCategoryList', data)
           resolve()
-        }).catch(err => {
-          reject(err)
+        }).catch(error => {
+          reject(error)
         })
       })
     },
-    getProjectList4({state,commit}){
+    getProjectList5({state,commit}){
       return new Promise((resolve, reject) => {
-        putProjectList4().then(response => {
+        putProjectList5().then(response => {
           const data = response.data
           commit('setProjectList', data)
           console.log(data.project_id)
@@ -46,16 +45,17 @@ export default {
         })
       })
     },
-    getCategoryList4({state, commit},project_id) {
+    Addexpend ({ state, commit }, formItem) {
+      console.log(formItem)
       return new Promise((resolve, reject) => {
-        putCategoryList4(project_id).then(response => {
-          const data = response.data
-          commit('setCategoryList', data)
+        Addexpend(formItem).then(JsonResponse => {
+          const data = JsonResponse.data
+          alert(data['info'])
           resolve()
-        }).catch(error => {
-          reject(error)
+        }).catch(err => {
+          reject(err)
         })
       })
-    },
+    }
   }
 }

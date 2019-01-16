@@ -24,11 +24,7 @@ export const errorReq = () => {
 }
 
 export const saveErrorLogger = info => {
-  return axios.request({
-    url: 'save_error_logger',
-    data: info,
-    method: 'post'
-  })
+
 }
 
 export const uploadImg = formData => {
@@ -48,16 +44,26 @@ export const getOrgData = () => {
 export const getProjectDataBar = (project_id) => {
   return axios.request({
     url: 'get_project_bar_data',
-    project_id,
+    params: {
+      project_id
+    },
     method: 'get'
   })
 }
+
+// export const getProjectDataPie = (project_id) => {
+//   return axios.request({
+//     url: 'get_project_bar_data',
+//     project_id,
+//     method: 'get'
+//   })
+// }
 
 export const getProjectData = (id) => {
   const Random = Mock.Random
   let incomeList = []
   let expendList = []
-  let barData = []
+  let barData = {}
   doCustomTimes(36, () => {
     incomeList.push(Mock.mock({
       date: Random.date('yy-MM'),

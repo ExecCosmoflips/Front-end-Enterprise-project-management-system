@@ -1,42 +1,31 @@
 import {
-  AAddreceivable,
-  putProjectList4,
-  putCategoryList4
-
-} from '../../api/addreceivable'
-
+  putCategoryList,
+  putExpendInfo,
+  putProjectList
+} from '../../api/check_expend'
 
 export default {
   state: {
     categoryList: [],
+    expendInfo: [],
     projectList:[]
   },
-
   mutations: {
     setCategoryList(state, categoryList) {
       state.categoryList = categoryList
+    },
+    setExpendInfo(state, expendInfo) {
+      state.expendInfo = expendInfo
+
     },
     setProjectList(state, projectList) {
       state.projectList = projectList
     }
   },
-
   actions: {
-    Addreceivable ({ state, commit }, formItem) {
-      console.log(formItem)
+    getProjectList({state,commit}){
       return new Promise((resolve, reject) => {
-        AAddreceivable(formItem).then(JsonResponse => {
-          const data = JsonResponse.data
-          alert(data['info'])
-          resolve()
-        }).catch(err => {
-          reject(err)
-        })
-      })
-    },
-    getProjectList4({state,commit}){
-      return new Promise((resolve, reject) => {
-        putProjectList4().then(response => {
+        putProjectList().then(response => {
           const data = response.data
           commit('setProjectList', data)
           console.log(data.project_id)
@@ -46,9 +35,9 @@ export default {
         })
       })
     },
-    getCategoryList4({state, commit},project_id) {
+    getCategoryList({state, commit},project_id) {
       return new Promise((resolve, reject) => {
-        putCategoryList4(project_id).then(response => {
+        putCategoryList(project_id).then(response => {
           const data = response.data
           commit('setCategoryList', data)
           resolve()
@@ -57,5 +46,18 @@ export default {
         })
       })
     },
+
+    listExpendInfo({state, commit}) {
+      return new Promise((resolve, reject) => {
+        putExpendInfo().then(response => {
+          const data = response.data
+          commit('setExpendInfo', data)
+          resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    }
   }
+
 }

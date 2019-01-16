@@ -1,9 +1,6 @@
-import {
-  login,
-  logout,
-  getUserInfo
-} from '@/api/user'
+
 import { setToken, getToken } from '@/libs/util'
+import { getUserInfo, login, logout, spendRegister } from '../../api/user'
 
 export default {
   state: {
@@ -48,6 +45,7 @@ export default {
         }).then(res => {
           const data = res.data
           commit('setToken', data.token)
+          commit('setUserId', data.id)
           resolve()
         }).catch(err => {
           reject(err)
@@ -57,29 +55,21 @@ export default {
     // 退出登录
     handleLogOut ({ state, commit }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
-          commit('setToken', '')
-          commit('setAccess', [])
-          resolve()
-        }).catch(err => {
-          reject(err)
-        })
-        // 如果你的退出登录无需请求接口，则可以直接使用下面三行代码而无需使用logout调用接口
-        // commit('setToken', '')
-        // commit('setAccess', [])
-        // resolve()
+        commit('setToken', '')
+        commit('setAccess', [])
+        resolve()
       })
     },
     // 获取用户相关信息
     getUserInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         try {
-          getUserInfo(state.token).then(res => {
+          getUserInfo(state.userId).then(res => {
             const data = res.data
             commit('setAvator', data.avator)
             commit('setUserName', data.name)
-            commit('setUserId', data.user_id)
             commit('setAccess', data.access)
+            console.log(data.access)
             commit('setHasGetInfo', true)
             resolve(data)
           }).catch(err => {
@@ -88,6 +78,13 @@ export default {
         } catch (error) {
           reject(error)
         }
+      })
+    },
+    handleSignIn ({ state, commit }, form) {
+      return new Promise((resolve, reject) => {
+        spendRegister(form).then(() => {
+          resolve()
+        })
       })
     }
   }

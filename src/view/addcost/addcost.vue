@@ -1,86 +1,128 @@
 <template>
-  <Form :model="formItem" :label-width="80">
-    <FormItem label="选择部门">
-      <Select v-model="formItem.select1">
-        <Option value="beijing">A部门</Option>
-        <Option value="shanghai">B部门</Option>
-        <Option value="shenzhen">C部门</Option>
-      </Select>
-    </FormItem>
-    <FormItem label="选择项目">
-      <Select v-model="formItem.select2">
-        <Option value="beijing">A项目</Option>
-        <Option value="shanghai">B项目</Option>
-        <Option value="shenzhen">C项目</Option>
-      </Select>
-    </FormItem>
-    <FormItem label="DatePicker">
+  <div>
+    <Form :model="formItem":rules="ruleValidate" :label-width="80" ref="formItem">
       <Row>
-        <Col span="11">
-          <DatePicker type="date" placeholder="Select date" v-model="formItem.date"></DatePicker>
-        </Col>
-        <Col span="2" style="text-align: center">-</Col>
-        <Col span="11">
-          <TimePicker type="time" placeholder="Select time" v-model="formItem.time"></TimePicker>
+        <Col span="16" offset="4">
+      <FormItem label="选择项目" >
+        <Select v-model="formItem.project_id" @on-change="getCategory(formItem.project)">
+          <Option v-for=" item in projectList " :key="item.project_id" :value="item.project_id" > {{ item.project_name }} </Option>
+        </Select>
+
+      </FormItem>
         </Col>
       </Row>
-    </FormItem>
-    <FormItem label="费用类别">
-      <RadioGroup v-model="formItem.radio">
-        <Radio label="male">费用类别1</Radio>
-        <Radio label="female">费用类别2</Radio>
-        <Radio label="female2">费用类别3</Radio>
-      </RadioGroup>
-    </FormItem>
+      <Row>
+        <Col span="16" offset="4">
+      <FormItem label="选择类别" >
+        <Select v-model="formItem.category" >
+          <Option v-for=" item in categoryList " :key="item.category_id" :value="item.category_id" > {{ item.category_name }} </Option>
+        </Select>
+      </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col span="16" offset="4">
+      <FormItem label="费用项标题" aria-setsize="10" prop="title" >
+        <Input v-model="formItem.title" placeholder="Enter something..."></Input>
+      </FormItem>
+        </Col>
+      </Row>
+      <Row>
+        <Col span="16" offset="4">
+      <FormItem label="费用数" prop="number">
+        <Input v-model="formItem.number" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
+      </FormItem>
+        </Col>
+      </Row>
 
-    <FormItem label="费用项标题">
-      <Input v-model="formItem.input" placeholder="Enter something..."></Input>
-    </FormItem>
-    <FormItem label="填写费用">
-      <Input v-model="formItem.textarea" type="textarea" :autosize="{minRows: 2,maxRows: 5}" placeholder="Enter something..."></Input>
-    </FormItem>
-    <FormItem>
-      <Upload
-        multiple
-        type="drag"
-        action="//jsonplaceholder.typicode.com/posts/">
-        <div style="padding: 20px 0">
-          <Icon type="ios-cloud-upload" size="52" style="color: #3399ff"></Icon>
-          <p>点击或拖拽要上传的凭证至此</p>
-        </div>
-      </Upload>
-    </FormItem>
-    <FormItem>
-      <Button type="primary">Submit</Button>
-      <Button style="margin-left: 8px">Cancel</Button>
-    </FormItem>
-
-  </Form>
+      <FormItem prop="image">
+        <i-col span="16" offset="4">
+          <Card style="width:625px">
+            <div class="cropper-example cropper-first">
+              <cropper
+                :insideSrc="formItem.agreement2"
+                :src="formItem.agreement2"
+                crop-button-text="确认凭证"
+                @on-crop="handleCroped"
+              ></cropper>
+            </div>
+          </Card>
+        </i-col>
+      </FormItem>
+    </Form>
+    <Button type="primary" @click=submit(formItem)>Submit</Button>
+    <Button style="margin-left: 8px">Cancel</Button>
+  </div>
 
 </template>
-
 <script>
-export default {
-  name: 'addcost',
-  data () {
-    return {
-      formItem: {
-        input: '',
-        select1: '',
-        select2: '',
-        radio: '',
-        checkbox: [],
-        switch: true,
-        date: '',
-        time: '',
-        slider: [20, 50],
-        textarea: ''
+  import {  mapState,mapActions } from 'vuex'
+  import Cropper from '@/components/cropper'
+  export default {
+    name: 'addcost',
+    components: {
+      Cropper
+    },
+    data () {
+      return {
+        formItem: {
+          project_id:'',
+          category: '',
+          title: '',
+          number: '',
+          agreement2: '',
+          slider: [20, 50],
+          textarea: ''
+         },
+        formData: new FormData(),
+        ruleValidate: {
+
+          title: [{
+            type: 'string', required: true, message: '请选择应收款项', trigger: 'change'
+          }],
+          number: [{
+            required: true, message: '请输入确认收入数', trigger: 'blur'
+          }],
+          image: [{
+            required: true, message: '未上传图片', trigger: 'blur'
+          }]
+        },
       }
+    },
+    computed: {
+      ...mapState({
+        categoryList: state => state.addexpend.categoryList,
+        projectList: state => state.addexpend.projectList
+
+
+      })
+    },
+    methods: {
+      ...mapActions([
+          'Addexpend',
+          'getCategoryList5',
+          'getProjectList5',
+
+        ]
+      ),
+      handleCroped (img) {
+        this.formItem.append('agreement2', img)
+
+        this.$refs['formItem'].validate((valid) => {})
+      },
+      submit (formItem) {
+
+        this.Addexpend(formItem)
+      },
+      getCategory(project_id){
+        this.formItem.project = ''
+        this.getCategoryList5(project_id)
+
+      },
+    },
+    mounted() {
+      this.getProjectList5()
+
     }
   }
-}
 </script>
-
-<style scoped>
-
-</style>

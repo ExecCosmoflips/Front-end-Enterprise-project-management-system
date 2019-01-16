@@ -1,11 +1,13 @@
-import { getProjectData
+import {
+  getProjectData, getProjectDataBar, getProjectDataPie
 } from '../../api/data'
+import Mock from 'mockjs'
 
 export default {
   state: {
-    incomeList: [],
-    expendList: [],
-    profitList: []
+    incomeList: {},
+    expendList: {},
+    profitList: {}
   },
   mutations: {
     setIncomeList (state, incomeList) {
@@ -21,9 +23,17 @@ export default {
   actions: {
     handleGetProjectDataList ({ state, commit }, id) {
       return new Promise((resolve, reject) => {
-        getProjectData(id).then(response => {
+        getProjectDataBar(id).then(response => {
+          console.log(response.data)
+          let barData = {}
           const { incomeList, expendList } = response.data
-          commit('setIncomeList', incomeList)
+          for (let i = 0, len = incomeList.length; i < len; i++) {
+            barData[incomeList[i].date] = incomeList[i].number
+            // this.barData[this.expendList[i].date] = this.expendList[i].number
+            // this.barData[this.profitList[i].date] = this.profitList[i].number
+          }
+          console.log(barData)
+          commit('setIncomeList', barData)
           commit('setExpendList', expendList)
           console.log(incomeList)
           console.log(expendList)

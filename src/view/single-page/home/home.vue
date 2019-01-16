@@ -76,6 +76,7 @@ export default {
   },
   mounted () {
     this.barData = getProjectData(1)
+    console.log(this.barData)
 
     this.pieData = getProjectDataPie(1)
     console.log(this.pieData)

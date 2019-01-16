@@ -1,74 +1,92 @@
 <template>
   <Form :model="formItem" :label-width="80">
-    <FormItem label="选择部门">
-      <Select v-model="formItem.select1">
-        <Option value="beijing">A部门</Option>
-        <Option value="shanghai">B部门</Option>
-        <Option value="shenzhen">C部门</Option>
-      </Select>
-    </FormItem>
     <FormItem label="选择项目">
-      <Select v-model="formItem.select2">
-        <Option value="beijing">A项目</Option>
-        <Option value="shanghai">B项目</Option>
-        <Option value="shenzhen">C项目</Option>
+      <Select v-model="formItem.project" @on-change="getCategory(formItem.project)">
+        <Option v-for=" item in projectList " :key="item.project_id" :value="item.project_id" > {{ item.project_name }} </Option>
       </Select>
     </FormItem>
-    <FormItem label="费用类别">
-      <RadioGroup v-model="formItem.radio">
-        <Radio label="male">费用类别1</Radio>
-        <Radio label="female">费用类别2</Radio>
-        <Radio label="female2">费用类别3</Radio>
-      </RadioGroup>
+    <FormItem label="选择类别">
+      <Select v-model="formItem.category" @on-change="getExpendInfo(formItem.category)">
+        <Option  v-for=" item in categoryList " :key="item.category_id" :value="item.category_id" > {{ item.category_name }} </Option>
+      </Select>
     </FormItem>
+
     <Table style="margin-top: 20px" border :columns="columns" :data="data"></Table>
   </Form>
 </template>
 
 <script>
-export default {
-  name: 'check_addcost',
-  data () {
-    return {
-      formItem: {
-        select1: '',
-        select2: '',
-        radio: ''
+  import { mapState, mapActions } from 'vuex'
+  export default {
+    name: 'check_addcost',
+    data () {
+      return {
+        formItem: {
+          project:'',
+          category: '',
+
+        },
+
+        columns: [
+
+          {
+            title: '项目',
+            key: 'project_name'
+          },
+          {
+            title: '收入类别',
+            key: 'category_name'
+          },
+          {
+            title: '应收标题',
+            key: 'title'
+          },
+          {
+            title: '应收数',
+            key: 'number'
+          }
+
+        ],
+
+        data: []
+      }
+    },
+    computed: {
+      ...mapState({
+        categoryList: state => state.check_expend.categoryList,
+        expendInfo: state => state.check_expend.expendInfo,
+        projectList: state => state.check_expend.projectList
+      })
+    },
+    methods: {
+      ...mapActions([
+        'getProjectList',
+        'getCategoryList',
+        'listExpendInfo',
+
+      ]),
+      getCategory(project_id){
+        this.formItem.project = ''
+        this.getCategoryList(project_id)
+        this.data = this.expendInfo.filter(item => item['project_id'] === project_id)
       },
-      columns: [
-        {
-          title: '部门',
-          key: 'select1'
-        },
-        {
-          title: '项目',
-          key: 'select2'
-        },
-        {
-          title: '费用类别',
-          key: 'radio'
-        },
-        {
-          title: '费用标题',
-          key: 'input'
-        },
-        {
-          title: '费用数',
-          key: 'textarea'
-        }
-      ],
-      data: [
-        {
-          select1: '',
-          select2: '',
-          radio: '',
-          input: '',
-          textarea: ''
-        }
-      ]
+      getExpendInfo(category_id){
+        this.formItem.category = ''
+        this.listExpendInfo()
+        this.data = this.expendInfo.filter(item => item['category_id'] === category_id)
+
+      },
+
+    },
+
+
+    mounted() {
+      this.getProjectList()
+      this.listExpendInfo().then(res => {
+        this.data = res
+      })
     }
   }
-}
 </script>
 
 <style scoped>

@@ -10,6 +10,9 @@ import superadmin from './module/superadmin'
 import data from './module/data'
 import check_expend from './module/check_expend'
 import receivable from './module/receivable'
+import advance from './module/advance'
+import expend from './module/expend'
+import income from './module/income'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -32,6 +35,9 @@ export default new Vuex.Store({
     superadmin,
     check_expend,
     receivable,
-    addexpend
+    addexpend,
+    advance,
+    expend,
+    income
   }
 })

@@ -1,8 +1,11 @@
 import {
+  recordAdvance,
   getDepartmentList,
   getProjectList,
   getReceivableList,
-  listAdvanceInfo
+  listAdvanceInfo,
+  getAdvanceTitleList,
+  getReceivableCategoryList
 } from '../../api/advance'
 
 export default {
@@ -10,7 +13,9 @@ export default {
     departmentList: [],
     projectList: [],
     receivableList: [],
-    advanceInfo: []
+    advanceTitle: [],
+    advanceInfo: [],
+    receivableCategoryList: []
   },
   mutations: {
     setProjectList (state, projectList) {
@@ -24,6 +29,12 @@ export default {
     },
     setAdvanceInfo (state, advanceInfo) {
       state.advanceInfo = advanceInfo
+    },
+    setAdvanceTitleList (state, advanceTitle) {
+      state.advanceTitle = advanceTitle
+    },
+    setReceivableCategoryList (state, receivableCategoryList) {
+      state.receivableCategoryList = receivableCategoryList
     }
   },
   actions: {
@@ -60,12 +71,43 @@ export default {
         })
       })
     },
+    recordAdvance ({ state }, formData) {
+      return new Promise((resolve, reject) => {
+        recordAdvance(formData).then(response => {
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
     listAdvanceInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         listAdvanceInfo().then(response => {
           const data = response.data
           commit('setAdvanceInfo', data)
           resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    getAdvanceTitleList ({ state, commit }, project_id) {
+      return new Promise((resolve, reject) => {
+        getAdvanceTitleList(project_id).then(response => {
+          const data = response.data
+          commit('setAdvanceTitleList', data)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    getReceivableCategoryList ({ state, commit }, receivable_category) {
+      return new Promise((resolve, reject) => {
+        getReceivableCategoryList(receivable_category).then(response => {
+          const data = response.data
+          commit('setReceivableCategoryList', data)
+          resolve()
         }).catch(error => {
           reject(error)
         })

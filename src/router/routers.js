@@ -18,7 +18,7 @@ import parentView from '@/components/parent-view'
  */
 
 export default [
-    {
+  {
     path: '/addreceivable',
     name: '应收功能',
     meta: {
@@ -331,7 +331,7 @@ export default [
   },
   {
     path: '/register',
-    name: '/register',
+    name: 'register',
     meta: {
       title: 'Register - 注册',
       hideInMenu: true
@@ -495,7 +495,5 @@ export default [
         component: () => import('@/view/staff-use/approve-request.vue')
       }
     ]
-  },
-  ]
-
-
+  }
+]

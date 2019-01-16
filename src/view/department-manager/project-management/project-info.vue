@@ -85,17 +85,17 @@
       <Row :gutter="20" style="margin-top: 3px;">
         <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
           <Card shadow>
-            <chart-bar style="height: 300px;" :value="barData" text="收入统计图"/>
+            <chart-bar style="height: 300px;" :value="incomeList" text="收入统计图"/>
           </Card>
         </i-col>
         <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
           <Card shadow>
-            <chart-bar style="height: 300px;" :value="barData" text="支出统计图"/>
+            <chart-bar style="height: 300px;" :value="expendList" text="支出统计图"/>
           </Card>
         </i-col>
         <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
           <Card shadow>
-            <chart-bar style="height: 300px;" :value="barData" text="利润统计图"/>
+            <chart-bar style="height: 300px;" :value="profitList" text="利润统计图"/>
           </Card>
         </i-col>
       </Row>
@@ -115,12 +115,12 @@
       <Row :gutter="20" style="margin-top: 5px;">
         <i-col :md="24" :lg="12" style="margin-bottom: 15px;">
           <Card shadow>
-            <chart-pie style="height: 220px;" :value="pieData" text="收入类别"></chart-pie>
+            <chart-pie style="height: 220px;" :value="incomeList" text="收入类别"></chart-pie>
           </Card>
         </i-col>
         <i-col :md="24" :lg="12" style="margin-bottom: 15px;">
           <Card shadow>
-            <chart-pie style="height: 220px;" :value="pieData" text="支出类别"></chart-pie>
+            <chart-pie style="height: 220px;" :value="expendList" text="支出类别"></chart-pie>
           </Card>
         </i-col>
       </Row>
@@ -133,8 +133,10 @@
 import { mapState, mapActions } from 'vuex'
 import { ChartPie, ChartBar } from '_c/charts'
 import Financial from './financial-model'
-import { getProjectData,
-  getProjectDataPie } from '../../../api/data'
+import {
+  getProjectData, getProjectDataBar,
+  getProjectDataPie
+} from '../../../api/data'
 import {closeProject} from '../../../api/department'
 
 export default {
@@ -185,7 +187,10 @@ export default {
   computed: {
     ...mapState({
       projectInfo: state => state.department.projectInfo,
-      departmentStaff: state => state.department.departmentStaff
+      departmentStaff: state => state.department.departmentStaff,
+      incomeList: state => state.data.incomeList,
+      expendList: state => state.data.expendList,
+      profitList: state => state.data.profitList
       // allStaff: state => state.department.allStaff,
       // projectStaff: state => state.department.projectStaff
     })
@@ -196,7 +201,8 @@ export default {
       'handleGetDepartmentStaff',
       'handleEditProject',
       'handleGetAllStaff',
-      'handleChangeStaff'
+      'handleChangeStaff',
+      'handleGetProjectDataList'
     ]),
     addProjectStaff () {
       this.handleGetAllStaff(1).then((res) => {
@@ -243,7 +249,7 @@ export default {
   },
   mounted () {
     this.handleProjectInfo(1)
-    this.barData = getProjectData(1)
+    this.handleGetProjectDataList(1)
     this.pieData = getProjectDataPie(1)
   },
 

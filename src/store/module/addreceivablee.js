@@ -1,37 +1,27 @@
 import {
   AAddreceivable,
-  putCategoryList
+  putProjectList4,
+  putCategoryList4
+
 } from '../../api/addreceivable'
 
 
 export default {
   state: {
     categoryList: [],
-    project: '',
-    category: '',
-    title: '',
-    number: '',
-    agreement: ''
-
+    projectList:[]
   },
+
   mutations: {
     setCategoryList(state, categoryList) {
       state.categoryList = categoryList
     },
+    setProjectList(state, projectList) {
+      state.projectList = projectList
+    }
   },
 
   actions: {
-    getCategoryList({state, commit}) {
-      return new Promise((resolve, reject) => {
-        putCategoryList().then(response => {
-          const data = response.data
-          commit('setCategoryList', data)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
-      })
-    },
     Addreceivable ({ state, commit }, formItem) {
       console.log(formItem)
       return new Promise((resolve, reject) => {
@@ -43,6 +33,29 @@ export default {
           reject(err)
         })
       })
-    }
+    },
+    getProjectList4({state,commit}){
+      return new Promise((resolve, reject) => {
+        putProjectList4().then(response => {
+          const data = response.data
+          commit('setProjectList', data)
+          console.log(data.project_id)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    getCategoryList4({state, commit},project_id) {
+      return new Promise((resolve, reject) => {
+        putCategoryList4(project_id).then(response => {
+          const data = response.data
+          commit('setCategoryList', data)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
   }
 }

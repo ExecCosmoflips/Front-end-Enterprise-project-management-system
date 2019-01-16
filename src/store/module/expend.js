@@ -1,6 +1,8 @@
 import {
   getConfirmExpendList,
-  listConfirmExpendInfo
+  listConfirmExpendInfo,
+  confirmExpend,
+  getExpendList
 } from '../../api/expend'
 import {
   getDepartmentList,
@@ -12,6 +14,7 @@ export default {
     departmentList: [],
     projectList: [],
     confirmExpendList: [],
+    expendList: [],
     confirmExpendInfo: []
   },
   mutations: {
@@ -23,6 +26,9 @@ export default {
     },
     setConfirmExpendList (state, confirmExpendList) {
       state.confirmExpendList = confirmExpendList
+    },
+    setExpendList (state, expendList) {
+      state.expendList = expendList
     },
     setConfirmExpendInfo (state, confirmExpendInfo) {
       state.confirmExpendInfo = confirmExpendInfo
@@ -62,12 +68,32 @@ export default {
         })
       })
     },
+    getExpendList ({ state, commit }, project_id) {
+      return new Promise((resolve, reject) => {
+        getExpendList(project_id).then(response => {
+          const data = response.data
+          commit('setExpendList', data)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
     listConfirmExpendInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         listConfirmExpendInfo().then(response => {
           const data = response.data
           commit('setConfirmExpendInfo', data)
           resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    confirmExpend ({ state }, formData) {
+      return new Promise((resolve, reject) => {
+        confirmExpend(formData).then(response => {
+          resolve()
         }).catch(error => {
           reject(error)
         })

@@ -4,7 +4,10 @@ import {
 } from '../../api/advance'
 import {
   getIncomeList,
-  listIncomeInfo
+  listIncomeInfo,
+  confirmIncome,
+  getIncomeTitleList,
+  getReceivableCategoryListForIncome
 } from '../../api/income'
 
 export default {
@@ -12,7 +15,9 @@ export default {
     departmentList: [],
     projectList: [],
     incomeList: [],
-    incomeInfo: []
+    incomeTitleList: [],
+    incomeInfo: [],
+    receivableCategoryList: []
   },
   mutations: {
     setProjectList (state, projectList) {
@@ -26,6 +31,12 @@ export default {
     },
     setIncomeInfo (state, incomeInfo) {
       state.incomeInfo = incomeInfo
+    },
+    setIncomeTitleList (state, incomeTitleList) {
+      state.incomeTitleList = incomeTitleList
+    },
+    setReceivableCategoryList (state, receivableCategoryList) {
+      state.receivableCategoryList = receivableCategoryList
     }
   },
   actions: {
@@ -56,7 +67,7 @@ export default {
         getIncomeList(project_id).then(response => {
           const data = response.data
           commit('setIncomeList', data)
-          resolve()
+          resolve(data)
         }).catch(error => {
           reject(error)
         })
@@ -68,6 +79,37 @@ export default {
           const data = response.data
           commit('setIncomeInfo', data)
           resolve(data)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    confirmIncome ({ state }, formData) {
+      return new Promise((resolve, reject) => {
+        confirmIncome(formData).then(response => {
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    getIncomeTitleList ({ state, commit }, project_id) {
+      return new Promise((resolve, reject) => {
+        getIncomeTitleList(project_id).then(response => {
+          const data = response.data
+          commit('setIncomeTitleList', data)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    getReceivableCategoryList ({ state, commit }, receivable_category) {
+      return new Promise((resolve, reject) => {
+        getReceivableCategoryListForIncome(receivable_category).then(response => {
+          const data = response.data
+          commit('setReceivableCategoryList', data)
+          resolve()
         }).catch(error => {
           reject(error)
         })

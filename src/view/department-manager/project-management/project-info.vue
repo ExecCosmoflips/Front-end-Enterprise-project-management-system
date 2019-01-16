@@ -3,20 +3,30 @@
     <TabPane label="项目内容" name="name1">
       <div style="padding: 15px">
         <Card :bordered="false">
-      <p slot="title">
-        {{projectInfo.title}}
-        <a style="float: right" @click="clickEdit">
+      <p slot="title" style="height: 32px; line-height: 32px">
+        <label style="float: left">{{projectInfo.title}}</label>
+        <a style="float: left; margin-left: 20px" @click="clickEdit">
             修改
         </a>
+        <Button type="primary" style="float: right" @click="handleCloseProject" v-if="projectInfo.status === 1">关闭项目</Button>
+        <label v-if="projectInfo.status !== 1" style="color: red; float: right"> 已关闭</label>
       </p>
       <p> 项目介绍</p>
           {{projectInfo.content}}
           <Divider/>
           <Row type="flex" justify="space-between" class="code-row-bg">
             <p>成员信息 </p>
-            <Button type="primary" @click="modal = true">添加</Button>
+            <Button type="primary" @click="addProjectStaff">添加</Button>
             <Modal v-model="modal" title="添加项目人员" :loading="loading" @on-ok="ok" @on-cancel="cancel">
-              <Table stripe :columns="columns1" :data="projectInfo.staff"></Table>
+              <Transfer
+                :data="allStaff"
+                :target-keys="projectStaff"
+                filterable
+                :filter-method="filterMethod"
+                :render-format="render"
+                :titles="titles"
+                @on-change="handleChange"
+              ></Transfer>
             </Modal>
           </Row>
           <div>
@@ -93,10 +103,10 @@
     <TabPane label="类别明细" name="name3">
       <Row>
         <Col span="5">
-          起始日期：<DatePicker type="date" :options="options3" placeholder="Select date" style="width: 200px"></DatePicker>
+          起始日期：<DatePicker type="date"  placeholder="Select date" style="width: 200px"></DatePicker>
         </Col>
         <Col span="5">
-          截止日期：<DatePicker type="date" :options="options4" placeholder="Select date" style="width: 200px"></DatePicker>
+          截止日期：<DatePicker type="date"  placeholder="Select date" style="width: 200px"></DatePicker>
         </Col>
         <Col span="2">
           <Button type="primary">查询</Button>
@@ -125,6 +135,7 @@ import { ChartPie, ChartBar } from '_c/charts'
 import Financial from './financial-model'
 import { getProjectData,
   getProjectDataPie } from '../../../api/data'
+import {closeProject} from '../../../api/department'
 
 export default {
   name: 'project-info',
@@ -135,6 +146,7 @@ export default {
   },
   data () {
     return {
+      titles: ['其他人员', '项目人员'],
       modal: false,
       loading: true,
       value3: false,
@@ -164,45 +176,40 @@ export default {
           key: 'end_time'
         }
       ],
-      pieData: [],
-      barData: {}
+      pieData: {},
+      barData: {},
+      allStaff: [],
+      projectStaff: []
     }
   },
   computed: {
     ...mapState({
       projectInfo: state => state.department.projectInfo,
       departmentStaff: state => state.department.departmentStaff
+      // allStaff: state => state.department.allStaff,
+      // projectStaff: state => state.department.projectStaff
     })
   },
   methods: {
     ...mapActions([
       'handleProjectInfo',
       'handleGetDepartmentStaff',
-      'handleEditProject'
+      'handleEditProject',
+      'handleGetAllStaff',
+      'handleChangeStaff'
     ]),
-    async ok () {
-      this.$refs.setGold.validate(async (valid) => {
-        if (valid) {
-          let res = await this.$ajax.post('/xx/xx', {})
-          if (res.cd === 0) {
-            // doSomething..
-          } else {
-            this.$Message.info(res.msg)
-          }
-        } else {
-          // 对话框校验失败，取消loading状态
-          this.loading = false
-          setTimeout(() => {
-            this.$nextTick(() => {
-              this.loading = true
-            })
-          }, 100)
-        }
+    addProjectStaff () {
+      this.handleGetAllStaff(1).then((res) => {
+        this.modal = true
+        this.allStaff = res.all_staff
+        this.projectStaff = res.project_staff
       })
+    },
+    async ok () {
+      console.log(this.departmentStaff)
     },
     cancel () {
       // 取消后，重置表单
-      this.$refs['setGold'].resetFields()
     },
     editProject (formData) {
       this.handleEditProject(formData).then(() => console.log('ok'))
@@ -217,14 +224,27 @@ export default {
     clickCancle () {
       this.handleProjectInfo(this.$route.params.id)
       this.value3 = false
+    },
+    filterMethod (data, query) {
+      return data.name.indexOf(query) > -1
+    },
+    render (item) {
+      return item.name
+    },
+    handleChange (newTargetKeys, direction, moveKeys) {
+      this.projectStaff = newTargetKeys
+      this.handleChangeStaff(this.projectStaff)
+    },
+    handleCloseProject () {
+      closeProject(this.projectInfo.id).then(() => {
+        this.projectInfo.status = 0
+      })
     }
   },
   mounted () {
     this.handleProjectInfo(1)
     this.barData = getProjectData(1)
-
     this.pieData = getProjectDataPie(1)
-    console.log(this.pieData)
   },
 
   created () {

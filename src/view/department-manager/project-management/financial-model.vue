@@ -2,86 +2,53 @@
 <div>
   <Card :bordered="false">
     <Divider orientation="left">收入类别</Divider>
-    <Form ref="formDynamic" :model="formDynamic" :label-width="80" style="width: 500px">
-      <FormItem
-        v-for="(item, index) in formDynamic.items"
-        v-if="item.status"
-        :key="index"
-        :label="'Item ' + item.index"
-        :prop="'items.' + index + '.value'"
-        :rules="{required: true, message: 'Item ' + item.index +' can not be empty', trigger: 'blur'}">
-        <Row>
-          <Col span="9">
-            <Input type="text" v-model="item.category" placeholder="Enter something..."></Input>
-          </Col>
-          <Col span="9" offset="1">
-            <Input v-model.number="number" type="number" placeholder="Enter something..."></Input>
-          </Col>
-          <Col span="4" offset="1">
-            <Button @click="handleRemove(index)">Delete</Button>
-          </Col>
-        </Row>
-      </FormItem>
-      <FormItem>
-        <Row>
-          <Col span="19">
-            <Button type="dashed" long @click="handleAdd" icon="md-add">Add item</Button>
-          </Col>
-        </Row>
-      </FormItem>
-      <FormItem>
-        <Button type="primary" @click="handleSubmit(formDynamic)">Submit</Button>
-        <Button @click="handleReset('formDynamic')" style="margin-left: 8px">Reset</Button>
-      </FormItem>
-    </Form>
+    <MyForm status="1" :items="items1"></MyForm>
+    <Divider orientation="left">支出类别</Divider>
+    <MyForm status="2" :items="items2"></MyForm>
+  </Card>
+
+  <Card :bordered="false">
   </Card>
 </div>
 </template>
 
 <script>
+import MyForm from './form-model'
+import { getFinancialModel } from '../../../api/department'
+import { mapState } from 'vuex'
 export default {
+  components: {
+    MyForm
+  },
   name: 'Financial',
   data () {
     return {
-      index: 1,
-      formDynamic: {
-        items: [
-          {
-            category: '',
-            number: 0,
-            index: 1,
-            status: 1
-          }
-        ]
-      }
+      items1: [],
+      items2: [],
+      index: '1'
     }
   },
+  computed: {
+    ...mapState({
+      projectInfo: state => state.department.projectInfo
+    })
+  },
   methods: {
-    handleSubmit (name) {
-      console.log(name)
-      this.$refs[name].validate((valid) => {
-        if (valid) {
-          this.$Message.success('Success!')
+  },
+  mounted () {
+    console.log(this.projectInfo.id)
+    getFinancialModel(this.projectInfo.id).then(response => {
+      console.log(response.data)
+      let data = response.data
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].status === 1) {
+          this.items2.push(data[i])
         } else {
-          this.$Message.error('Fail!')
+          this.items1.push(data[i])
         }
-      })
-    },
-    handleReset (name) {
-      this.$refs[name].resetFields()
-    },
-    handleAdd () {
-      this.index++
-      this.formDynamic.items.push({
-        value: '',
-        value2: '',
-        index: this.index,
-        status: 1
-      })
-    },
-    handleRemove (index) {
-      this.formDynamic.items[index].status = 0
-    }
+      }
+      console.log(this.items1)
+    })
   }
 }
 </script>

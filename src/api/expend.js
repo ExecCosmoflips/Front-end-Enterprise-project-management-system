@@ -16,3 +16,21 @@ export const listConfirmExpendInfo = () => {
     method: 'get'
   })
 }
+
+export const confirmExpend = (formData) => {
+  return axios.request({
+    url: '/confirm_expend',
+    data: formData,
+    method: 'post'
+  })
+}
+
+export const getExpendList = (project_id) => {
+  return axios.request({
+    url: '/get_expend_list',
+    params: {
+      project_id
+    },
+    method: 'get'
+  })
+}

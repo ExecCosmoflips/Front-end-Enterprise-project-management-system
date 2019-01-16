@@ -8,6 +8,7 @@
         <Button @click="handleSearch" class="search-btn" type="primary"><Icon type="search"/>搜索</Button>
         <Button @click="handleAddStaff" class="search-btn" type="primary" style="float: right"><Icon type="search"/>添加部门人员</Button>
       </div>
+    <Table stripe :columns="columns1" :data="departmentStaff"></Table>
   </div>
 </template>
 <script>import { mapState, mapActions } from 'vuex'

@@ -3,7 +3,7 @@ import {
   getProjectInfo,
   getDepartmentStaff,
   submitProjectInfo,
-  sendEmail, getAllStaff, changeStaff, getStaffRequest
+  sendEmail, getAllStaff, changeStaff, getStaffRequest, addProject
 } from '../../api/department'
 
 export default {
@@ -42,6 +42,9 @@ export default {
     },
     setStaffRequestList (state, list) {
       state.staffRequest = list
+    },
+    addProject (state, list) {
+      state.projectOpenList.push(list)
     }
   },
   getters: {
@@ -121,6 +124,16 @@ export default {
       return new Promise((resolve, reject) => {
         getStaffRequest(state.department_id).then(response => {
           commit('setStaffRequestList', response.data)
+          resolve()
+        })
+      })
+    },
+    handleAddProject ({ state, commit }, form) {
+      form['department_id'] = 1
+      console.log(form)
+      return new Promise((resolve, reject) => {
+        addProject(form).then(response => {
+          commit('addProject', response.data)
           resolve()
         })
       })

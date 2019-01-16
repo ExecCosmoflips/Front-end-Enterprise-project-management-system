@@ -62,7 +62,6 @@ export default {
     },
     // 获取用户相关信息
     getUserInfo ({ state, commit }) {
-      console.log(12312312312)
       return new Promise((resolve, reject) => {
         try {
           getUserInfo(state.userId).then(res => {
@@ -70,6 +69,7 @@ export default {
             commit('setAvator', data.avator)
             commit('setUserName', data.name)
             commit('setAccess', data.access)
+            console.log(data.access)
             commit('setHasGetInfo', true)
             resolve(data)
           }).catch(err => {

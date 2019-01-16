@@ -39,7 +39,7 @@ export default {
       submit: true,
       formItem: {
         name: ''
-      },
+      }
     }
   },
   computed: {

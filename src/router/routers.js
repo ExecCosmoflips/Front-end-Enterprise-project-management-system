@@ -18,7 +18,7 @@ import parentView from '@/components/parent-view'
  */
 
 export default [
-  {
+    {
     path: '/addreceivable',
     name: '应收功能',
     meta: {
@@ -39,7 +39,6 @@ export default [
         },
         component: () => import('@/view/addreceivable/addreceivable.vue')
       },
-
       {
         path: 'check_addreceivable',
         name: '查看应收',
@@ -496,5 +495,7 @@ export default [
         component: () => import('@/view/staff-use/approve-request.vue')
       }
     ]
-  }
-]
+  },
+  ]
+
+

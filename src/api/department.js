@@ -112,3 +112,11 @@ export const closeProject = (project_id) => {
     method: 'get'
   })
 }
+
+export const addProject = (form) => {
+  return axios.request({
+    url: '/add_project',
+    data: qs.stringify(form),
+    method: 'post'
+  })
+}

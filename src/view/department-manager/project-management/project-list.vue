@@ -1,6 +1,10 @@
 <template>
   <div>
-    <Table stripe :columns="columns1" :data="projectOpenList"></Table>
+    <Tabs value="name1">
+      <TabPane label="进行中" name="name1"><Table stripe :columns="columns1" :data="projectOpenList"></Table></TabPane>
+      <TabPane label="已结束" name="name2"><Table stripe :columns="columns1" :data="projectCloseList"></Table></TabPane>
+      <Button @click="alter(123)" size="" slot="extra" style="margin-right: 40px" type="primary">新项目</Button>
+    </Tabs>
     <Drawer :closable="false" width="640" v-model="value4">
       <p :style="pStyle">人员信息</p>
       <p :style="pStyle">项目负责人</p>

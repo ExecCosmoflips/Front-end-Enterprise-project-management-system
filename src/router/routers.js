@@ -18,12 +18,13 @@ import parentView from '@/components/parent-view'
  */
 
 export default [
-    {
+  {
     path: '/addreceivable',
     name: '应收功能',
     meta: {
       hideInBread: true,
-      title: '应收功能'
+      title: '项目人员',
+      access: ['project_staff', 'admin']
 
     },
     component: Main,
@@ -39,7 +40,6 @@ export default [
         component: () => import('@/view/addreceivable/addreceivable.vue')
       },
 
-
       {
         path: 'check_addreceivable',
         name: '查看应收',
@@ -50,18 +50,18 @@ export default [
 
         },
         component: () => import('@/view/addreceivable/check_addreceivable.vue')
-      },]
-      },
-      {
-        path: '/addcost',
-        name: '费用功能',
-        meta: {
-          hideInBread: true,
-          title: '费用功能'
+      }]
+  },
+  {
+    path: '/addcost',
+    name: '费用功能',
+    meta: {
+      hideInBread: true,
+      title: '费用功能'
 
-        },
-        component: Main,
-        children: [
+    },
+    component: Main,
+    children: [
       {
         path: '/check_addcost',
         name: '查看费用',
@@ -87,7 +87,8 @@ export default [
     name: '管理功能',
     meta: {
       icon: 'md-menu',
-      title: '超级管理员'
+      title: '超级管理员',
+      access: ['super_admin', 'admin']
     },
     component: Main,
     children: [
@@ -156,7 +157,6 @@ export default [
         },
         component: () => import('@/view/data-analysis/show-data.vue')
       }
-
     ]
   },
   {
@@ -164,7 +164,8 @@ export default [
     name: 'advances_manage',
     meta: {
       icon: 'ios-bookmarks',
-      title: '预收管理'
+      title: '预收管理',
+      access: ['finance', 'admin']
     },
     component: Main,
     children: [
@@ -193,7 +194,8 @@ export default [
     name: 'income_manage',
     meta: {
       icon: 'md-add',
-      title: '收入管理'
+      title: '收入管理',
+      access: ['finance', 'admin']
     },
     component: Main,
     children: [
@@ -222,7 +224,8 @@ export default [
     name: 'expend_manage',
     meta: {
       icon: 'md-add',
-      title: '支出管理'
+      title: '支出管理',
+      access: ['finance', 'admin']
     },
     component: Main,
     children: [
@@ -265,6 +268,9 @@ export default [
     path: '/department-manager/project-manager',
     name: 'project-manager',
     component: Main,
+    meta: {
+      access: ['department_manager', 'admin']
+    },
     children: [
       {
         path: 'project-list',
@@ -281,6 +287,9 @@ export default [
     name: 'project-manager',
     component: Main,
     hideInMenu: true,
+    meta: {
+      access: ['department_manager', 'admin']
+    },
     children: [
       {
         path: 'project-info',
@@ -297,6 +306,9 @@ export default [
     path: '/department-manager/staff-manager',
     name: 'staff-manager',
     component: Main,
+    meta: {
+      access: ['department_manager', 'admin']
+    },
     children: [
       {
         path: 'staff-list',
@@ -439,7 +451,8 @@ export default [
     name: '添加部门人员',
     meta: {
       icon: 'md-cloud-upload',
-      title: '数据上传'
+      title: '数据上传',
+      access: ['department_manager', 'admin']
     },
     component: Main,
     children: [
@@ -468,7 +481,8 @@ export default [
     name: '部门人员使用',
     meta: {
       icon: 'md-clipboard',
-      title: '人员使用'
+      title: '人员使用',
+      access: ['department_manager', 'admin']
     },
     component: Main,
     children: [
@@ -482,7 +496,5 @@ export default [
         component: () => import('@/view/staff-use/approve-request.vue')
       }
     ]
-  },
-  ]
-
-
+  }
+]

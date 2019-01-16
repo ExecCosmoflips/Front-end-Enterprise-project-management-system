@@ -61,7 +61,7 @@ export const getProjectData = (id) => {
   const Random = Mock.Random
   let incomeList = []
   let expendList = []
-  let barData = []
+  let barData = {}
   doCustomTimes(36, () => {
     incomeList.push(Mock.mock({
       date: Random.date('yy-MM'),

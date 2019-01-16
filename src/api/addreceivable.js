@@ -2,13 +2,14 @@ import axios from '@/libs/api.request'
 import qs from 'qs'
 
 export const AAddreceivable = (form) => {
-  console.log()
   return axios.request({
     url: 'addreceivable',
     data: qs.stringify(form),
     method: 'post'
   })
-}export const putCategoryList4 = (project_id) => {
+}
+
+export const putCategoryList4 = (project_id) => {
   return axios.request({
     params: {
       project_id
@@ -24,4 +25,3 @@ export const putProjectList4 = () => {
     method: 'get'
   })
 }
-

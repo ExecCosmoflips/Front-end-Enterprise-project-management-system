@@ -49,3 +49,66 @@ export const submitProjectInfo = (form) => {
     method: 'post'
   })
 }
+
+export const sendEmail = (email, department_id) => {
+  return axios.request({
+    url: '/send_email',
+    params: {
+      email,
+      department_id
+    },
+    method: 'get'
+  })
+}
+
+export const getAllStaff = (project_id) => {
+  return axios.request({
+    url: '/get_all_staff',
+    params: {
+      project_id
+    },
+    method: 'get'
+  })
+}
+
+export const changeStaff = (project_id, staff_list) => {
+  const data = {
+    project_id,
+    staff_list: staff_list + ''
+  }
+  return axios.request({
+    url: '/change_staff',
+    data: qs.stringify(data),
+    method: 'post'
+  })
+}
+
+export const getStaffRequest = (department_id) => {
+  return axios.request({
+    url: '/user_request',
+    params: {
+      department_id: 1
+    },
+    method: 'get'
+  })
+}
+
+export const getFinancialModel = (project_id) => {
+  return axios.request({
+    url: '/get_financial',
+    params: {
+      project_id
+    },
+    method: 'get'
+  })
+}
+
+export const closeProject = (project_id) => {
+  return axios.request({
+    url: '/close_project',
+    params: {
+      project_id
+    },
+    method: 'get'
+  })
+}

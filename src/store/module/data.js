@@ -1,5 +1,7 @@
-import { getProjectData
+import {
+  getProjectData, getProjectDataPie
 } from '../../api/data'
+import Mock from 'mockjs'
 
 export default {
   state: {

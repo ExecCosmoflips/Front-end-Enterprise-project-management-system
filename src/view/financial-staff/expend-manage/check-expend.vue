@@ -28,74 +28,74 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
-  export default {
-    name: 'check-expend',
-    data () {
-      return {
-        formItem: {
-          department: '',
-          project: '',
-          category: ''
+import { mapState, mapActions } from 'vuex'
+export default {
+  name: 'check-expend',
+  data () {
+    return {
+      formItem: {
+        department: '',
+        project: '',
+        category: ''
+      },
+      columns: [
+        {
+          title: '部门',
+          key: 'department_name'
         },
-        columns: [
-          {
-            title: '部门',
-            key: 'department_name'
-          },
-          {
-            title: '项目',
-            key: 'project_title'
-          },
-          {
-            title: '费用名',
-            key: 'confirm_expend_title'
-          },
-          {
-            title: '确认费用数目',
-            key: 'confirm_expend_num'
-          }
-        ],
-        data2: []
-      }
-    },
-    computed: {
-      ...mapState({
-        projectList: state => state.advance.projectList,
-        departmentList: state => state.advance.departmentList,
-        confirmExpendList: state => state.expend.confirmExpendList,
-        confirmExpendInfo: state => state.expend.confirmExpendInfo
-      })
-    },
-    methods: {
-      ...mapActions([
-        'getProjectList',
-        'getDepartmentList',
-        'getConfirmExpendList',
-        'listConfirmExpendInfo'
-      ]),
-      getProject (department_id) {
-        this.formItem.project = ''
-        this.getProjectList(department_id)
-        this.listConfirmExpendInfo().then(res => {
-          this.data2 = this.confirmExpendInfo.filter(item => item['department_id'] === department_id)
-        })
-      },
-      getConfirmExpend (project_id) {
-        this.formItem.category = ''
-        this.getConfirmExpendList(project_id)
-        this.data2 = this.confirmExpendInfo.filter(item => item['project_id'] === project_id)
-      },
-      getConfirmExpendInfo (confirm_expend_id) {
-        this.listConfirmExpendInfo()
-        this.data2 = this.confirmExpendInfo.filter(item => item['confirm_expend_id'] === confirm_expend_id)
-      }
-    },
-    mounted () {
-      this.getDepartmentList()
-      this.listConfirmExpendInfo().then(res => {
-        this.data2 = res
-      })
+        {
+          title: '项目',
+          key: 'project_title'
+        },
+        {
+          title: '费用名',
+          key: 'confirm_expend_title'
+        },
+        {
+          title: '确认费用数目',
+          key: 'confirm_expend_num'
+        }
+      ],
+      data2: []
     }
+  },
+  computed: {
+    ...mapState({
+      projectList: state => state.advance.projectList,
+      departmentList: state => state.advance.departmentList,
+      confirmExpendList: state => state.expend.confirmExpendList,
+      confirmExpendInfo: state => state.expend.confirmExpendInfo
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getProjectList',
+      'getDepartmentList',
+      'getConfirmExpendList',
+      'listConfirmExpendInfo'
+    ]),
+    getProject (department_id) {
+      this.formItem.project = ''
+      this.getProjectList(department_id)
+      this.listConfirmExpendInfo().then(res => {
+        this.data2 = this.confirmExpendInfo.filter(item => item['department_id'] === department_id)
+      })
+    },
+    getConfirmExpend (project_id) {
+      this.formItem.category = ''
+      this.getConfirmExpendList(project_id)
+      this.data2 = this.confirmExpendInfo.filter(item => item['project_id'] === project_id)
+    },
+    getConfirmExpendInfo (confirm_expend_id) {
+      this.listConfirmExpendInfo()
+      this.data2 = this.confirmExpendInfo.filter(item => item['confirm_expend_id'] === confirm_expend_id)
+    }
+  },
+  mounted () {
+    this.getDepartmentList()
+    this.listConfirmExpendInfo().then(res => {
+      this.data2 = res
+    })
   }
+}
 </script>

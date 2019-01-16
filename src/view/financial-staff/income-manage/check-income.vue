@@ -28,83 +28,83 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
-  export default {
-    name: 'check-income',
-    data () {
-      return {
-        formItem: {
-          department: '',
-          project: '',
-          receivable_title: ''
+import { mapState, mapActions } from 'vuex'
+export default {
+  name: 'check-income',
+  data () {
+    return {
+      formItem: {
+        department: '',
+        project: '',
+        receivable_title: ''
+      },
+      columns: [
+        {
+          title: '部门',
+          key: 'department_name'
         },
-        columns: [
-          {
-            title: '部门',
-            key: 'department_name'
-          },
-          {
-            title: '项目',
-            key: 'project_title'
-          },
-          {
-            title: '应收类别',
-            key: 'receivable_category'
-          },
-          {
-            title: '应收款项',
-            key: 'receivable_title'
-          },
-          {
-            title: '确认收入数',
-            key: 'confirm_num'
-          },
-          {
-            title: '开票税率',
-            key: 'tax_rate'
-          }
-        ],
-        data3: []
-      }
-    },
-    computed: {
-      ...mapState({
-        projectList: state => state.advance.projectList,
-        departmentList: state => state.advance.departmentList,
-        incomeList: state => state.income.incomeList,
-        incomeInfo: state => state.income.incomeInfo
-      })
-    },
-    methods: {
-      ...mapActions([
-        'getProjectList',
-        'getDepartmentList',
-        'getIncomeList',
-        'listIncomeInfo'
-      ]),
-      getProject (department_id) {
-        this.formItem.project = ''
-        this.formItem.receivable_title = ''
-        this.getProjectList(department_id)
-        this.listIncomeInfo().then(res => {
-          this.data3 = this.incomeInfo.filter(item => item['department_id'] === department_id)
-        })
-      },
-      getIncome (project_id) {
-        this.formItem.receivable_title = ''
-        this.getIncomeList(project_id)
-        this.data3 = this.incomeInfo.filter(item => item['project_id'] === project_id)
-      },
-      getIncomeInfoByTitle (receivable_title) {
-        this.listIncomeInfo()
-        this.data3 = this.incomeInfo.filter(item => item['receivable_title'] === receivable_title)
-      }
-    },
-    mounted () {
-      this.getDepartmentList()
-      this.listIncomeInfo().then(res => {
-        this.data3 = res
-      })
+        {
+          title: '项目',
+          key: 'project_title'
+        },
+        {
+          title: '应收类别',
+          key: 'receivable_category'
+        },
+        {
+          title: '应收款项',
+          key: 'receivable_title'
+        },
+        {
+          title: '确认收入数',
+          key: 'confirm_num'
+        },
+        {
+          title: '开票税率',
+          key: 'tax_rate'
+        }
+      ],
+      data3: []
     }
+  },
+  computed: {
+    ...mapState({
+      projectList: state => state.advance.projectList,
+      departmentList: state => state.advance.departmentList,
+      incomeList: state => state.income.incomeList,
+      incomeInfo: state => state.income.incomeInfo
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getProjectList',
+      'getDepartmentList',
+      'getIncomeList',
+      'listIncomeInfo'
+    ]),
+    getProject (department_id) {
+      this.formItem.project = ''
+      this.formItem.receivable_title = ''
+      this.getProjectList(department_id)
+      this.listIncomeInfo().then(res => {
+        this.data3 = this.incomeInfo.filter(item => item['department_id'] === department_id)
+      })
+    },
+    getIncome (project_id) {
+      this.formItem.receivable_title = ''
+      this.getIncomeList(project_id)
+      this.data3 = this.incomeInfo.filter(item => item['project_id'] === project_id)
+    },
+    getIncomeInfoByTitle (receivable_title) {
+      this.listIncomeInfo()
+      this.data3 = this.incomeInfo.filter(item => item['receivable_title'] === receivable_title)
+    }
+  },
+  mounted () {
+    this.getDepartmentList()
+    this.listIncomeInfo().then(res => {
+      this.data3 = res
+    })
   }
+}
 </script>

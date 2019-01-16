@@ -2,7 +2,8 @@ import {
   getProjectList,
   getProjectInfo,
   getDepartmentStaff,
-  submitProjectInfo
+  submitProjectInfo,
+  sendEmail, getAllStaff, changeStaff, getStaffRequest
 } from '../../api/department'
 
 export default {
@@ -10,7 +11,10 @@ export default {
     projectOpenList: [],
     projectCloseList: [],
     projectInfo: {},
-    departmentStaff: {}
+    departmentStaff: [],
+    allStaff: [],
+    projectStaff: [],
+    staffRequest: []
   },
   mutations: {
     setProjectOpenList (state, projectOpenList) {
@@ -29,6 +33,15 @@ export default {
     },
     setDepartmentStaff (state, staffs) {
       state.departmentStaff = staffs
+    },
+    setAllStaff (state, list) {
+      state.allStaff = list
+    },
+    setProjectStaff (state, list) {
+      state.projectStaff = list
+    },
+    setStaffRequestList (state, list) {
+      state.staffRequest = list
     }
   },
   getters: {
@@ -39,8 +52,10 @@ export default {
       return new Promise((resolve, reject) => {
         getProjectList(id).then(response => {
           const data = response.data
-          commit('setProjectOpenList', data.sort((a, b) => new Date(b.begin_time) - new Date(a.begin_time)))
-          commit('setProjectCloseList', data.sort((a, b) => new Date(b.end_time) - new Date(a.end_time)))
+          let openList = data.filter((item) => item.status === 1)
+          let closeList = data.filter((item) => item.status !== 1)
+          commit('setProjectOpenList', openList.sort((a, b) => new Date(b.begin_time) - new Date(a.begin_time)))
+          commit('setProjectCloseList', closeList.sort((a, b) => new Date(b.end_time) - new Date(a.end_time)))
           resolve()
         }).catch(error => {
           reject(error)
@@ -73,6 +88,39 @@ export default {
         submitProjectInfo(form).then(response => {
           const data = response.data
           commit('setProjectInfo', data)
+          resolve()
+        })
+      })
+    },
+    handleSendEmail ({ state, commit }, email) {
+      return new Promise((resolve, reject) => {
+        sendEmail(email, 1).then(response => {
+          resolve()
+        }
+        )
+      })
+    },
+    handleGetAllStaff ({ state, commit }, project_id) {
+      return new Promise((resolve, reject) => {
+        getAllStaff(project_id).then(response => {
+          commit('setAllStaff', response.data['all_staff'])
+          commit('setProjectStaff', response.data['project_staff'])
+          resolve(response.data)
+        })
+      })
+    },
+    handleChangeStaff ({ state, commit }, staff_list) {
+      return new Promise((resolve, reject) => {
+        changeStaff(state.projectInfo.id, staff_list).then(response => {
+          commit('setProjectInfo', response.data)
+          resolve()
+        })
+      })
+    },
+    handleGetStaffRequest ({ state, commit }) {
+      return new Promise((resolve, reject) => {
+        getStaffRequest(state.department_id).then(response => {
+          commit('setStaffRequestList', response.data)
           resolve()
         })
       })

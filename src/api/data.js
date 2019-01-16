@@ -44,7 +44,9 @@ export const getOrgData = () => {
 export const getProjectDataBar = (project_id) => {
   return axios.request({
     url: 'get_project_bar_data',
-    project_id,
+    params: {
+      project_id
+    },
     method: 'get'
   })
 }

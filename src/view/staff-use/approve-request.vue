@@ -54,7 +54,6 @@ export default {
               class: 'myclass',
               on: {
                 click: () => {
-                  console.log(123)
                 }
               }
             }, params.row.project.department.name)

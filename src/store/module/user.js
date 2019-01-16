@@ -1,6 +1,6 @@
 
 import { setToken, getToken } from '@/libs/util'
-import { getUserInfo, login, logout, spendRegister } from '../../api/user'
+import { getUserInfo, login, spendRegister } from '../../api/user'
 
 export default {
   state: {
@@ -9,7 +9,8 @@ export default {
     avatorImgPath: '',
     token: getToken(),
     access: '',
-    hasGetInfo: false
+    hasGetInfo: false,
+    department_id: ''
   },
   mutations: {
     setAvator (state, avatorPath) {
@@ -30,6 +31,9 @@ export default {
     },
     setHasGetInfo (state, status) {
       state.hasGetInfo = status
+    },
+    setDepartmentId (state, department_id) {
+      state.department_id = department_id
     }
   },
   getters: {
@@ -44,7 +48,7 @@ export default {
           password
         }).then(res => {
           const data = res.data
-          commit('setToken', data.token)
+          commit('setToken', data.id)
           commit('setUserId', data.id)
           resolve()
         }).catch(err => {
@@ -64,12 +68,12 @@ export default {
     getUserInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         try {
-          getUserInfo(state.userId).then(res => {
+          getUserInfo(state.token).then(res => {
             const data = res.data
             commit('setAvator', data.avator)
             commit('setUserName', data.name)
             commit('setAccess', data.access)
-            console.log(data.access)
+            commit('setDepartmentId', data.department_id)
             commit('setHasGetInfo', true)
             resolve(data)
           }).catch(err => {

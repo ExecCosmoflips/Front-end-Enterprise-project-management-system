@@ -60,7 +60,6 @@ export default {
   methods: {
     handleSubmit (name) {
       let data = this.formDynamic.items
-      console.log(data)
       axios.request({
         url: 'add_financial',
         params: {
@@ -75,7 +74,6 @@ export default {
     },
     handleAdd () {
       this.index++
-      console.log(this.status)
       this.formDynamic.items.push({
         id: 0,
         name: '',

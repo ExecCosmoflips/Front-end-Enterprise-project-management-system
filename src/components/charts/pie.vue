@@ -1,5 +1,6 @@
 <template>
-  <div ref="dom" class="charts chart-pie"></div>
+  <div ref="dom" class="charts chart-pie">
+  </div>
 </template>
 
 <script>
@@ -14,9 +15,21 @@ export default {
     text: String,
     subtext: String
   },
+  watch: {
+    value: {
+      handler: function (val, oldval) {
+        this.option.series[0].data = this.value
+        this.dom = echarts.init(this.$refs.dom, 'tdTheme')
+        this.dom.setOption(this.option, true)
+      }
+    },
+    deep: true,
+    immediate: true
+  },
   data () {
     return {
-      dom: null
+      dom: null,
+      option: {}
     }
   },
   methods: {
@@ -27,7 +40,7 @@ export default {
   mounted () {
     this.$nextTick(() => {
       let legend = this.value.map(_ => _.name)
-      let option = {
+      this.option = {
         title: {
           text: this.text,
           subtext: this.subtext,
@@ -59,7 +72,7 @@ export default {
         ]
       }
       this.dom = echarts.init(this.$refs.dom, 'tdTheme')
-      this.dom.setOption(option)
+      this.dom.setOption(this.option, true)
       on(window, 'resize', this.resize)
     })
   },

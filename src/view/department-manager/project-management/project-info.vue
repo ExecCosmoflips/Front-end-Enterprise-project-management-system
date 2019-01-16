@@ -85,7 +85,7 @@
       <Row :gutter="20" style="margin-top: 3px;">
         <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
           <Card shadow>
-            <chart-bar style="height: 300px;" :value="incomeList" text="收入统计图"/>
+            <chart-bar style="height: 300px;" :value="incomeBar" text="收入统计图"/>
           </Card>
         </i-col>
         <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
@@ -102,28 +102,18 @@
     </TabPane>
     <TabPane label="类别明细" name="name3">
       <Row>
-        <Col span="5">
-          起始日期：<DatePicker type="date"  placeholder="Select date" style="width: 200px"></DatePicker>
+        <Col span="8">
+          起始日期：<DatePicker type="date" format="yyyy-MM-dd" v-model="begin_time" placeholder="Select date" style="width: 200px" ></DatePicker>
         </Col>
-        <Col span="5">
-          截止日期：<DatePicker type="date"  placeholder="Select date" style="width: 200px"></DatePicker>
+        <Col span="8">
+          截止日期：<DatePicker type="date" format="yyyy-MM-dd" v-model="end_time" placeholder="Select date" style="width: 200px"></DatePicker>
         </Col>
-        <Col span="2">
-          <Button type="primary">查询</Button>
+        <Col span="4">
+          <Button type="primary" @click="queryByTime">查询</Button>
         </Col>
       </Row>
-      <Row :gutter="20" style="margin-top: 5px;">
-        <i-col :md="24" :lg="12" style="margin-bottom: 15px;">
-          <Card shadow>
-            <chart-pie style="height: 220px;" :value="incomeList" text="收入类别"></chart-pie>
-          </Card>
-        </i-col>
-        <i-col :md="24" :lg="12" style="margin-bottom: 15px;">
-          <Card shadow>
-            <chart-pie style="height: 220px;" :value="expendList" text="支出类别"></chart-pie>
-          </Card>
-        </i-col>
-      </Row>
+      <PieData :incomePie="incomePie" title="收入类别"></PieData>
+      <PieData :incomePie="expendPie" title="支出类别"></PieData>
     </TabPane>
     <TabPane label="财务模型" name="name4"><financial></financial></TabPane>
   </Tabs>
@@ -133,21 +123,21 @@
 import { mapState, mapActions } from 'vuex'
 import { ChartPie, ChartBar } from '_c/charts'
 import Financial from './financial-model'
-import {
-  getProjectData, getProjectDataBar,
-  getProjectDataPie
-} from '../../../api/data'
-import {closeProject} from '../../../api/department'
+import { closeProject } from '../../../api/department'
+import PieData from './pie-data'
 
 export default {
   name: 'project-info',
   components: {
     ChartPie,
     ChartBar,
-    Financial
+    Financial,
+    PieData
   },
   data () {
     return {
+      begin_time: '',
+      end_time: '',
       titles: ['其他人员', '项目人员'],
       modal: false,
       loading: true,
@@ -178,19 +168,23 @@ export default {
           key: 'end_time'
         }
       ],
-      pieData: {},
-      barData: {},
+      incomeBar: [],
+      expendBar: [],
+      profitBar: [],
       allStaff: [],
       projectStaff: []
     }
   },
   computed: {
     ...mapState({
+      departmentId: state => state.user.department_id,
       projectInfo: state => state.department.projectInfo,
       departmentStaff: state => state.department.departmentStaff,
       incomeList: state => state.data.incomeList,
       expendList: state => state.data.expendList,
-      profitList: state => state.data.profitList
+      profitList: state => state.data.profitList,
+      incomePie: state => state.data.incomePie,
+      expendPie: state => state.data.expendPie
       // allStaff: state => state.department.allStaff,
       // projectStaff: state => state.department.projectStaff
     })
@@ -202,10 +196,11 @@ export default {
       'handleEditProject',
       'handleGetAllStaff',
       'handleChangeStaff',
-      'handleGetProjectDataList'
+      'handleGetProjectDataList',
+      'handleGetPieData'
     ]),
     addProjectStaff () {
-      this.handleGetAllStaff(1).then((res) => {
+      this.handleGetAllStaff(this.departmentId).then((res) => {
         this.modal = true
         this.allStaff = res.all_staff
         this.projectStaff = res.project_staff
@@ -225,10 +220,8 @@ export default {
       this.value3 = true
       this.formData = this.projectInfo
       this.formData.leader = this.projectInfo.leader.id
-      console.log(this.projectInfo.leader)
     },
     clickCancle () {
-      this.handleProjectInfo(this.$route.params.id)
       this.value3 = false
     },
     filterMethod (data, query) {
@@ -245,18 +238,29 @@ export default {
       closeProject(this.projectInfo.id).then(() => {
         this.projectInfo.status = 0
       })
+    },
+    queryByTime () {
+      const data = {
+        project_id: 1,
+        begin_time: this.begin_time,
+        end_time: this.end_time
+      }
+      console.log(this.incomePie)
+      this.handleGetPieData(data)
     }
   },
   mounted () {
-    this.handleProjectInfo(1)
-    this.handleGetProjectDataList(1)
-    this.pieData = getProjectDataPie(1)
-  },
-
-  created () {
-    this.handleProjectInfo(this.$route.params.id).then(() => {
+    this.handleProjectInfo(this.$route.params.id)
+    this.handleGetProjectDataList(this.$route.params.id)
+    this.handleGetPieData({
+      project_id: this.projectInfo.id,
+      begin_time: '',
+      end_time: ''
     })
-    this.handleGetDepartmentStaff(1)
+    this.handleGetDepartmentStaff(this.departmentId)
+    this.incomeBar = this.incomeList
+    // this.handleProjectInfo(this.$route.params.id).then(() => {
+    // })
   }
 }
 </script>

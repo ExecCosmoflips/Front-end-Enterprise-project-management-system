@@ -41,6 +41,33 @@
               </li>
             </ul>
           </div>
+          <Row type="flex" justify="space-between" class="code-row-bg">
+            <p>部门外成员 </p>
+            <Button type="primary" @click="addProjectOutStaff">添加</Button>
+            <Modal v-model="modal" title="添加项目人员" :loading="loading" @on-ok="ok" @on-cancel="cancel">
+              <Transfer
+                :data="allStaff"
+                :target-keys="projectStaff"
+                filterable
+                :filter-method="filterMethod"
+                :render-format="render"
+                :titles="titles"
+                @on-change="handleOutChange"
+              ></Transfer>
+            </Modal>
+          </Row>
+          <div>
+            <ul style="list-style-type:none">
+              <li v-for="site in projectInfo.out_staff" :key="site.id">
+                <Row type="flex" justify="space-between" class="code-row-bg">
+                  <Col span="4">姓名：{{ site.profile.name }}</Col>
+                  <Col span="4">部门编号：{{ site.profile.department_id }}</Col>
+                  <Col span="4">权限：{{ site.profile.access }}</Col>
+                  <Col span="4">部门名：{{ site.profile.department_name }}</Col>
+                </Row>
+              </li>
+            </ul>
+          </div>
         </Card>
       </div>
       <Drawer title="Create" v-model="value3" width="720" :mask-closable="false">
@@ -140,6 +167,8 @@ export default {
       end_time: '',
       titles: ['其他人员', '项目人员'],
       modal: false,
+      outModal: false,
+      outLoading: true,
       loading: true,
       value3: false,
       formData: {
@@ -172,7 +201,9 @@ export default {
       expendBar: [],
       profitBar: [],
       allStaff: [],
-      projectStaff: []
+      projectStaff: [],
+      outStaff: [],
+      projectOutStaff: []
     }
   },
   computed: {
@@ -197,10 +228,19 @@ export default {
       'handleGetAllStaff',
       'handleChangeStaff',
       'handleGetProjectDataList',
-      'handleGetPieData'
+      'handleGetPieData',
+      'handleGetOutStaff',
+      'handleChangeOutStaff'
     ]),
     addProjectStaff () {
       this.handleGetAllStaff(this.$route.params.id).then((res) => {
+        this.modal = true
+        this.allStaff = res.all_staff
+        this.projectStaff = res.project_staff
+      })
+    },
+    addProjectOutStaff () {
+      this.handleGetOutStaff(this.$route.params.id).then((res) => {
         this.modal = true
         this.allStaff = res.all_staff
         this.projectStaff = res.project_staff
@@ -239,6 +279,16 @@ export default {
       }
       this.handleChangeStaff(data)
     },
+    handleOutChange (newTargetKeys, direction, moveKeys) {
+      this.projectStaff = newTargetKeys
+      const data = {
+        'projectStaff': newTargetKeys,
+        'direction': direction,
+        'moveKeys': moveKeys
+      }
+      this.handleChangeOutStaff(data)
+    },
+
     handleCloseProject () {
       closeProject(this.projectInfo.id).then(() => {
         this.projectInfo.status = 0

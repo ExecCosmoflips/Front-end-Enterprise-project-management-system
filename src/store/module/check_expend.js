@@ -8,22 +8,21 @@ export default {
   state: {
     categoryList: [],
     expendInfo: [],
-    projectList:[]
+    projectList: []
   },
   mutations: {
-    setCategoryList(state, categoryList) {
+    setCategoryList (state, categoryList) {
       state.categoryList = categoryList
     },
-    setExpendInfo(state, expendInfo) {
+    setExpendInfo (state, expendInfo) {
       state.expendInfo = expendInfo
-
     },
-    setProjectList(state, projectList) {
+    setProjectList (state, projectList) {
       state.projectList = projectList
     }
   },
   actions: {
-    getProjectList({state,commit}){
+    getProjectList ({ state, commit }) {
       return new Promise((resolve, reject) => {
         putProjectList().then(response => {
           const data = response.data
@@ -35,7 +34,7 @@ export default {
         })
       })
     },
-    getCategoryList({state, commit},project_id) {
+    getCategoryList ({ state, commit }, project_id) {
       return new Promise((resolve, reject) => {
         putCategoryList(project_id).then(response => {
           const data = response.data
@@ -47,7 +46,7 @@ export default {
       })
     },
 
-    listExpendInfo({state, commit}) {
+    listExpendInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         putExpendInfo().then(response => {
           const data = response.data

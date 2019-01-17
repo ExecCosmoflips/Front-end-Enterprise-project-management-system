@@ -5,18 +5,17 @@ import {
 
 } from '../../api/addreceivable'
 
-
 export default {
   state: {
     categoryList: [],
-    projectList:[]
+    projectList: []
   },
 
   mutations: {
-    setCategoryList(state, categoryList) {
+    setCategoryList (state, categoryList) {
       state.categoryList = categoryList
     },
-    setProjectList(state, projectList) {
+    setProjectList (state, projectList) {
       state.projectList = projectList
     }
   },
@@ -34,7 +33,7 @@ export default {
         })
       })
     },
-    getProjectList4({state,commit}){
+    getProjectList4 ({ state, commit }) {
       return new Promise((resolve, reject) => {
         putProjectList4().then(response => {
           const data = response.data
@@ -46,7 +45,7 @@ export default {
         })
       })
     },
-    getCategoryList4({state, commit},project_id) {
+    getCategoryList4 ({ state, commit }, project_id) {
       return new Promise((resolve, reject) => {
         putCategoryList4(project_id).then(response => {
           const data = response.data
@@ -56,6 +55,6 @@ export default {
           reject(error)
         })
       })
-    },
+    }
   }
 }

@@ -76,103 +76,103 @@
 </template>
 
 <script>
-  import Cropper from '@/components/cropper'
-  import { mapState, mapActions } from 'vuex'
-  export default {
-    name: 'record-advances-received',
-    components: {
-      Cropper
-    },
-    data () {
-      return {
-        formItem: {
-          department: '',
-          project: '',
-          receivable_title: '',
-          receivable_category: '',
-          advance_number: '',
-          advance_agreement: '',
-          image: ''
-        },
-        formData: new FormData(),
-        ruleValidate: {
-          department: [{
-            type: 'number', required: true, message: '请选择部门', trigger: 'change'
-          }],
-          project: [{
-            type: 'number', required: true, message: '请选择项目', trigger: 'change'
-          }],
-          receivable_category: [{
-            type: 'string', required: true, message: '请选择应收类别', trigger: 'change'
-          }],
-          receivable_title: [{
-            type: 'string', required: true, message: '请选择应收款项', trigger: 'change'
-          }],
-          advance_number: [{
-            required: true, message: '请输入预收款数', trigger: 'blur'
-          }],
-          image: [{
-            required: true, message: '未上传图片', trigger: 'blur'
-          }]
-        }
+import Cropper from '@/components/cropper'
+import { mapState, mapActions } from 'vuex'
+export default {
+  name: 'record-advances-received',
+  components: {
+    Cropper
+  },
+  data () {
+    return {
+      formItem: {
+        department: '',
+        project: '',
+        receivable_title: '',
+        receivable_category: '',
+        advance_number: '',
+        advance_agreement: '',
+        image: ''
+      },
+      formData: new FormData(),
+      ruleValidate: {
+        department: [{
+          type: 'number', required: true, message: '请选择部门', trigger: 'change'
+        }],
+        project: [{
+          type: 'number', required: true, message: '请选择项目', trigger: 'change'
+        }],
+        receivable_category: [{
+          type: 'string', required: true, message: '请选择应收类别', trigger: 'change'
+        }],
+        receivable_title: [{
+          type: 'string', required: true, message: '请选择应收款项', trigger: 'change'
+        }],
+        advance_number: [{
+          required: true, message: '请输入预收款数', trigger: 'blur'
+        }],
+        image: [{
+          required: true, message: '未上传图片', trigger: 'blur'
+        }]
       }
-    },
-    computed: {
-      ...mapState({
-        projectList: state => state.advance.projectList,
-        departmentList: state => state.advance.departmentList,
-        receivableCategoryList: state => state.advance.receivableCategoryList,
-        receivableList: state => state.advance.receivableList
-      })
-    },
-    methods: {
-      ...mapActions([
-        'getProjectList',
-        'getDepartmentList',
-        'getReceivableList',
-        'recordAdvance',
-        'getReceivableCategoryList'
-      ]),
-      getProject (department_id) {
-        this.formItem.project = ''
-        this.formItem.receivable_category = ''
-        this.formItem.receivable_title = ''
-        this.getProjectList(department_id)
-      },
-      getReceivable (project_id) {
-        this.formItem.receivable_category = ''
-        this.formItem.receivable_title = ''
-        this.getReceivableList(project_id)
-      },
-      getReceivableTitle (receivable_category) {
-        this.getReceivableCategoryList(receivable_category)
-      },
-      handleCroped (img) {
-        this.formData.append('advance_agreement', img)
-        this.formItem.image = '1'
-        this.$refs['formItem'].validate((valid) => {})
-      },
-      record (project_id, receivable_category, receivable_title, advance_number, formData, formItem) {
-        this.$refs[formItem].validate((valid) => {
-          if (valid) {
-            formData.append('project_id', project_id)
-            formData.append('receivable_category', receivable_category)
-            formData.append('receivable_title', receivable_title)
-            formData.append('advance_number', advance_number)
-            this.recordAdvance(formData)
-            this.$Message.success('Success!')
-            const router = {
-              name: 'check_advances_received_page'
-            }
-            this.$router.push(router)
-          } else {
-            this.$Message.error('Fail!')
-          }
-        })
-      }
-    },
-    mounted () {
-      this.getDepartmentList()
     }
+  },
+  computed: {
+    ...mapState({
+      projectList: state => state.advance.projectList,
+      departmentList: state => state.advance.departmentList,
+      receivableCategoryList: state => state.advance.receivableCategoryList,
+      receivableList: state => state.advance.receivableList
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getProjectList',
+      'getDepartmentList',
+      'getReceivableList',
+      'recordAdvance',
+      'getReceivableCategoryList'
+    ]),
+    getProject (department_id) {
+      this.formItem.project = ''
+      this.formItem.receivable_category = ''
+      this.formItem.receivable_title = ''
+      this.getProjectList(department_id)
+    },
+    getReceivable (project_id) {
+      this.formItem.receivable_category = ''
+      this.formItem.receivable_title = ''
+      this.getReceivableList(project_id)
+    },
+    getReceivableTitle (receivable_category) {
+      this.getReceivableCategoryList(receivable_category)
+    },
+    handleCroped (img) {
+      this.formData.append('advance_agreement', img)
+      this.formItem.image = '1'
+      this.$refs['formItem'].validate((valid) => {})
+    },
+    record (project_id, receivable_category, receivable_title, advance_number, formData, formItem) {
+      this.$refs[formItem].validate((valid) => {
+        if (valid) {
+          formData.append('project_id', project_id)
+          formData.append('receivable_category', receivable_category)
+          formData.append('receivable_title', receivable_title)
+          formData.append('advance_number', advance_number)
+          this.recordAdvance(formData)
+          this.$Message.success('Success!')
+          const router = {
+            name: 'check_advances_received_page'
+          }
+          this.$router.push(router)
+        } else {
+          this.$Message.error('Fail!')
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getDepartmentList()
   }
+}
 </script>

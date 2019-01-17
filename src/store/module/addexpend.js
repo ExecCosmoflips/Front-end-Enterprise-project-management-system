@@ -4,25 +4,23 @@ import {
   putCategoryList5
 } from '../../api/addexpend'
 
-
-
 export default {
   state: {
 
     categoryList: [],
-    projectList:[]
+    projectList: []
   },
   mutations: {
-    setCategoryList(state, categoryList) {
+    setCategoryList (state, categoryList) {
       state.categoryList = categoryList
     },
-    setProjectList(state, projectList) {
+    setProjectList (state, projectList) {
       state.projectList = projectList
     }
   },
 
   actions: {
-    getCategoryList5({state, commit},project_id) {
+    getCategoryList5 ({ state, commit }, project_id) {
       return new Promise((resolve, reject) => {
         putCategoryList5(project_id).then(response => {
           const data = response.data
@@ -33,7 +31,7 @@ export default {
         })
       })
     },
-    getProjectList5({state,commit}){
+    getProjectList5 ({ state, commit }) {
       return new Promise((resolve, reject) => {
         putProjectList5().then(response => {
           const data = response.data

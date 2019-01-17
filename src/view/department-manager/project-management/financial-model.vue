@@ -2,9 +2,9 @@
 <div>
   <Card :bordered="false">
     <Divider orientation="left">收入类别</Divider>
-    <MyForm status="1" :items="items1"></MyForm>
+    <MyForm status="1" :items="items1" title="收入名"></MyForm>
     <Divider orientation="left">支出类别</Divider>
-    <MyForm status="2" :items="items2"></MyForm>
+    <MyForm status="2" :items="items2" title="支出名"></MyForm>
   </Card>
 
   <Card :bordered="false">
@@ -20,12 +20,16 @@ export default {
   components: {
     MyForm
   },
+  props: {
+    project_id: {
+      type: Number
+    }
+  },
   name: 'Financial',
   data () {
     return {
       items1: [],
-      items2: [],
-      index: '1'
+      items2: []
     }
   },
   computed: {
@@ -36,13 +40,13 @@ export default {
   methods: {
   },
   mounted () {
-    getFinancialModel(this.projectInfo.id).then(response => {
+    getFinancialModel(this.project_id).then(response => {
       let data = response.data
       for (let i = 0; i < data.length; i++) {
         if (data[i].status === 1) {
-          this.items2.push(data[i])
-        } else {
           this.items1.push(data[i])
+        } else {
+          this.items2.push(data[i])
         }
       }
     })

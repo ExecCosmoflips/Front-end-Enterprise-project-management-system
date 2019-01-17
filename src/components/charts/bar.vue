@@ -5,7 +5,8 @@
 <script>
 import echarts from 'echarts'
 import tdTheme from './theme.json'
-import { on, off } from '@/libs/tools'
+import { off, on } from '@/libs/tools'
+
 echarts.registerTheme('tdTheme', tdTheme)
 export default {
   name: 'ChartBar',
@@ -14,9 +15,22 @@ export default {
     text: String,
     subtext: String
   },
+  watch: {
+    value: {
+      handler: function (val, oldval) {
+        this.option.xAxis.data = Object.keys(this.value)
+        this.option.series[0].data = Object.values(this.value)
+        this.dom = echarts.init(this.$refs.dom, 'tdTheme')
+        this.dom.setOption(this.option, true)
+      }
+    },
+    deep: true,
+    immediate: true
+  },
   data () {
     return {
-      dom: null
+      dom: null,
+      option: {}
     }
   },
   methods: {
@@ -28,7 +42,7 @@ export default {
     this.$nextTick(() => {
       let xAxisData = Object.keys(this.value)
       let seriesData = Object.values(this.value)
-      let option = {
+      this.option = {
         title: {
           text: this.text,
           subtext: this.subtext,

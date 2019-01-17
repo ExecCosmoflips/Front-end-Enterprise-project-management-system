@@ -84,109 +84,109 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
-  import Cropper from '@/components/cropper'
-  export default {
-    name: 'confirm-income',
-    components: {
-      Cropper
-    },
-    data () {
-      return {
-        formItem: {
-          department: '',
-          project: '',
-          receivable_category: '',
-          receivable_title: '',
-          confirm_num: '',
-          tax_rate: '',
-          income_agreement: '',
-          image: ''
-        },
-        formData: new FormData(),
-        ruleValidate: {
-          department: [{
-            type: 'number', required: true, message: '请选择部门', trigger: 'change'
-          }],
-          project: [{
-            type: 'number', required: true, message: '请选择项目', trigger: 'change'
-          }],
-          receivable_category: [{
-            type: 'string', required: true, message: '请选择应收类别', trigger: 'change'
-          }],
-          receivable_title: [{
-            type: 'string', required: true, message: '请选择应收款项', trigger: 'change'
-          }],
-          confirm_num: [{
-            required: true, message: '请输入确认收入数', trigger: 'blur'
-          }],
-          tax_rate: [{
-            required: true, message: '请输入开票税率', trigger: 'blur'
-          }],
-          image: [{
-            required: true, message: '未上传图片', trigger: 'blur'
-          }]
-        }
+import { mapState, mapActions } from 'vuex'
+import Cropper from '@/components/cropper'
+export default {
+  name: 'confirm-income',
+  components: {
+    Cropper
+  },
+  data () {
+    return {
+      formItem: {
+        department: '',
+        project: '',
+        receivable_category: '',
+        receivable_title: '',
+        confirm_num: '',
+        tax_rate: '',
+        income_agreement: '',
+        image: ''
+      },
+      formData: new FormData(),
+      ruleValidate: {
+        department: [{
+          type: 'number', required: true, message: '请选择部门', trigger: 'change'
+        }],
+        project: [{
+          type: 'number', required: true, message: '请选择项目', trigger: 'change'
+        }],
+        receivable_category: [{
+          type: 'string', required: true, message: '请选择应收类别', trigger: 'change'
+        }],
+        receivable_title: [{
+          type: 'string', required: true, message: '请选择应收款项', trigger: 'change'
+        }],
+        confirm_num: [{
+          required: true, message: '请输入确认收入数', trigger: 'blur'
+        }],
+        tax_rate: [{
+          required: true, message: '请输入开票税率', trigger: 'blur'
+        }],
+        image: [{
+          required: true, message: '未上传图片', trigger: 'blur'
+        }]
       }
-    },
-    computed: {
-      ...mapState({
-        projectList: state => state.advance.projectList,
-        departmentList: state => state.advance.departmentList,
-        receivableCategoryList: state => state.advance.receivableCategoryList,
-        incomeList: state => state.income.incomeList
-      })
-    },
-    methods: {
-      ...mapActions([
-        'getProjectList',
-        'getDepartmentList',
-        'getIncomeList',
-        'confirmIncome',
-        'getReceivableCategoryList'
-      ]),
-      getProject (department_id) {
-        this.formItem.project = ''
-        this.formItem.receivable_category = ''
-        this.formItem.receivable_title = ''
-        this.getProjectList(department_id)
-      },
-      getIncome (project_id) {
-        this.formItem.receivable_category = ''
-        this.formItem.receivable_title = ''
-        this.getIncomeList(project_id)
-      },
-      getReceivableTitle (receivable_category) {
-        this.formItem.receivable_title = ''
-        this.getReceivableCategoryList(receivable_category)
-      },
-      handleCroped (img) {
-        this.formData.append('income_agreement', img)
-        this.formItem.image = '1'
-        this.$refs['formItem'].validate((valid) => {})
-      },
-      recordIncome (project_id, receivable_id, receivable_title, confirm_num, tax_rate, formData, formItem) {
-        this.$refs[formItem].validate((valid) => {
-          if (valid) {
-            formData.append('project_id', project_id)
-            formData.append('receivable_id', receivable_id)
-            formData.append('receivable_title', receivable_title)
-            formData.append('confirm_num', confirm_num)
-            formData.append('tax_rate', tax_rate)
-            this.confirmIncome(formData)
-            this.$Message.success('Success!')
-            const router = {
-              name: 'check_income_page'
-            }
-            this.$router.push(router)
-          } else {
-            this.$Message.error('Fail!')
-          }
-        })
-      }
-    },
-    mounted () {
-      this.getDepartmentList()
     }
+  },
+  computed: {
+    ...mapState({
+      projectList: state => state.advance.projectList,
+      departmentList: state => state.advance.departmentList,
+      receivableCategoryList: state => state.advance.receivableCategoryList,
+      incomeList: state => state.income.incomeList
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getProjectList',
+      'getDepartmentList',
+      'getIncomeList',
+      'confirmIncome',
+      'getReceivableCategoryList'
+    ]),
+    getProject (department_id) {
+      this.formItem.project = ''
+      this.formItem.receivable_category = ''
+      this.formItem.receivable_title = ''
+      this.getProjectList(department_id)
+    },
+    getIncome (project_id) {
+      this.formItem.receivable_category = ''
+      this.formItem.receivable_title = ''
+      this.getIncomeList(project_id)
+    },
+    getReceivableTitle (receivable_category) {
+      this.formItem.receivable_title = ''
+      this.getReceivableCategoryList(receivable_category)
+    },
+    handleCroped (img) {
+      this.formData.append('income_agreement', img)
+      this.formItem.image = '1'
+      this.$refs['formItem'].validate((valid) => {})
+    },
+    recordIncome (project_id, receivable_id, receivable_title, confirm_num, tax_rate, formData, formItem) {
+      this.$refs[formItem].validate((valid) => {
+        if (valid) {
+          formData.append('project_id', project_id)
+          formData.append('receivable_id', receivable_id)
+          formData.append('receivable_title', receivable_title)
+          formData.append('confirm_num', confirm_num)
+          formData.append('tax_rate', tax_rate)
+          this.confirmIncome(formData)
+          this.$Message.success('Success!')
+          const router = {
+            name: 'check_income_page'
+          }
+          this.$router.push(router)
+        } else {
+          this.$Message.error('Fail!')
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getDepartmentList()
   }
+}
 </script>

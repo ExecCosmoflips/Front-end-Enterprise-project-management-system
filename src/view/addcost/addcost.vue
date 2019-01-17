@@ -1,13 +1,12 @@
 <template>
   <div>
-    <Form :model="formItem":rules="ruleValidate" :label-width="80" ref="formItem">
+    <Form :model="formItem" :rules="ruleValidate" :label-width="80" ref="formItem">
       <Row>
         <Col span="16" offset="4">
       <FormItem label="选择项目" >
         <Select v-model="formItem.project_id" @on-change="getCategory(formItem.project)">
           <Option v-for=" item in projectList " :key="item.project_id" :value="item.project_id" > {{ item.project_name }} </Option>
         </Select>
-
       </FormItem>
         </Col>
       </Row>
@@ -56,73 +55,69 @@
 
 </template>
 <script>
-  import {  mapState,mapActions } from 'vuex'
-  import Cropper from '@/components/cropper'
-  export default {
-    name: 'addcost',
-    components: {
-      Cropper
-    },
-    data () {
-      return {
-        formItem: {
-          project_id:'',
-          category: '',
-          title: '',
-          number: '',
-          agreement2: '',
-          slider: [20, 50],
-          textarea: ''
-         },
-        formData: new FormData(),
-        ruleValidate: {
+import { mapState, mapActions } from 'vuex'
+import Cropper from '@/components/cropper'
+export default {
+  name: 'addcost',
+  components: {
+    Cropper
+  },
+  data () {
+    return {
+      formItem: {
+        project_id: '',
+        category: '',
+        title: '',
+        number: '',
+        agreement2: '',
+        slider: [20, 50],
+        textarea: ''
+      },
+      formData: new FormData(),
+      ruleValidate: {
 
-          title: [{
-            type: 'string', required: true, message: '请选择应收款项', trigger: 'change'
-          }],
-          number: [{
-            required: true, message: '请输入确认收入数', trigger: 'blur'
-          }],
-          image: [{
-            required: true, message: '未上传图片', trigger: 'blur'
-          }]
-        },
+        title: [{
+          type: 'string', required: true, message: '请选择应收款项', trigger: 'change'
+        }],
+        number: [{
+          required: true, message: '请输入确认收入数', trigger: 'blur'
+        }],
+        image: [{
+          required: true, message: '未上传图片', trigger: 'blur'
+        }]
       }
-    },
-    computed: {
-      ...mapState({
-        categoryList: state => state.addexpend.categoryList,
-        projectList: state => state.addexpend.projectList
-
-
-      })
-    },
-    methods: {
-      ...mapActions([
-          'Addexpend',
-          'getCategoryList5',
-          'getProjectList5',
-
-        ]
-      ),
-      handleCroped (img) {
-        this.formItem.append('agreement2', img)
-
-        this.$refs['formItem'].validate((valid) => {})
-      },
-      submit (formItem) {
-
-        this.Addexpend(formItem)
-      },
-      getCategory(project_id){
-        this.formItem.project = ''
-        this.getCategoryList5(project_id)
-
-      },
-    },
-    mounted() {
-      this.getProjectList5()
-
     }
+  },
+  computed: {
+    ...mapState({
+      categoryList: state => state.addexpend.categoryList,
+      projectList: state => state.addexpend.projectList
+
+    })
+  },
+  methods: {
+    ...mapActions([
+      'Addexpend',
+      'getCategoryList5',
+      'getProjectList5'
+
+    ]
+    ),
+    handleCroped (img) {
+      this.formItem.append('agreement2', img)
+
+      this.$refs['formItem'].validate((valid) => {})
+    },
+    submit (formItem) {
+      this.Addexpend(formItem)
+    },
+    getCategory (project_id) {
+      this.formItem.project = ''
+      this.getCategoryList5(project_id)
+    }
+  },
+  mounted () {
+    this.getProjectList5()
   }
+}
 </script>

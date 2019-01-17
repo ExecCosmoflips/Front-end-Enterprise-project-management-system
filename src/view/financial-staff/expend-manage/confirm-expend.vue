@@ -66,94 +66,94 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
-  import Cropper from '@/components/cropper'
-  export default {
-    name: 'comfirm-expend',
-    components: {
-      Cropper
-    },
-    data () {
-      return {
-        formItem: {
-          department: '',
-          project: '',
-          title: '',
-          expend_num: '',
-          expend_agreement: '',
-          image: ''
-        },
-        formData: new FormData(),
-        ruleValidate: {
-          department: [{
-            type: 'number', required: true, message: '请选择部门', trigger: 'change'
-          }],
-          project: [{
-            type: 'number', required: true, message: '请选择项目', trigger: 'change'
-          }],
-          title: [{
-            type: 'number', required: true, message: '请选择费用', trigger: 'change'
-          }],
-          expend_num: [{
-            required: true, message: '请输入确认支出数', trigger: 'blur'
-          }],
-          image: [{
-            required: true, message: '未上传图片', trigger: 'blur'
-          }]
-        }
+import { mapState, mapActions } from 'vuex'
+import Cropper from '@/components/cropper'
+export default {
+  name: 'comfirm-expend',
+  components: {
+    Cropper
+  },
+  data () {
+    return {
+      formItem: {
+        department: '',
+        project: '',
+        title: '',
+        expend_num: '',
+        expend_agreement: '',
+        image: ''
+      },
+      formData: new FormData(),
+      ruleValidate: {
+        department: [{
+          type: 'number', required: true, message: '请选择部门', trigger: 'change'
+        }],
+        project: [{
+          type: 'number', required: true, message: '请选择项目', trigger: 'change'
+        }],
+        title: [{
+          type: 'number', required: true, message: '请选择费用', trigger: 'change'
+        }],
+        expend_num: [{
+          required: true, message: '请输入确认支出数', trigger: 'blur'
+        }],
+        image: [{
+          required: true, message: '未上传图片', trigger: 'blur'
+        }]
       }
-    },
-    computed: {
-      ...mapState({
-        projectList: state => state.advance.projectList,
-        departmentList: state => state.advance.departmentList,
-        expendList: state => state.expend.expendList
-      })
-    },
-    methods: {
-      ...mapActions([
-        'getProjectList',
-        'getDepartmentList',
-        'getExpendList',
-        'confirmExpend'
-      ]),
-      getProject (department_id) {
-        this.formItem.project = ''
-        this.formItem.title = ''
-        this.getProjectList(department_id)
-      },
-      getConfirmExpend (project_id) {
-        this.formItem.title = ''
-        this.getExpendList(project_id)
-      },
-      handleCroped (img) {
-        this.formData.append('expend_agreement', img)
-        this.formItem.image = '1'
-        this.$refs['formItem'].validate((valid) => {})
-      },
-      recordExpend (project_id, confirm_expend_title, confirm_expend_num,
-                    formData, formItem) {
-        this.$refs[formItem].validate((valid) => {
-          if (valid) {
-            formData.append('project_id', project_id)
-            formData.append('confirm_expend_title', confirm_expend_title)
-            formData.append('confirm_expend_num', confirm_expend_num)
-            this.confirmExpend(formData)
-            this.$Message.success('Success!')
-            const router = {
-              name: 'check_expend_page'
-            }
-            this.$router.push(router)
-          } else {
-            this.$Message.error('Fail!')
-          }
-        })
-      }
-    },
-    mounted () {
-      this.getDepartmentList()
     }
+  },
+  computed: {
+    ...mapState({
+      projectList: state => state.advance.projectList,
+      departmentList: state => state.advance.departmentList,
+      expendList: state => state.expend.expendList
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getProjectList',
+      'getDepartmentList',
+      'getExpendList',
+      'confirmExpend'
+    ]),
+    getProject (department_id) {
+      this.formItem.project = ''
+      this.formItem.title = ''
+      this.getProjectList(department_id)
+    },
+    getConfirmExpend (project_id) {
+      this.formItem.title = ''
+      this.getExpendList(project_id)
+    },
+    handleCroped (img) {
+      this.formData.append('expend_agreement', img)
+      this.formItem.image = '1'
+      this.$refs['formItem'].validate((valid) => {})
+    },
+    recordExpend (project_id, confirm_expend_title, confirm_expend_num,
+      formData, formItem) {
+      this.$refs[formItem].validate((valid) => {
+        if (valid) {
+          formData.append('project_id', project_id)
+          formData.append('confirm_expend_title', confirm_expend_title)
+          formData.append('confirm_expend_num', confirm_expend_num)
+          this.confirmExpend(formData)
+          this.$Message.success('Success!')
+          const router = {
+            name: 'check_expend_page'
+          }
+          this.$router.push(router)
+        } else {
+          this.$Message.error('Fail!')
+        }
+      })
+    }
+  },
+  mounted () {
+    this.getDepartmentList()
   }
+}
 </script>
 
 <style scoped>

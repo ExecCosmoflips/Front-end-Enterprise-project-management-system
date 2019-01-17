@@ -8,22 +8,21 @@ export default {
   state: {
     categoryList: [],
     receivableInfo: [],
-    projectList:[]
+    projectList: []
   },
   mutations: {
-    setCategoryList(state, categoryList) {
+    setCategoryList (state, categoryList) {
       state.categoryList = categoryList
     },
-    setReceivableInfo(state, receivableInfo) {
+    setReceivableInfo (state, receivableInfo) {
       state.receivableInfo = receivableInfo
-
     },
-    setProjectList(state, projectList) {
+    setProjectList (state, projectList) {
       state.projectList = projectList
-    },
+    }
   },
   actions: {
-    getProjectList2({state,commit}){
+    getProjectList2 ({ state, commit }) {
       return new Promise((resolve, reject) => {
         putProjectList3().then(response => {
           const data = response.data
@@ -34,7 +33,7 @@ export default {
         })
       })
     },
-    getCategoryList2({state, commit},project_id) {
+    getCategoryList2 ({ state, commit }, project_id) {
       return new Promise((resolve, reject) => {
         putCategoryList3(project_id).then(response => {
           const data = response.data
@@ -46,7 +45,7 @@ export default {
       })
     },
 
-    listReceivableInfo({state, commit}) {
+    listReceivableInfo ({ state, commit }) {
       return new Promise((resolve, reject) => {
         putlistReceivableInfo().then(response => {
           const data = response.data

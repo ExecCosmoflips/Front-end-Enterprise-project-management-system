@@ -16,77 +16,75 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
-  export default {
-    name: 'check_addcost',
-    data () {
-      return {
-        formItem: {
-          project:'',
-          category: '',
+import { mapState, mapActions } from 'vuex'
+export default {
+  name: 'check_addcost',
+  data () {
+    return {
+      formItem: {
+        project: '',
+        category: ''
 
+      },
+
+      columns: [
+
+        {
+          title: '项目',
+          key: 'project_name'
         },
+        {
+          title: '收入类别',
+          key: 'category_name'
+        },
+        {
+          title: '应收标题',
+          key: 'title'
+        },
+        {
+          title: '应收数',
+          key: 'number'
+        }
 
-        columns: [
+      ],
 
-          {
-            title: '项目',
-            key: 'project_name'
-          },
-          {
-            title: '收入类别',
-            key: 'category_name'
-          },
-          {
-            title: '应收标题',
-            key: 'title'
-          },
-          {
-            title: '应收数',
-            key: 'number'
-          }
-
-        ],
-
-        data: []
-      }
-    },
-    computed: {
-      ...mapState({
-        categoryList: state => state.check_expend.categoryList,
-        expendInfo: state => state.check_expend.expendInfo,
-        projectList: state => state.check_expend.projectList
-      })
-    },
-    methods: {
-      ...mapActions([
-        'getProjectList',
-        'getCategoryList',
-        'listExpendInfo',
-
-      ]),
-      getCategory(project_id){
-        this.formItem.project = ''
-        this.getCategoryList(project_id)
-        this.data = this.expendInfo.filter(item => item['project_id'] === project_id)
-      },
-      getExpendInfo(category_id){
-        this.formItem.category = ''
-        this.listExpendInfo()
-        this.data = this.expendInfo.filter(item => item['category_id'] === category_id)
-
-      },
-
-    },
-
-
-    mounted() {
-      this.getProjectList()
-      this.listExpendInfo().then(res => {
-        this.data = res
-      })
+      data: []
     }
+  },
+  computed: {
+    ...mapState({
+      categoryList: state => state.check_expend.categoryList,
+      expendInfo: state => state.check_expend.expendInfo,
+      projectList: state => state.check_expend.projectList
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getProjectList',
+      'getCategoryList',
+      'listExpendInfo'
+
+    ]),
+    getCategory (project_id) {
+      this.formItem.project = ''
+      this.getCategoryList(project_id)
+      this.data = this.expendInfo.filter(item => item['project_id'] === project_id)
+    },
+    getExpendInfo (category_id) {
+      this.formItem.category = ''
+      this.listExpendInfo()
+      this.data = this.expendInfo.filter(item => item['category_id'] === category_id)
+    }
+
+  },
+
+  mounted () {
+    this.getProjectList()
+    this.listExpendInfo().then(res => {
+      this.data = res
+    })
   }
+}
 </script>
 
 <style scoped>

@@ -8,7 +8,7 @@
         <Button @click="handleSearch" class="search-btn" type="primary"><Icon type="search"/>搜索</Button>
         <Button @click="handleAddStaff" class="search-btn" type="primary" style="float: right"><Icon type="search"/>添加部门人员</Button>
       </div>
-    <Table stripe :columns="columns1" :data="departmentStaff"></Table>
+    <Table stripe :columns="columns1" :data="staffs"></Table>
   </div>
 </template>
 <script>import { mapState, mapActions } from 'vuex'
@@ -59,6 +59,7 @@ export default {
   },
   computed: {
     ...mapState({
+      departmentId: state => state.user.department_id,
       departmentStaff: state => state.department.departmentStaff
     })
   },
@@ -107,11 +108,16 @@ export default {
       if (e.target.value === '') this.staffs = this.value
     },
     handleSearch () {
-      this.staffs = this.departmentStaff.filter(item => item[this.searchKey].indexOf(this.searchValue) > -1)
+      this.staffs = this.departmentStaff.filter((item) => {
+        if (item[this.searchKey]){
+          return item[this.searchKey].indexOf(this.searchValue) > -1
+        }
+        return false
+      })
     }
   },
   mounted () {
-    this.handleGetDepartmentStaff(1).then(() => {
+    this.handleGetDepartmentStaff(this.departmentId).then(() => {
       this.staffs = this.departmentStaff
       console.log(this.departmentStaff)
     })

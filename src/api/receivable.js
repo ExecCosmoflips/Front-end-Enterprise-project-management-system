@@ -10,8 +10,6 @@ export const putCategoryList3 = (project_id) => {
   })
 }
 
-
-
 export const putlistReceivableInfo = () => {
   return axios.request({
     url: '/put_list_receivable_info',

@@ -62,72 +62,69 @@
 
 </template>
 <script>
-  import {  mapState,mapActions } from 'vuex'
-  import Cropper from '@/components/cropper'
-  export default {
-    name: 'addreceivable',
-    components: {
-      Cropper
-    },
-    data () {
-      return {
-        formItem: {
+import { mapState, mapActions } from 'vuex'
+import Cropper from '@/components/cropper'
+export default {
+  name: 'addreceivable',
+  components: {
+    Cropper
+  },
+  data () {
+    return {
+      formItem: {
 
-          category: '',
-          title: '',
-          number: '',
-          agreement: '',
-          slider: [20, 50],
-          textarea: ''
-        },
-        ruleValidate: {
+        category: '',
+        title: '',
+        number: '',
+        agreement: '',
+        slider: [20, 50],
+        textarea: ''
+      },
+      ruleValidate: {
 
-          title: [{
-             required: true, message: '请选择应收款项', trigger: 'change'
-          }],
-          number: [{
-            required: true, message: '请输入确认收入数', trigger: 'blur'
-          }],
-          image: [{
-            required: true, message: '未上传图片', trigger: 'blur'
-          }]
-        },
+        title: [{
+          required: true, message: '请选择应收款项', trigger: 'change'
+        }],
+        number: [{
+          required: true, message: '请输入确认收入数', trigger: 'blur'
+        }],
+        image: [{
+          required: true, message: '未上传图片', trigger: 'blur'
+        }]
       }
-    },
-    computed: {
-      ...mapState({
-        categoryList: state => state.addreceivablee.categoryList,
-        projectList: state => state.addreceivablee.projectList
-
-      })
-    },
-    methods: {
-      ...mapActions([
-          'Addreceivable',
-          'getCategoryList4',
-          'getProjectList4',
-
-        ]
-
-      ),
-      handleCroped (img) {
-        this.formData.append('agreement', img)
-        this.formItem.image = '1'
-        this.$refs['formItem'].validate((valid) => {})
-      },
-      submit (formItem) {
-        this.Addreceivable(formItem)
-      },
-      getCategory(project_id){
-        this.formItem.project = ''
-        this.getCategoryList4(project_id)
-
-      },
-    },
-    mounted() {
-      this.getProjectList4()
-
-
     }
+  },
+  computed: {
+    ...mapState({
+      categoryList: state => state.addreceivablee.categoryList,
+      projectList: state => state.addreceivablee.projectList
+
+    })
+  },
+  methods: {
+    ...mapActions([
+      'Addreceivable',
+      'getCategoryList4',
+      'getProjectList4'
+
+    ]
+
+    ),
+    handleCroped (img) {
+      this.formData.append('agreement', img)
+      this.formItem.image = '1'
+      this.$refs['formItem'].validate((valid) => {})
+    },
+    submit (formItem) {
+      this.Addreceivable(formItem)
+    },
+    getCategory (project_id) {
+      this.formItem.project = ''
+      this.getCategoryList4(project_id)
+    }
+  },
+  mounted () {
+    this.getProjectList4()
   }
+}
 </script>

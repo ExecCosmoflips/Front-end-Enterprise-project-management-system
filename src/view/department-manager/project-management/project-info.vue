@@ -85,7 +85,7 @@
       <Row :gutter="20" style="margin-top: 3px;">
         <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
           <Card shadow>
-            <chart-bar style="height: 300px;" :value="incomeBar" text="收入统计图"/>
+            <chart-bar style="height: 300px;" :value="incomeList" text="收入统计图"/>
           </Card>
         </i-col>
         <i-col :md="12" :lg="24" style="margin-bottom: 20px;">
@@ -112,10 +112,10 @@
           <Button type="primary" @click="queryByTime">查询</Button>
         </Col>
       </Row>
-      <PieData :incomePie="incomePie" title="收入类别"></PieData>
-      <PieData :incomePie="expendPie" title="支出类别"></PieData>
+      <PieData :incomePie="incomePie" :project_id="this.$route.params.id" title="收入类别"></PieData>
+      <PieData :incomePie="expendPie" :project_id="this.$route.params.id" title="支出类别"></PieData>
     </TabPane>
-    <TabPane label="财务模型" name="name4"><financial></financial></TabPane>
+    <TabPane label="财务模型" name="name4"><financial :project_id="this.$route.params.id"></financial></TabPane>
   </Tabs>
 </template>
 <script>
@@ -241,11 +241,10 @@ export default {
     },
     queryByTime () {
       const data = {
-        project_id: 1,
+        project_id: this.$route.params.id,
         begin_time: this.begin_time,
         end_time: this.end_time
       }
-      console.log(this.incomePie)
       this.handleGetPieData(data)
     }
   },
@@ -253,7 +252,7 @@ export default {
     this.handleProjectInfo(this.$route.params.id)
     this.handleGetProjectDataList(this.$route.params.id)
     this.handleGetPieData({
-      project_id: this.projectInfo.id,
+      project_id: this.$route.params.id,
       begin_time: '',
       end_time: ''
     })

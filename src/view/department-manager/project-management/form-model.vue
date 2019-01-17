@@ -4,8 +4,7 @@
       v-for="(item, index) in formDynamic.items"
       v-if="item.status"
       :key="index"
-      :label="'Item ' + item.index"
-      :prop="'items.' + index + '.number'"
+      :label="title"
         >
       <Row>
         <Col span="8">
@@ -42,11 +41,12 @@ export default {
   name: 'MyForm',
   props: {
     status: String,
-    items: Array
+    items: Array,
+    title: String
   },
   data () {
     return {
-      index: 1,
+      index: 0,
       formDynamic: {
         items: this.items
       }

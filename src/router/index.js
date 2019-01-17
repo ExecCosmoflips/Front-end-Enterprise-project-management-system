@@ -23,10 +23,8 @@ const turnTo = (to, access, next) => {
 router.beforeEach((to, from, next) => {
   iView.LoadingBar.start()
   const token = getToken()
-  console.log(to.name)
-  if(to.name === SIGNIN_PAGE_NAME){
+  if (to.name === SIGNIN_PAGE_NAME) {
     turnTo(to, [], next)
-    console.log(next)
   } else if (!token && to.name !== LOGIN_PAGE_NAME) {
     // 未登录且要跳转的页面不是登录页
     next({

@@ -259,7 +259,8 @@ export default [
         path: 'project-list',
         name: 'project-list',
         meta: {
-          title: '项目列表'
+          title: '项目列表',
+          notCache: true
         },
         component: () => import('@/view/department-manager/project-management/project-list')
       }
@@ -269,9 +270,9 @@ export default [
     path: '/department-manager/project-manager',
     name: 'project',
     component: Main,
-    hideInMenu: true,
     meta: {
-      access: ['department_manager', 'admin']
+      access: ['department_manager', 'admin'],
+      hideInMenu: true
     },
     children: [
       {

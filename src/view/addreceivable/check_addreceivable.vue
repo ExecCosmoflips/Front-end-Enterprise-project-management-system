@@ -17,75 +17,74 @@
 </template>
 
 <script>
-  import { mapState, mapActions } from 'vuex'
-  export default {
-    name: 'check_addreceivable',
-    data () {
-      return {
-        formItem: {
-          project:'',
-          category: ''
+import { mapState, mapActions } from 'vuex'
+export default {
+  name: 'check_addreceivable',
+  data () {
+    return {
+      formItem: {
+        project: '',
+        category: ''
 
+      },
+
+      columns: [
+
+        {
+          title: '项目',
+          key: 'project_name'
         },
+        {
+          title: '收入类别',
+          key: 'category_name'
+        },
+        {
+          title: '应收标题',
+          key: 'title'
+        },
+        {
+          title: '应收数',
+          key: 'number'
+        }
 
-        columns: [
+      ],
 
-          {
-            title: '项目',
-            key: 'project_name'
-          },
-          {
-            title: '收入类别',
-            key: 'category_name'
-          },
-          {
-            title: '应收标题',
-            key: 'title'
-          },
-          {
-            title: '应收数',
-            key: 'number'
-          }
-
-        ],
-
-        data: []
-      }
-    },
-    computed: {
-      ...mapState({
-
-        categoryList: state => state.receivable.categoryList,
-        receivableInfo: state => state.receivable.receivableInfo,
-        projectList: state => state.receivable.projectList
-      })
-    },
-    methods: {
-      ...mapActions([
-        'getCategoryList2',
-        'listReceivableInfo',
-        'getProjectList2'
-      ]),
-      getCategory(project_id){
-        this.formItem.project = ''
-        this.getCategoryList2(project_id)
-        this.data = this.receivableInfo.filter(item => item['project_id'] === project_id)
-      },
-      getReceivableInfo(category_id){
-        this.formItem.category = ''
-        this.listReceivableInfo()
-        this.data = this.receivableInfo.filter(item => item['category_id'] === category_id)
-
-      },
-
-    },
-    mounted() {
-      this.getProjectList2()
-      this.listReceivableInfo().then(res => {
-        this.data = res
-      })
+      data: []
     }
+  },
+  computed: {
+    ...mapState({
+
+      categoryList: state => state.receivable.categoryList,
+      receivableInfo: state => state.receivable.receivableInfo,
+      projectList: state => state.receivable.projectList
+    })
+  },
+  methods: {
+    ...mapActions([
+      'getCategoryList2',
+      'listReceivableInfo',
+      'getProjectList2'
+    ]),
+    getCategory (project_id) {
+      this.formItem.project = ''
+      this.getCategoryList2(project_id)
+      this.data = this.receivableInfo.filter(item => item['project_id'] === project_id)
+    },
+    getReceivableInfo (category_id) {
+      this.formItem.category = ''
+      this.listReceivableInfo()
+      this.data = this.receivableInfo.filter(item => item['category_id'] === category_id)
+    }
+
+  },
+  mounted () {
+    this.getProjectList2()
+    this.listReceivableInfo().then(res => {
+      this.data = res
+    })
   }
+}
 </script>
 
 <style scoped>

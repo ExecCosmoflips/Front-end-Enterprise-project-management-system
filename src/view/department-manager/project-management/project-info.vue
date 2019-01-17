@@ -44,7 +44,7 @@
           <Row type="flex" justify="space-between" class="code-row-bg">
             <p>部门外成员 </p>
             <Button type="primary" @click="addProjectOutStaff">添加</Button>
-            <Modal v-model="modal" title="添加项目人员" :loading="loading" @on-ok="ok" @on-cancel="cancel">
+            <Modal v-model="modal1" title="添加项目人员" :loading="loading" @on-ok="ok" @on-cancel="cancel">
               <Transfer
                 :data="allStaff"
                 :target-keys="projectStaff"
@@ -167,6 +167,7 @@ export default {
       end_time: '',
       titles: ['其他人员', '项目人员'],
       modal: false,
+      modal1: false,
       outModal: false,
       outLoading: true,
       loading: true,
@@ -241,7 +242,7 @@ export default {
     },
     addProjectOutStaff () {
       this.handleGetOutStaff(this.$route.params.id).then((res) => {
-        this.modal = true
+        this.modal1 = true
         this.allStaff = res.all_staff
         this.projectStaff = res.project_staff
       })

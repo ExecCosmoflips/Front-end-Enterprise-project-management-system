@@ -17,7 +17,7 @@
           <Col span="12">
             <FormItem label="负责人" label-position="top">
               <Select v-model="formData.leader" placeholder="please select an owner">
-                <Option v-for="item in departmentStaff" :key="item.user" :value="item.user">{{item.name}} {{item.user}}</Option>
+                <Option v-for="item in departmentStaff" :key="item.user" :value="item.user">{{item.name}}</Option>
               </Select>
             </FormItem>
           </Col>

@@ -4,7 +4,7 @@ import qs from 'qs'
 export const AAddreceivable = (form) => {
   return axios.request({
     url: 'addreceivable',
-    data: qs.stringify(form),
+    data: form,
     method: 'post'
   })
 }

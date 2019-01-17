@@ -25,17 +25,13 @@ export default {
       console.log(formItem)
       return new Promise((resolve, reject) => {
         AAddreceivable(formItem).then(JsonResponse => {
-          const data = JsonResponse.data
-          alert(data['info'])
           resolve()
         }).catch(err => {
           reject(err)
         })
       })
     },
-
-    getProjectList4({state,commit}, user_id){
-
+    getProjectList4 ({ state, commit }, user_id) {
       return new Promise((resolve, reject) => {
         putProjectList4(user_id).then(response => {
           const data = response.data

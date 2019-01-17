@@ -257,7 +257,7 @@ export default [
     children: [
       {
         path: 'project-list',
-        name: 'project-list',
+        name: '项目列表',
         meta: {
           title: '项目列表',
           notCache: true
@@ -288,7 +288,7 @@ export default [
   },
   {
     path: '/department-manager/staff-manager',
-    name: 'staff-manager',
+    name: '人员管理',
     component: Main,
     meta: {
       access: ['department_manager', 'admin']
@@ -296,7 +296,7 @@ export default [
     children: [
       {
         path: 'staff-list',
-        name: 'staff-list',
+        name: '人员管理',
         meta: {
           title: '人员列表'
         },

@@ -4,8 +4,8 @@
       <Row>
         <Col span="16" offset="4">
       <FormItem label="选择项目" >
-        <Select v-model="formItem.project" @on-change="getCategory(formItem.project)">
-          <Option v-for=" item in projectList " :key="item.project_id" :value="item.project_id" > {{ item.project_name }} </Option>
+        <Select v-model="formItem.project_id" @on-change="getCategory(formItem.project_id)">
+          <Option v-for=" item in projectList " :key="item.project_id" :value="item.project_id" > {{ item.project_name }}{{item.project_id}} </Option>
         </Select>
       </FormItem>
         </Col>
@@ -51,13 +51,16 @@
       </FormItem>
         </Col>
       </Row>
+      <Row>
+        <FormItem>
+        <Col span="6" offset="10">
+          <Button type="primary" @click="submit(formItem.project_id,formItem.category,formItem.title,formItem.number,formData)">Submit</Button>
+          <Button style="margin-left: 8px">Cancel</Button>
+        </Col>
+        </FormItem>
+      </Row>
     </Form>
-    <Row>
-      <Col span="6" offset="10">
-    <Button type="primary" @click=submit(formItem)>Submit</Button>
-    <Button style="margin-left: 8px">Cancel</Button>
-      </Col>
-    </Row>
+
   </div>
 
 </template>
@@ -72,14 +75,14 @@ export default {
   data () {
     return {
       formItem: {
-
+        project_id: '',
         category: '',
         title: '',
         number: '',
-        agreement: '',
-        slider: [20, 50],
-        textarea: ''
+        project: '',
+        agreement: ''
       },
+      formData: new FormData(),
       ruleValidate: {
 
         title: [{
@@ -96,45 +99,46 @@ export default {
     }
   },
 
-    computed: {
-      ...mapState({
-        categoryList: state => state.addreceivablee.categoryList,
-        projectList: state => state.addreceivablee.projectList,
-        userId: state => state.user.userId
-
-      })
-    },
-
+  computed: {
+    ...mapState({
+      categoryList: state => state.addreceivablee.categoryList,
+      projectList: state => state.addreceivablee.projectList,
+      userId: state => state.user.userId
+    })
+  },
 
   methods: {
     ...mapActions([
-        'Addreceivable',
-        'getCategoryList4',
-        'getProjectList4'
-
-      ]
+      'Addreceivable',
+      'getCategoryList4',
+      'getProjectList4'
+    ]
     ),
-    handleCroped(img) {
+    handleCroped (img) {
+      console.log(img)
       this.formData.append('agreement', img)
+      console.log(this.formData)
       this.formItem.image = '1'
-      this.$refs['formItem'].validate((valid) => {
+    },
+    submit (project_id, category, title, number, formData) {
+      console.log(formData)
+      formData.append('project_id', project_id)
+      formData.append('category_id', category)
+      formData.append('title', title)
+      formData.append('number', number)
+      console.log(formData)
+      this.Addreceivable(formData).then(res => {
+        alert(res.data.info)
       })
     },
-
-    submit(formItem) {
-      this.Addreceivable(formItem)
-    },
-    getCategory(project_id) {
+    getCategory (project_id) {
       this.formItem.project = ''
       this.getCategoryList4(project_id)
-    },
-  },
-    mounted() {
-      this.getProjectList4(this.userId)
-
-
     }
+  },
+  mounted () {
+    this.getProjectList4(this.userId)
   }
-
+}
 
 </script>

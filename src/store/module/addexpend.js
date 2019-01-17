@@ -24,6 +24,7 @@ export default {
       return new Promise((resolve, reject) => {
         putCategoryList5(project_id).then(response => {
           const data = response.data
+          console.log(data)
           commit('setCategoryList', data)
           resolve()
         }).catch(error => {
@@ -32,13 +33,12 @@ export default {
       })
     },
 
-    getProjectList5({state,commit}, user_id){
+    getProjectList5 ({ state, commit }, user_id) {
       return new Promise((resolve, reject) => {
         putProjectList5(user_id).then(response => {
           const data = response.data
           commit('setProjectList', data)
-          console.log(data.project_id)
-          console.log(data+123)
+          console.log(data)
           resolve()
         }).catch(error => {
           reject(error)

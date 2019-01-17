@@ -25,6 +25,6 @@ export const putProjectList5 = (user_id) => {
     params: {
       user_id: user_id
     },
-    method: 'get',
+    method: 'get'
   })
 }

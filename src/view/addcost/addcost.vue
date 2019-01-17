@@ -4,8 +4,8 @@
       <Row>
         <Col span="16" offset="4">
       <FormItem label="选择项目" >
-        <Select v-model="formItem.project_id" @on-change="getCategory(formItem.project)">
-          <Option v-for=" item in projectList " :key="item.project_id" :value="item.project_id" > {{ item.project_name }} </Option>
+        <Select v-model="formItem.project_id" @on-change="getCategory(formItem.project_id)">
+          <Option v-for=" item in projectList " :key="item.project_id" :value="item.project_id" > {{ item.project_name }}</Option>
         </Select>
       </FormItem>
         </Col>
@@ -85,48 +85,40 @@ export default {
         image: [{
           required: true, message: '未上传图片', trigger: 'blur'
         }]
-      },
+      }
 
     }
   },
-    computed: {
-      ...mapState({
-        categoryList: state => state.addexpend.categoryList,
-        projectList: state => state.addexpend.projectList,
-        userId: state => state.user.userId
+  computed: {
+    ...mapState({
+      categoryList: state => state.addexpend.categoryList,
+      projectList: state => state.addexpend.projectList,
+      userId: state => state.user.userId
 
+    })
+  },
+  methods: {
+    ...mapActions([
+      'Addexpend',
+      'getCategoryList5',
+      'getProjectList5'
+    ]
+    ),
+    handleCroped (img) {
+      this.formItem.append('agreement2', img)
+      this.$refs['formItem'].validate((valid) => {
       })
     },
-    methods: {
-      ...mapActions([
-          'Addexpend',
-          'getCategoryList5',
-          'getProjectList5',
-
-        ]
-      ),
-
-
-      handleCroped(img) {
-        this.formItem.append('agreement2', img)
-
-        this.$refs['formItem'].validate((valid) => {
-        })
-      },
-
-      submit(formItem) {
-        this.Addexpend(formItem)
-      },
-      getCategory(project_id) {
-        this.formItem.project = ''
-        this.getCategoryList5(project_id)
-      },
+    submit (formItem) {
+      this.Addexpend(formItem)
     },
-    mounted() {
-      this.getProjectList5(this.userId)
-
+    getCategory (project_id) {
+      this.getCategoryList5(project_id)
     }
-
+  },
+  mounted () {
+    this.getProjectList5(this.userId)
+  }
 
 }
 </script>

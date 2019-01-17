@@ -1,4 +1,5 @@
 <template>
+
   <Form :model="formItem" :rules="ruleValidate" :label-width="100" ref="formItem">
     <Row>
       <Col span="16" offset="4">
@@ -13,7 +14,7 @@
       <Col span="16" offset="4">
         <FormItem label="项目名：" prop="project">
           <Select v-model="formItem.project" @on-change="getReceivable(formItem.project)">
-            <Option v-for=" item in projectList " :key="item.id" :value="item.id"> {{ item.title }} </Option>
+            <Option v-for=" item in projectList " :key="item.id" :value="item.id"> {{ item.title }} {{item.id}} </Option>
           </Select>
         </FormItem>
       </Col>

@@ -5,7 +5,7 @@
       <TabPane label="已结束" name="name2"><Table stripe :columns="columns1" :data="projectCloseList"></Table></TabPane>
       <Button @click="value3 = true" slot="extra" style="margin-right: 40px" type="primary">新项目</Button>
     </Tabs>
-    <AddProject :value3="value3" @on-cancle="value3 = false"></AddProject>
+    <AddProject :value3="value3" :department_id="departmentId" @on-cancle="value3 = false"></AddProject>
 
     <Drawer :closable="false" width="640" v-model="value4">
       <p :style="pStyle">人员信息</p>

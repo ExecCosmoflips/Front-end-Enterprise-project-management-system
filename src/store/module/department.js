@@ -146,8 +146,6 @@ export default {
       })
     },
     handleAddProject ({ state, commit }, form) {
-      form['department_id'] = 1
-      console.log(form)
       return new Promise((resolve, reject) => {
         addProject(form).then(response => {
           commit('addProject', response.data)

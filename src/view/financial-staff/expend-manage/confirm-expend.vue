@@ -22,8 +22,8 @@
       <Col span="16" offset="4">
         <FormItem label="费用名：" prop="title">
           <Select v-model="formItem.title">
-            <Option v-for=" item in expendList " :key="item.expend_id"
-                    :value="item.expend_id" >{{ item.expend_title }} </Option>
+            <Option v-for=" item in expendList " :key="item.expend_title"
+                    :value="item.expend_title" >{{ item.expend_title }} </Option>
           </Select>
         </FormItem>
       </Col>
@@ -92,7 +92,7 @@ export default {
           type: 'number', required: true, message: '请选择项目', trigger: 'change'
         }],
         title: [{
-          type: 'number', required: true, message: '请选择费用', trigger: 'change'
+          required: true, message: '请选择费用', trigger: 'change'
         }],
         expend_num: [{
           required: true, message: '请输入确认支出数', trigger: 'blur'

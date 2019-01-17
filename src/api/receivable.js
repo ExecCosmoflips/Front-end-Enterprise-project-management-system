@@ -17,9 +17,12 @@ export const putlistReceivableInfo = () => {
   })
 }
 
-export const putProjectList3 = () => {
+export const putProjectList3 = (user_id) => {
   return axios.request({
     url: '/get_project_list_by_id2',
+    params: {
+      user_id: user_id
+    },
     method: 'get'
   })
 }

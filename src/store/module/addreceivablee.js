@@ -33,12 +33,13 @@ export default {
         })
       })
     },
-    getProjectList4 ({ state, commit }) {
+
+    getProjectList4({state,commit}, user_id){
+
       return new Promise((resolve, reject) => {
-        putProjectList4().then(response => {
+        putProjectList4(user_id).then(response => {
           const data = response.data
           commit('setProjectList', data)
-          console.log(data.project_id)
           resolve()
         }).catch(error => {
           reject(error)

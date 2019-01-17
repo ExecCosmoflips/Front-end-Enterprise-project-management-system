@@ -71,10 +71,12 @@ export const getAllStaff = (project_id) => {
   })
 }
 
-export const changeStaff = (project_id, staff_list) => {
+export const changeStaff = (project_id, { projectStaff, direction, moveKeys }) => {
   const data = {
     project_id,
-    staff_list: staff_list + ''
+    staff_list: projectStaff + '',
+    direction,
+    moveKeys: moveKeys + ''
   }
   return axios.request({
     url: '/change_staff',

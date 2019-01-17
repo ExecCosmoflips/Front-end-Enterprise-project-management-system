@@ -112,9 +112,9 @@ export default {
         })
       })
     },
-    handleChangeStaff ({ state, commit }, staff_list) {
+    handleChangeStaff ({ state, commit }, data) {
       return new Promise((resolve, reject) => {
-        changeStaff(state.projectInfo.id, staff_list).then(response => {
+        changeStaff(state.projectInfo.id, data).then(response => {
           commit('setProjectInfo', response.data)
           resolve()
         })

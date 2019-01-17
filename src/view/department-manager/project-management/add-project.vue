@@ -88,6 +88,7 @@ export default {
     },
     addProject () {
       this.handleAddProject(this.formData)
+      this.$emit('on-cancle', this.value3)
     }
   },
   mounted () {

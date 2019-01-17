@@ -200,7 +200,7 @@ export default {
       'handleGetPieData'
     ]),
     addProjectStaff () {
-      this.handleGetAllStaff(this.departmentId).then((res) => {
+      this.handleGetAllStaff(this.$route.params.id).then((res) => {
         this.modal = true
         this.allStaff = res.all_staff
         this.projectStaff = res.project_staff
@@ -232,7 +232,12 @@ export default {
     },
     handleChange (newTargetKeys, direction, moveKeys) {
       this.projectStaff = newTargetKeys
-      this.handleChangeStaff(this.projectStaff)
+      const data = {
+        'projectStaff': newTargetKeys,
+        'direction': direction,
+        'moveKeys': moveKeys
+      }
+      this.handleChangeStaff(data)
     },
     handleCloseProject () {
       closeProject(this.projectInfo.id).then(() => {
@@ -257,7 +262,6 @@ export default {
       end_time: ''
     })
     this.handleGetDepartmentStaff(this.departmentId)
-    this.incomeBar = this.incomeList
     // this.handleProjectInfo(this.$route.params.id).then(() => {
     // })
   }

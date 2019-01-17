@@ -51,7 +51,8 @@ export default {
     value3: {
       type: Boolean,
       default: false
-    }
+    },
+    department_id: Number
   },
   data () {
     return {
@@ -87,12 +88,14 @@ export default {
       this.$emit('on-cancle', this.value3)
     },
     addProject () {
+      const formData = this.formData
+      formData['department_id'] = this.department_id
       this.handleAddProject(this.formData)
       this.$emit('on-cancle', this.value3)
     }
   },
   mounted () {
-    this.handleGetDepartmentStaff(1).then()
+    this.handleGetDepartmentStaff(this.department_id)
   }
 }
 </script>

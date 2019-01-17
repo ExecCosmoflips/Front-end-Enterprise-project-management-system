@@ -165,11 +165,11 @@ export default {
       this.formItem.image = '1'
       this.$refs['formItem'].validate((valid) => {})
     },
-    recordIncome (project_id, receivable_id, receivable_title, confirm_num, tax_rate, formData, formItem) {
+    recordIncome (project_id, receivable_category, receivable_title, confirm_num, tax_rate, formData, formItem) {
       this.$refs[formItem].validate((valid) => {
         if (valid) {
           formData.append('project_id', project_id)
-          formData.append('receivable_id', receivable_id)
+          formData.append('receivable_category', receivable_category)
           formData.append('receivable_title', receivable_title)
           formData.append('confirm_num', confirm_num)
           formData.append('tax_rate', tax_rate)

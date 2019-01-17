@@ -3,7 +3,7 @@ import {
   getProjectInfo,
   getDepartmentStaff,
   submitProjectInfo,
-  sendEmail, getAllStaff, changeStaff, getStaffRequest, addProject
+  sendEmail, getAllStaff, changeStaff, getStaffRequest, addProject, changeOutStaff
 } from '../../api/department'
 
 export default {
@@ -105,7 +105,16 @@ export default {
     },
     handleGetAllStaff ({ state, commit }, project_id) {
       return new Promise((resolve, reject) => {
-        getAllStaff(project_id).then(response => {
+        getAllStaff(project_id, true).then(response => {
+          commit('setAllStaff', response.data['all_staff'])
+          commit('setProjectStaff', response.data['project_staff'])
+          resolve(response.data)
+        })
+      })
+    },
+    handleGetOutStaff ({ state, commit }, project_id) {
+      return new Promise((resolve, reject) => {
+        getAllStaff(project_id, false).then(response => {
           commit('setAllStaff', response.data['all_staff'])
           commit('setProjectStaff', response.data['project_staff'])
           resolve(response.data)
@@ -115,6 +124,14 @@ export default {
     handleChangeStaff ({ state, commit }, data) {
       return new Promise((resolve, reject) => {
         changeStaff(state.projectInfo.id, data).then(response => {
+          commit('setProjectInfo', response.data)
+          resolve()
+        })
+      })
+    },
+    handleChangeOutStaff ({ state, commit }, data) {
+      return new Promise((resolve, reject) => {
+        changeOutStaff(state.projectInfo.id, data).then(response => {
           commit('setProjectInfo', response.data)
           resolve()
         })

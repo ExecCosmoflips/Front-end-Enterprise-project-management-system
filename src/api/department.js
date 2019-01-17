@@ -61,9 +61,13 @@ export const sendEmail = (email, department_id) => {
   })
 }
 
-export const getAllStaff = (project_id) => {
+export const getAllStaff = (project_id, flag) => {
+  let url = '/get_all_staff'
+  if (!flag) {
+    url = '/get_out_staff'
+  }
   return axios.request({
-    url: '/get_all_staff',
+    url: url,
     params: {
       project_id
     },
@@ -80,6 +84,20 @@ export const changeStaff = (project_id, { projectStaff, direction, moveKeys }) =
   }
   return axios.request({
     url: '/change_staff',
+    data: qs.stringify(data),
+    method: 'post'
+  })
+}
+
+export const changeOutStaff = (project_id, { projectStaff, direction, moveKeys }) => {
+  const data = {
+    project_id,
+    staff_list: projectStaff + '',
+    direction,
+    moveKeys: moveKeys + ''
+  }
+  return axios.request({
+    url: '/change_other_staff',
     data: qs.stringify(data),
     method: 'post'
   })

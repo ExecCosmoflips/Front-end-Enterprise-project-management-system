@@ -22,9 +22,11 @@ export default {
     }
   },
   actions: {
-    getProjectList ({ state, commit }) {
+
+    getProjectList({state,commit},user_id){
+
       return new Promise((resolve, reject) => {
-        putProjectList().then(response => {
+        putProjectList(user_id).then(response => {
           const data = response.data
           commit('setProjectList', data)
           console.log(data.project_id)

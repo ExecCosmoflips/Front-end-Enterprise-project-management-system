@@ -85,39 +85,48 @@ export default {
         image: [{
           required: true, message: '未上传图片', trigger: 'blur'
         }]
-      }
+      },
+
     }
   },
-  computed: {
-    ...mapState({
-      categoryList: state => state.addexpend.categoryList,
-      projectList: state => state.addexpend.projectList
+    computed: {
+      ...mapState({
+        categoryList: state => state.addexpend.categoryList,
+        projectList: state => state.addexpend.projectList,
+        userId: state => state.user.userId
 
-    })
-  },
-  methods: {
-    ...mapActions([
-      'Addexpend',
-      'getCategoryList5',
-      'getProjectList5'
-
-    ]
-    ),
-    handleCroped (img) {
-      this.formItem.append('agreement2', img)
-
-      this.$refs['formItem'].validate((valid) => {})
+      })
     },
-    submit (formItem) {
-      this.Addexpend(formItem)
+    methods: {
+      ...mapActions([
+          'Addexpend',
+          'getCategoryList5',
+          'getProjectList5',
+
+        ]
+      ),
+
+
+      handleCroped(img) {
+        this.formItem.append('agreement2', img)
+
+        this.$refs['formItem'].validate((valid) => {
+        })
+      },
+
+      submit(formItem) {
+        this.Addexpend(formItem)
+      },
+      getCategory(project_id) {
+        this.formItem.project = ''
+        this.getCategoryList5(project_id)
+      },
     },
-    getCategory (project_id) {
-      this.formItem.project = ''
-      this.getCategoryList5(project_id)
+    mounted() {
+      this.getProjectList5(this.userId)
+
     }
-  },
-  mounted () {
-    this.getProjectList5()
-  }
+
+
 }
 </script>

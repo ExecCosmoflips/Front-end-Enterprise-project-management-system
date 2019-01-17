@@ -92,39 +92,49 @@ export default {
           required: true, message: '未上传图片', trigger: 'blur'
         }]
       }
+
     }
   },
-  computed: {
-    ...mapState({
-      categoryList: state => state.addreceivablee.categoryList,
-      projectList: state => state.addreceivablee.projectList
 
-    })
-  },
+    computed: {
+      ...mapState({
+        categoryList: state => state.addreceivablee.categoryList,
+        projectList: state => state.addreceivablee.projectList,
+        userId: state => state.user.userId
+
+      })
+    },
+
+
   methods: {
     ...mapActions([
-      'Addreceivable',
-      'getCategoryList4',
-      'getProjectList4'
+        'Addreceivable',
+        'getCategoryList4',
+        'getProjectList4'
 
-    ]
-
+      ]
     ),
-    handleCroped (img) {
+    handleCroped(img) {
       this.formData.append('agreement', img)
       this.formItem.image = '1'
-      this.$refs['formItem'].validate((valid) => {})
+      this.$refs['formItem'].validate((valid) => {
+      })
     },
-    submit (formItem) {
+
+    submit(formItem) {
       this.Addreceivable(formItem)
     },
-    getCategory (project_id) {
+    getCategory(project_id) {
       this.formItem.project = ''
       this.getCategoryList4(project_id)
-    }
+    },
   },
-  mounted () {
-    this.getProjectList4()
+    mounted() {
+      this.getProjectList4(this.userId)
+
+
+    }
   }
-}
+
+
 </script>

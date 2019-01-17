@@ -19,9 +19,12 @@ export const putCategoryList5 = (project_id) => {
   })
 }
 
-export const putProjectList5 = () => {
+export const putProjectList5 = (user_id) => {
   return axios.request({
     url: '/get_project_list_by_id_for_add_expend',
-    method: 'get'
+    params: {
+      user_id: user_id
+    },
+    method: 'get',
   })
 }

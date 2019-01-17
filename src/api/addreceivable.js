@@ -19,9 +19,12 @@ export const putCategoryList4 = (project_id) => {
   })
 }
 
-export const putProjectList4 = () => {
+export const putProjectList4 = (user_id) => {
   return axios.request({
     url: '/get_project_list_by_id_for_add_receivable',
+    params: {
+      user_id: user_id
+    },
     method: 'get'
   })
 }

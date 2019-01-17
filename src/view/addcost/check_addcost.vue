@@ -44,20 +44,20 @@ export default {
         {
           title: '应收数',
           key: 'number'
-        }
+        },],
 
-      ],
+        data: []
+      }
+    },
+    computed: {
+      ...mapState({
+        categoryList: state => state.check_expend.categoryList,
+        expendInfo: state => state.check_expend.expendInfo,
+        projectList: state => state.check_expend.projectList,
+        userId: state => state.user.userId
+      })
+    },
 
-      data: []
-    }
-  },
-  computed: {
-    ...mapState({
-      categoryList: state => state.check_expend.categoryList,
-      expendInfo: state => state.check_expend.expendInfo,
-      projectList: state => state.check_expend.projectList
-    })
-  },
   methods: {
     ...mapActions([
       'getProjectList',
@@ -78,12 +78,16 @@ export default {
 
   },
 
-  mounted () {
-    this.getProjectList()
-    this.listExpendInfo().then(res => {
-      this.data = res
-    })
-  }
+
+
+    mounted() {
+      this.getProjectList(this.userId)
+      this.listExpendInfo().then(res => {
+        this.data = res
+      })
+    }
+
+
 }
 </script>
 

@@ -251,7 +251,6 @@ export default {
       console.log(this.departmentStaff)
     },
     cancel () {
-      // 取消后，重置表单
     },
     editProject (formData) {
       this.handleEditProject(formData).then(() => console.log('ok'))
@@ -313,8 +312,6 @@ export default {
       end_time: ''
     })
     this.handleGetDepartmentStaff(this.departmentId)
-    // this.handleProjectInfo(this.$route.params.id).then(() => {
-    // })
   }
 }
 </script>

@@ -86,33 +86,4 @@ export const getProjectData = (id) => {
   return barData
 }
 
-// export const getProjectDataPie = (id) => {
-//   const Random = Mock.Random
-//   let data = []
-//   let pieData = []
-//   doCustomTimes(12, () => {
-//     data.push(Mock.mock({
-//       name: Random.cname(),
-//       value: Random.float(10000, 30000)
-//     }))
-//   })
-//   data.sort((a, b) => b.value - a.value)
-//   if (data.length >= 10) {
-//     for (let i = 0; i < 10; i++) {
-//       pieData.push(data[i])
-//     }
-//     let otherNumber = 0
-//     for (let i = 10; i < data.length; i++) {
-//       otherNumber += data[i].value
-//     }
-//     pieData.push({
-//       name: '其他类别',
-//       value: otherNumber
-//     })
-//   } else {
-//     for (let i = 0; i < data.length; i++) {
-//       pieData.push(data[i])
-//     }
-//   }
-//   return pieData
-// }
+

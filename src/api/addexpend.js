@@ -1,10 +1,9 @@
 import axios from '@/libs/api.request'
 import qs from 'qs'
 
-export const Addexpend = (form) => {
-  console.log()
+export const addExpend = (form) => {
   return axios.request({
-    url: 'addexpend',
+    url: '/add_expend',
     data: qs.stringify(form),
     method: 'post'
   })

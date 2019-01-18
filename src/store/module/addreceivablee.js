@@ -1,5 +1,5 @@
 import {
-  AAddreceivable,
+  aAddReceivable,
   putProjectList4,
   putCategoryList4
 
@@ -21,10 +21,9 @@ export default {
   },
 
   actions: {
-    Addreceivable ({ state, commit }, formItem) {
-      console.log(formItem)
+    addReceivable ({ state, commit }, formItem) {
       return new Promise((resolve, reject) => {
-        AAddreceivable(formItem).then(JsonResponse => {
+        aAddReceivable(formItem).then(JsonResponse => {
           resolve()
         }).catch(err => {
           reject(err)

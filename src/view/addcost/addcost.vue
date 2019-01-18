@@ -99,7 +99,7 @@ export default {
   },
   methods: {
     ...mapActions([
-      'Addexpend',
+      'addExpend',
       'getCategoryList5',
       'getProjectList5'
     ]
@@ -110,7 +110,7 @@ export default {
       })
     },
     submit (formItem) {
-      this.Addexpend(formItem)
+      this.addExpend(formItem)
     },
     getCategory (project_id) {
       this.getCategoryList5(project_id)

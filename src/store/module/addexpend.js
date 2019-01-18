@@ -1,5 +1,5 @@
 import {
-  Addexpend,
+  addExpend,
   putProjectList5,
   putCategoryList5
 } from '../../api/addexpend'
@@ -45,10 +45,10 @@ export default {
         })
       })
     },
-    Addexpend ({ state, commit }, formItem) {
+    addExpend ({ state, commit }, formItem) {
       console.log(formItem)
       return new Promise((resolve, reject) => {
-        Addexpend(formItem).then(JsonResponse => {
+        addExpend(formItem).then(JsonResponse => {
           const data = JsonResponse.data
           alert(data['info'])
           resolve()

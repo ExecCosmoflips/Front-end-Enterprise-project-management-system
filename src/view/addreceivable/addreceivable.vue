@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Form :model="formItem" :rules="ruleValidate" :label-width="80" ref="formItem">
+    <Form :model="formItem" :rules="ruleValidate" :label-width="100" ref="formItem">
       <Row>
         <Col span="16" offset="4">
       <FormItem label="选择项目" >
@@ -84,9 +84,8 @@ export default {
       },
       formData: new FormData(),
       ruleValidate: {
-
         title: [{
-          required: true, message: '请选择应收款项', trigger: 'change'
+          required: true, message: '请选择应收款项', trigger: 'blur'
         }],
         number: [{
           required: true, message: '请输入确认收入数', trigger: 'blur'
@@ -109,25 +108,21 @@ export default {
 
   methods: {
     ...mapActions([
-      'Addreceivable',
+      'addReceivable',
       'getCategoryList4',
       'getProjectList4'
     ]
     ),
     handleCroped (img) {
-      console.log(img)
       this.formData.append('agreement', img)
-      console.log(this.formData)
       this.formItem.image = '1'
     },
     submit (project_id, category, title, number, formData) {
-      console.log(formData)
       formData.append('project_id', project_id)
       formData.append('category_id', category)
       formData.append('title', title)
       formData.append('number', number)
-      console.log(formData)
-      this.Addreceivable(formData).then(res => {
+      this.addReceivable(formData).then(res => {
         alert(res.data.info)
       })
     },

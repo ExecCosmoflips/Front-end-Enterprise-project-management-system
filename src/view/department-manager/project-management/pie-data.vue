@@ -25,9 +25,6 @@ export default {
     title: {
       type: String
     }
-  },
-  mounted () {
-
   }
 }
 </script>

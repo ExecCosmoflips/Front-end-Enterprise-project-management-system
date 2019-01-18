@@ -1,8 +1,8 @@
 import axios from '@/libs/api.request'
 
-export const AAddreceivable = (form) => {
+export const aAddReceivable = (form) => {
   return axios.request({
-    url: 'addreceivable',
+    url: '/add_receivable',
     data: form,
     method: 'post'
   })

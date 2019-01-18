@@ -38,10 +38,10 @@ export default {
           title: '姓名',
           key: 'name'
         },
-        {
-          title: '职位',
-          key: 'pos'
-        },
+        // {
+        //   title: '职位',
+        //   key: 'pos'
+        // },
         {
           title: '邮箱',
           key: 'email'
@@ -109,7 +109,7 @@ export default {
     },
     handleSearch () {
       this.staffs = this.departmentStaff.filter((item) => {
-        if (item[this.searchKey]){
+        if (item[this.searchKey]) {
           return item[this.searchKey].indexOf(this.searchValue) > -1
         }
         return false

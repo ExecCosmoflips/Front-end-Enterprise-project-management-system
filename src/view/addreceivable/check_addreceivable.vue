@@ -48,23 +48,22 @@ export default {
         }],
       data: []
     }
-
+  },
+  methods: {
+    ...mapActions([
+      'getCategoryList2',
+      'listReceivableInfo',
+      'getProjectList2'
+    ]),
+    getCategory (project_id) {
+      this.formItem.project = ''
+      this.getCategoryList2(project_id)
+      this.data = this.receivableInfo.filter(item => item['project_id'] === project_id)
     },
-    methods: {
-      ...mapActions([
-        'getCategoryList2',
-        'listReceivableInfo',
-        'getProjectList2'
-      ]),
-      getCategory(project_id){
-        this.formItem.project = ''
-        this.getCategoryList2(project_id)
-        this.data = this.receivableInfo.filter(item => item['project_id'] === project_id)
-      },
-      getReceivableInfo(category_id){
-        this.formItem.category = ''
-        this.listReceivableInfo()
-        this.data = this.receivableInfo.filter(item => item['category_id'] === category_id)
+    getReceivableInfo (category_id) {
+      this.formItem.category = ''
+      this.listReceivableInfo()
+      this.data = this.receivableInfo.filter(item => item['category_id'] === category_id)
     }
   },
   computed: {
@@ -76,16 +75,12 @@ export default {
       userId: state => state.user.userId
     })
   },
-
-    mounted() {
-      this.getProjectList2(this.userId)
-      this.listReceivableInfo().then(res => {
-        this.data = res
-      })
-
-    }
-
-
+  mounted () {
+    this.getProjectList2(this.userId)
+    this.listReceivableInfo().then(res => {
+      this.data = res
+    })
+  }
 
 }
 </script>

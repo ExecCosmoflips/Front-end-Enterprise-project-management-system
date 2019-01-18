@@ -122,9 +122,7 @@ export default {
       formData.append('category_id', category)
       formData.append('title', title)
       formData.append('number', number)
-      this.addReceivable(formData).then(res => {
-        alert(res.data.info)
-      })
+      this.addReceivable(formData)
     },
     getCategory (project_id) {
       this.formItem.project = ''

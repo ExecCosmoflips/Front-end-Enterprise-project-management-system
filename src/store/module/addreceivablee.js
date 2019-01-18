@@ -25,6 +25,8 @@ export default {
       return new Promise((resolve, reject) => {
         aAddReceivable(formItem).then(JsonResponse => {
           resolve()
+          const data = JsonResponse.data
+          alert(data['info'])
         }).catch(err => {
           reject(err)
         })

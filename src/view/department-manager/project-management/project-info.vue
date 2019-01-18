@@ -217,8 +217,6 @@ export default {
       profitList: state => state.data.profitList,
       incomePie: state => state.data.incomePie,
       expendPie: state => state.data.expendPie
-      // allStaff: state => state.department.allStaff,
-      // projectStaff: state => state.department.projectStaff
     })
   },
   methods: {

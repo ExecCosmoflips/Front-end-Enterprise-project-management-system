@@ -3,7 +3,7 @@
     <Tabs value="name1">
       <TabPane label="进行中" name="name1"><Table stripe :columns="columns1" :data="projectOpenList"></Table></TabPane>
       <TabPane label="已结束" name="name2"><Table stripe :columns="columns1" :data="projectCloseList"></Table></TabPane>
-      <Button @click="value3 = true" slot="extra" style="margin-right: 40px" type="primary">新项目</Button>
+      <Button @click="value3 = true" slot="extra" type="primary">新项目</Button>
     </Tabs>
     <AddProject :value3="value3" :department_id="departmentId" @on-cancle="value3 = false"></AddProject>
 

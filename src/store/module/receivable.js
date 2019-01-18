@@ -23,8 +23,7 @@ export default {
   },
   actions: {
 
-    getProjectList2({state,commit},user_id){
-
+    getProjectList2 ({ state, commit }, user_id) {
       return new Promise((resolve, reject) => {
         putProjectList3(user_id).then(response => {
           const data = response.data

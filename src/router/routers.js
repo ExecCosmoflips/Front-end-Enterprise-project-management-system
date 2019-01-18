@@ -55,7 +55,8 @@ export default [
     name: '费用功能',
     meta: {
       hideInBread: true,
-      title: '费用功能'
+      title: '费用功能',
+      access: ['project_staff', 'admin']
 
     },
     component: Main,
@@ -125,35 +126,6 @@ export default [
           title: '管理功能'
         },
         component: () => import('@/view/SuperAdmin/Setup-Logo/Setup-Logo.vue')
-      }
-    ]
-  },
-  {
-    path: '/data-analysis',
-    name: '数据分析',
-    meta: {
-      icon: 'md-clipboard',
-      title: '测试'
-    },
-    component: Main,
-    children: [
-      {
-        path: 'manage_function_page',
-        name: '按部门',
-        meta: {
-          icon: 'md-clipboard',
-          title: '按部门'
-        },
-        component: () => import('@/view/data-analysis/department-list.vue')
-      },
-      {
-        path: 'data_analysis_page',
-        name: '按项目',
-        meta: {
-          icon: 'md-clipboard',
-          title: '按项目'
-        },
-        component: () => import('@/view/data-analysis/show-data.vue')
       }
     ]
   },
@@ -296,7 +268,7 @@ export default [
     children: [
       {
         path: 'staff-list',
-        name: '人员管理',
+        name: '人员列表',
         meta: {
           title: '人员列表'
         },

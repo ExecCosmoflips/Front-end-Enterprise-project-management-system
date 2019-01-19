@@ -39,8 +39,8 @@
         </FormItem>
       </Form>
       <div class="demo-drawer-footer">
-        <Button style="margin-right: 8px" @click="clickCancle">Cancel</Button>
-        <Button type="primary" @click="addProject">Submit</Button>
+        <Button style="margin-right: 8px" @click="clickCancle">取消</Button>
+        <Button type="primary" @click="addProject">提交</Button>
       </div>
     </Drawer>
 </template>

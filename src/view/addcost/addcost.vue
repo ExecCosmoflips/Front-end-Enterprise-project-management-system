@@ -48,11 +48,16 @@
           </Card>
         </i-col>
       </FormItem>
+      <Row>
+        <FormItem>
+          <Col span="6" offset="10">
+            <Button type="primary" @click=submit(formItem)>提交</Button>
+            <Button style="margin-left: 8px">取消</Button>
+          </Col>
+        </FormItem>
+      </Row>
     </Form>
-    <Button type="primary" @click=submit(formItem)>Submit</Button>
-    <Button style="margin-left: 8px">Cancel</Button>
   </div>
-
 </template>
 <script>
 import { mapState, mapActions } from 'vuex'

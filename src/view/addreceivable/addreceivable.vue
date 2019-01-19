@@ -54,8 +54,8 @@
       <Row>
         <FormItem>
         <Col span="6" offset="10">
-          <Button type="primary" @click="submit(formItem.project_id,formItem.category,formItem.title,formItem.number,formData)">Submit</Button>
-          <Button style="margin-left: 8px">Cancel</Button>
+          <Button type="primary" @click="submit(formItem.project_id,formItem.category,formItem.title,formItem.number,formData)">提交</Button>
+          <Button style="margin-left: 8px">取消</Button>
         </Col>
         </FormItem>
       </Row>

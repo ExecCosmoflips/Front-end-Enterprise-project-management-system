@@ -7,15 +7,15 @@
       :styles="styles"
       :closable="false"
     >
-      <Form :model="formData">
+      <Form :model="formData" :rules="ruleValidate" rel="formData">
         <Row :gutter="32">
           <Col span="12">
-            <FormItem label="项目名称" label-position="top">
+            <FormItem label="项目名称" label-position="top" prop="title">
               <Input v-model="formData.title" placeholder="please enter project name" />
             </FormItem>
           </Col>
           <Col span="12">
-            <FormItem label="负责人" label-position="top">
+            <FormItem label="负责人" label-position="top" prop="leader">
               <Select v-model="formData.leader" placeholder="please select an owner">
                 <Option v-for="item in departmentStaff" :key="item.user" :value="item.user">{{item.name}}</Option>
               </Select>
@@ -24,12 +24,12 @@
         </Row>
         <Row :gutter="32">
           <Col span="12">
-            <FormItem label="开始时间" label-position="top">
+            <FormItem label="开始时间" label-position="top" prop="begin_time">
               <DatePicker v-model="formData.begin_time" type="date" format="yyyy-MM-dd" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
             </FormItem>
           </Col>
           <Col span="12">
-            <FormItem label="结束时间" label-position="top">
+            <FormItem label="结束时间" label-position="top" prop="end_time">
               <DatePicker v-model.lazy="formData.end_time" type="date" format="yyyy-MM-dd" placeholder="please select the date" style="display: block" placement="bottom-end"></DatePicker>
             </FormItem>
           </Col>
@@ -68,6 +68,11 @@ export default {
         begin_time: '',
         end_time: '',
         content: ''
+      },
+      ruleValidate: {
+        title: [{
+          type: 'string', required: true, message: '项目名不能为空', trigger: 'blur'
+        }]
       }
     }
   },
@@ -90,8 +95,9 @@ export default {
     addProject () {
       const formData = this.formData
       formData['department_id'] = this.department_id
-      this.handleAddProject(this.formData)
-      this.$emit('on-cancle', this.value3)
+      this.handleAddProject(this.formData).then(() => {
+        this.$emit('on-cancle', this.value3)
+      })
     }
   },
   mounted () {
